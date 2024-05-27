@@ -1,3 +1,9 @@
+import MainHeader from "../ui/MainHeader";
+
 export default function Landing() {
-  return <div>Welcome to top shelf</div>;
+  return (
+    <>
+      <MainHeader />
+    </>
+  );
 }
