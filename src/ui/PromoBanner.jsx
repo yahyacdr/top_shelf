@@ -43,6 +43,7 @@ const StyledPromoText = styled.p`
   @media (max-width: 1366px) {
     margin-bottom: 40px;
     margin-top: 20px;
+    width: 300px;
   }
 `;
 
@@ -59,9 +60,11 @@ const StyledLeftSideContainer = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   max-width: 760px;
-  height: 55%;
+  row-gap: 102px;
   @media (max-width: 1366px) {
     max-width: 600px;
+    row-gap: 50px;
+    padding: 75px 0 0;
   }
 `;
 

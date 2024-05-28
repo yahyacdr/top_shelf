@@ -6,8 +6,9 @@ const PublicStyles = createGlobalStyle`
         --green-300: #17AF26;
         --light-700: #C8C9CB;
         --light-600: #F4F4F4;
-        --light-500: #F2F6F4;
-        --light-400: #ffffff;
+        --light-500: #F5F5F5;
+        --light-400: #F2F6F4;
+        --light-300: #ffffff;
         --dark-300: #717378;
         --dark-600: #46494F;
         --dark-900: #1A1E26;
@@ -36,8 +37,8 @@ const PublicStyles = createGlobalStyle`
 
     @media (max-width: 1366px) {
         :root {
-            --font-size-small-50: 10px;
-            --font-size-small-100: 12px;
+            --font-size-small-50: 12px;
+            --font-size-small-100: 14px;
             --font-size-medium-33: 14px;
             --font-size-medium-66: 16px;
             --font-size-medium-100: 18px;
@@ -60,7 +61,7 @@ const PublicStyles = createGlobalStyle`
         width: 100vw;
         min-height: 100vh;
         overflow-x: hidden;
-        background-color: var(--light-400);
+        background-color: var(--light-500);
         display: flex;
         flex-direction: column;
         justify-content: space-between;

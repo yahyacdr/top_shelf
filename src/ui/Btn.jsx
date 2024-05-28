@@ -11,7 +11,7 @@ const variations = {
 
 const sizes = {
   small: css`
-    font-size: var(--font-size-small-100);
+    font-size: var(--font-size-medium-33);
     font-weight: 400;
     padding: 5px;
   `,
