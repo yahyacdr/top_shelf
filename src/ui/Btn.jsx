@@ -11,7 +11,7 @@ const variations = {
 
 const sizes = {
   small: css`
-    font-size: var(--font-size-small-50);
+    font-size: var(--font-size-small-100);
     font-weight: 400;
     padding: 5px;
   `,
@@ -23,17 +23,17 @@ const sizes = {
   large: css`
     font-size: var(--font-size-medium-66);
     font-weight: 500;
-    padding: 15px;
+    padding: 18px 56px;
   `,
 };
 
 const shapes = {
   none: css``,
   pill: css`
-    border-radius: 16px;
+    border-radius: 36px;
   `,
   longPill: css`
-    border-radius: 16px;
+    border-radius: 36px;
     width: 100%;
   `,
   circle: css`
@@ -51,6 +51,8 @@ const Btn = styled.button`
   border: none;
   border-radius: unset;
   color: var(${(props) => props.color});
+  line-height: 150%;
+  letter-spacing: 0;
   &:focus {
     border: none;
     outline: none;

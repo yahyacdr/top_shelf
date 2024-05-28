@@ -2,9 +2,14 @@ import styled from "styled-components";
 import Logo from "../ui/Logo";
 import Btn from "./Btn";
 import SearchBar from "../ui/SearchBar";
+import PagesNavBar from "./PagesNavBar";
 
 const StyledNav = styled.nav`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const StyledGlobalNav = styled.div`
@@ -16,7 +21,7 @@ const StyledGlobalNav = styled.div`
   border-bottom: 1px solid var(--light-600);
 `;
 
-const DivideBar = styled.div`
+const DivideBar = styled.span`
   width: 12px;
   height: 1px;
   background-color: var(--light-600);
@@ -58,10 +63,12 @@ const StyleAccCart = styled.div`
 const LogoContainer = styled.div`
   flex-grow: 0;
 `;
+
 export default function Navbar() {
   return (
     <StyledNav>
       <GlobalNav />
+      <PagesNavBar />
     </StyledNav>
   );
 }

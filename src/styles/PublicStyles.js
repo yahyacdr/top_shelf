@@ -11,6 +11,7 @@ const PublicStyles = createGlobalStyle`
         --dark-300: #717378;
         --dark-600: #46494F;
         --dark-900: #1A1E26;
+        --gold: #F2BC1B;
         --font-size-small-50: 12px;
         --font-size-small-100: 14px;
         --font-size-medium-33: 16px;
@@ -30,6 +31,19 @@ const PublicStyles = createGlobalStyle`
             --font-size-large-33: 20px;
             --font-size-large-66: 24px;
             --font-size-large-100: 32px;
+        }
+    }
+
+    @media (max-width: 1366px) {
+        :root {
+            --font-size-small-50: 10px;
+            --font-size-small-100: 12px;
+            --font-size-medium-33: 14px;
+            --font-size-medium-66: 16px;
+            --font-size-medium-100: 18px;
+            --font-size-large-33: 20px;
+            --font-size-large-66: 32px; 
+            --font-size-large-100: 44px;
         }
     }
 
