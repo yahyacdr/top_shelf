@@ -4,6 +4,16 @@ const variations = {
   regular: css`
     background-color: transparent;
   `,
+  secondary: css`
+    border: 1px solid var(--light-600);
+    background-color: transparent;
+    flex-grow: 1;
+    &:hover {
+      border: 1px solid var(--green-900);
+      background-color: var(--light-400);
+      color: var(--green-900);
+    }
+  `,
   primary: css`
     background-color: var(--green-300);
   `,
@@ -53,6 +63,7 @@ const Btn = styled.button`
   color: var(${(props) => props.color});
   line-height: 150%;
   letter-spacing: 0;
+  transition: 0.25s;
   &:focus {
     border: none;
     outline: none;
@@ -60,6 +71,19 @@ const Btn = styled.button`
   ${(props) => variations[props.variation]}
   ${(props) => sizes[props.size]}
   ${(props) => shapes[props.shape]}
+  ${(props) =>
+    props.active &&
+    css`
+      border: 1px solid var(--green-900);
+      background-color: var(--light-400);
+      &:focus {
+        border: 1px solid var(--green-900);
+      }
+    `}
+    ${(props) =>
+    css`
+      ${props.custom}
+    `}
 `;
 
 Btn.defaultProps = {

@@ -61,7 +61,7 @@ const PublicStyles = createGlobalStyle`
         width: 100vw;
         min-height: 100vh;
         overflow-x: hidden;
-        background-color: var(--light-500);
+        background-color: var(--light-300);
         display: flex;
         flex-direction: column;
         justify-content: space-between;

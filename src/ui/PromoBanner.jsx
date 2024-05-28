@@ -62,7 +62,7 @@ const StyledLeftSideContainer = styled.div`
   max-width: 760px;
   row-gap: 102px;
   @media (max-width: 1366px) {
-    max-width: 600px;
+    max-width: 565px;
     row-gap: 50px;
     padding: 75px 0 0;
   }

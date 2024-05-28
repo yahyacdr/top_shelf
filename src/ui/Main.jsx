@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { featureCards } from "../data/Static/StaticData.js";
 import Card from "./Card";
+import MenuSection from "./MenuSection.jsx";
 
 const StyleMain = styled.main`
   display: flex;
@@ -9,7 +10,7 @@ const StyleMain = styled.main`
   justify-content: space-between;
 `;
 
-const CardsContainer = styled.div`
+const CardsContainer = styled.section`
   background-color: var(--light-400);
   display: flex;
   justify-content: space-between;
@@ -50,12 +51,13 @@ export default function Main() {
               <Card.Img img={fc.img} />
             </StyledImgContainer>
             <div>
-              <Card.Title>{fc.title}</Card.Title>
+              <Card.Title case="capitalize">{fc.title}</Card.Title>
               <Card.Desc>{fc.desc}</Card.Desc>
             </div>
           </StyledCard>
         ))}
       </CardsContainer>
+      <MenuSection />
     </StyleMain>
   );
 }
