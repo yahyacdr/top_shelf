@@ -37,6 +37,7 @@ export const buyCards = [
     get currentPrice() {
       return this.price - this.discount;
     },
+    quantity: 10,
   },
   {
     id: 1,
@@ -51,6 +52,7 @@ export const buyCards = [
     get currentPrice() {
       return this.price - this.discount;
     },
+    quantity: 0,
   },
   {
     id: 2,
@@ -65,6 +67,7 @@ export const buyCards = [
     get currentPrice() {
       return this.price - this.discount;
     },
+    quantity: 15,
   },
   {
     id: 3,
@@ -79,6 +82,7 @@ export const buyCards = [
     get currentPrice() {
       return this.price - this.discount;
     },
+    quantity: 10,
   },
   {
     id: 4,
@@ -93,6 +97,7 @@ export const buyCards = [
     get currentPrice() {
       return this.price - this.discount;
     },
+    quantity: 0,
   },
   {
     id: 5,
@@ -107,5 +112,6 @@ export const buyCards = [
     get currentPrice() {
       return this.price - this.discount;
     },
+    quantity: 15,
   },
 ];

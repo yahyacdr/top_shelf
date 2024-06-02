@@ -32,6 +32,14 @@ const Heading = styled.h1`
       line-height: 150%;
       letter-spacing: -0.5px;
     `}
+    ${(props) =>
+    props.as === "h4" &&
+    css`
+      font-size: var(--font-size-medium-66);
+      font-weight: 400;
+      line-height: 150%;
+      letter-spacing: 0px;
+    `}
 `;
 
 export default Heading;

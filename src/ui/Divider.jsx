@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
 
-const Divider = styled.br`
+const Divider = styled.span`
   width: ${(props) => props.width};
   height: 1px;
   background-color: ${(props) => props.color};
-  display: inline-block;
+  display: inline-flex;
   ${(props) =>
     props.polarity === "vertical" &&
     css`
@@ -13,7 +13,6 @@ const Divider = styled.br`
   ${(props) =>
     props.polarity === "horizontal" &&
     css`
-      margin-top: 32px;
       margin-bottom: 32px;
     `}
 `;

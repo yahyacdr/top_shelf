@@ -18,7 +18,7 @@ const variations = {
     }
   `,
   primary: css`
-    background-color: var(--green-300);
+    background-color: var(--green-200);
   `,
 };
 

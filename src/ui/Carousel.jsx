@@ -3,6 +3,43 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import PropTypes from "prop-types";
+import styled, { css } from "styled-components";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+
+const NavBtn = styled.button`
+  position: absolute;
+  top: 30%;
+  transform: translateY(-30%);
+  border-radius: 50%;
+  aspect-ratio: 1;
+  width: 36px;
+  background-color: var(--light-300);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  z-index: 10;
+  box-shadow: 0 6px 16px 0 #0000001f;
+  > div {
+    display: flex;
+    > svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--dark-800);
+      stroke: var(--dark-800);
+    }
+  }
+  ${(props) =>
+    props.className.includes("btn-next") &&
+    css`
+      left: 95%;
+    `};
+  ${(props) =>
+    props.className.includes("btn-prev") &&
+    css`
+      left: 1%;
+    `};
+`;
 
 function Carousel({ children, nextBtnClass, prevBtnClass, refEl }) {
   return (
@@ -14,6 +51,16 @@ function Carousel({ children, nextBtnClass, prevBtnClass, refEl }) {
       ref={refEl}
     >
       {children}
+      <CarouselBtnNext carouselEl={refEl}>
+        <div>
+          <IoIosArrowForward />
+        </div>
+      </CarouselBtnNext>
+      <CarouselBtnPrev carouselEl={refEl}>
+        <div>
+          <IoIosArrowBack />
+        </div>
+      </CarouselBtnPrev>
     </Swiper>
   );
 }
@@ -28,41 +75,34 @@ export function CarouselCard({ children }) {
   return <SwiperSlide>{children}</SwiperSlide>;
 }
 
-CarouselCard.propTypes = {
-  children: PropTypes.element,
-};
-
-export function CarouselBtnNext({ children, clsName, carouselEl }) {
-  console.log(carouselEl);
+export function CarouselBtnNext({ children, carouselEl }) {
   return (
-    <button
-      className={clsName}
-      onClick={() => carouselEl.current.swiper.slideNext()}
+    <NavBtn
+      className={`btn-next nav-btn`}
+      onClick={() => carouselEl.current.swiper.slidePrev()}
     >
       {children}
-    </button>
+    </NavBtn>
   );
 }
 
 CarouselBtnNext.propTypes = {
   children: PropTypes.element,
-  clsName: PropTypes.string,
 };
 
-export function CarouselBtnPrev({ children, clsName, carouselEl }) {
+export function CarouselBtnPrev({ children, carouselEl }) {
   return (
-    <button
-      className={clsName}
-      onClick={() => carouselEl.current.swiper.slidePrev()}
+    <NavBtn
+      className={`btn-prev nav-btn`}
+      onClick={() => carouselEl.current.swiper.slideNext()}
     >
       {children}
-    </button>
+    </NavBtn>
   );
 }
 
 CarouselBtnPrev.propTypes = {
   children: PropTypes.element,
-  clsName: PropTypes.string,
 };
 
 export default Carousel;

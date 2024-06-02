@@ -3,9 +3,10 @@ import { createGlobalStyle } from "styled-components";
 const PublicStyles = createGlobalStyle`
     :root {
         --green-900: #05422C;
-        --green-500: #346654;
-        --green-200: #648A7C;
-        --green-300: #17AF26;
+        --green-700: #346654;
+        --green-400: #648A7C;
+        --green-300: #73c255;
+        --green-200: #17AF26;
         --light-900: #9D9EA2;
         --light-700: #C8C9CB;
         --light-600: #F4F4F4;
@@ -96,9 +97,7 @@ const PublicStyles = createGlobalStyle`
     .swiper {
         width: 75%;
         height: 100%;
-        .swiper-slide > div {
-            width: 100%;
-        }
+        position: relative;
     }
 `;
 

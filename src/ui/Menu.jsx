@@ -9,10 +9,11 @@ const ItemCards = styled.div`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   position: relative;
+  /* min-width: 900px; */
 `;
 
 const StyledCardContainer = styled.div`
-  border-radius: 12px;
+  border-radius: 16px;
   text-align: center;
   height: 100%;
 `;
@@ -20,6 +21,7 @@ const StyledCardContainer = styled.div`
 const CoverCard = styled(StyledCardContainer)`
   display: flex;
   justify-content: flex-start;
+  margin-right: 32px;
   ${(props) =>
     props.side === "start"
       ? css`
@@ -38,9 +40,8 @@ const CoverCard = styled(StyledCardContainer)`
   flex-direction: column;
   background-color: var(--green-900);
   position: relative;
-  flex-grow: 1;
   overflow-x: hidden;
-  width: 25%;
+  width: 379px;
   padding: 40px 40px 0;
   & > p {
     margin-bottom: 20px;
@@ -70,8 +71,8 @@ const CardContainer = styled(StyledCardContainer)`
     calc(60% / 7)
     calc(60% / 7)
     calc((60% / 7) * 1.3);
-  margin-left: 15px;
-  width: calc(70% / 3);
+  /* margin-left: 15px; */
+  width: 291px;
   & > h3 {
     margin-bottom: 0;
     margin-top: 0px;

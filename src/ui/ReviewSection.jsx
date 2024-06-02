@@ -6,7 +6,9 @@ import Card from "./Card";
 import { buyCards } from "../data/Static/StaticData";
 import Menu from "./Menu";
 import Divider from "./Divider";
-import Carousel, { CarouselCard } from "./Carousel";
+import Carousel from "./Carousel";
+import review_img_1 from "../data/images/reviews_img_1.png";
+import { SwiperSlide } from "swiper/react";
 
 const StyledMenuSection = styled.section`
   display: flex;
@@ -17,8 +19,21 @@ const StyledMenuSection = styled.section`
   width: 100%;
   overflow: hidden;
   & h3 {
-    max-width: 250px;
+    max-width: 265px;
+    line-height: 120%;
+    letter-spacing: -1.5px;
     font-size: var(--font-size-large-66);
+    margin-bottom: 32px;
+  }
+  & svg {
+    margin-bottom: 32px;
+  }
+  .swiper-wrapper {
+    & > div {
+      border: 2px solid #f4f4f4;
+      border-radius: 16px;
+      padding: 40px;
+    }
   }
 `;
 
@@ -38,44 +53,61 @@ const StyledHeaderContainer = styled.div`
   }
 `;
 
-// const ImgCardContainer = styled.div`
-//   position: relative;
-//   z-index: 1;
-//   display: flex;
-//   justify-content: center;
-//   margin-bottom: 24px;
-//   ${(props) =>
-//     props.type === "item"
-//       ? css`
-//           width: 100%;
-//           background-color: var(--light-600);
-//           border-radius: inherit;
-//           align-items: center;
-//           height: 100%;
-//         `
-//       : css`
-//           width: 100%;
-//           height: 50%;
+const StyledReviewsCardHeader = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-self: flex-start;
+  & h4 {
+    margin-bottom: 0;
+    height: fit-content;
+    align-self: center;
+  }
+`;
 
-//           align-items: flex-end;
-//           & img {
-//             width: 55%;
-//           }
-//         `}
-// `;
+const ImgCardContainer = styled.div`
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--green-300);
+  margin-right: 16px;
+  & img {
+    aspect-ratio: 1.31/1.4;
+    border-radius: inherit;
+  }
+`;
 
 const StyledReview = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 8px;
-  color: var(--dark-900);
-  & svg {
-    margin-right: 10px;
+  color: var(--light-300);
+  & > p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  & > svg {
+    margin-bottom: 0px;
   }
   & span {
     color: var(--green-200);
-    margin-inline: 10px;
+    margin-inline: 16px;
+  }
+`;
+
+const StyledDesc = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  & p {
+    font-weight: 400;
+    text-align: left;
   }
 `;
 
@@ -93,7 +125,7 @@ export default function ItemsSection() {
           <Divider
             width="100%"
             polarity="horizontal"
-            color="var(--green-500)"
+            color="var(--green-400)"
           />
           <svg
             width="101"
@@ -194,7 +226,7 @@ export default function ItemsSection() {
               <Divider
                 width="15px"
                 polarity="vertical"
-                color="var(--green-500)"
+                color="var(--green-400)"
               />{" "}
               on 135 <span>Reviews</span>
             </p>
@@ -202,7 +234,26 @@ export default function ItemsSection() {
         </Menu.CoverCard>
         <Carousel>
           {buyCards.map((bc) => (
-            <CarouselCard key={bc.id}></CarouselCard>
+            <SwiperSlide key={bc.id}>
+              <Menu.CardContainer>
+                <StyledReviewsCardHeader>
+                  <ImgCardContainer>
+                    <Card.Img img={review_img_1} />
+                  </ImgCardContainer>
+                  <Card.Name color="--dark-800">Vikki Star</Card.Name>
+                </StyledReviewsCardHeader>
+                <Divider polarity="horizonal" color="var(--light-700)" />
+                <StyledDesc>
+                  <Card.RateStars numStars={4} />
+                  <Card.Desc color="--dark-900">
+                    Absolutely love TopShelfBC; affordable on any budget and
+                    such fast delivery, straight to my door! I recommend them to
+                    all my friends and family for their 420 needs.
+                  </Card.Desc>
+                </StyledDesc>
+                <Card.Date>january 15, 2023</Card.Date>
+              </Menu.CardContainer>
+            </SwiperSlide>
           ))}
         </Carousel>
       </Menu.ItemCards>
