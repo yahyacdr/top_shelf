@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { featureCards } from "../data/Static/StaticData.js";
 import Card from "./Card";
-import MenuSection from "./MenuSection.jsx";
+import ItemsSection from "./ItemsSection";
+import ReviewSection from "./ReviewSection";
 
 const StyleMain = styled.main`
   display: flex;
@@ -51,13 +52,18 @@ export default function Main() {
               <Card.Img img={fc.img} />
             </StyledImgContainer>
             <div>
-              <Card.Title case="capitalize">{fc.title}</Card.Title>
-              <Card.Desc>{fc.desc}</Card.Desc>
+              <Card.Title case="capitalize" color="--dark-900">
+                {fc.title}
+              </Card.Title>
+              <Card.Desc color="--dark-300" maxwidth="300px">
+                {fc.desc}
+              </Card.Desc>
             </div>
           </StyledCard>
         ))}
       </CardsContainer>
-      <MenuSection />
+      <ItemsSection />
+      <ReviewSection />
     </StyleMain>
   );
 }

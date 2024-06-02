@@ -3,22 +3,23 @@ import Heading from "./Heading";
 import PropTypes from "prop-types";
 
 const StyledImg = styled.img`
-  width: 50%;
+  /* width: 50%; */
 `;
 
 const Title = styled(Heading).attrs(() => ({ as: "h3" }))`
   text-transform: ${(props) => props.case};
-  color: var(--dark-900);
-  margin-bottom: 10px;
+  color: var(${(props) => props.color});
+  /* margin-bottom: 10px; */
 `;
 
 const Desc = styled.p`
   font-size: var(--font-size-medium-33);
-  font-weight: 400;
+  font-weight: 300;
   letter-spacing: 0;
   line-height: 150%;
-  color: var(--dark-300);
-  max-width: 280px;
+  color: var(${(props) => props.color});
+  opacity: ${(props) => props.opacity};
+  max-width: ${(props) => props.maxwidth};
 `;
 
 export default function Card({ children }) {

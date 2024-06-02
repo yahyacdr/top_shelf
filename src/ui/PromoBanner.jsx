@@ -10,8 +10,8 @@ const StyledContainer = styled.div`
   align-items: flex-start;
   background-color: black;
   width: 100%;
-  aspect-ratio: 2/1;
-  padding: 0px 60px 90px;
+  aspect-ratio: 2/0.7;
+  padding: 30px 60px 35px;
   background-image: url(${bgImg});
   background-position: center;
   background-repeat: no-repeat;
@@ -60,11 +60,9 @@ const StyledLeftSideContainer = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   max-width: 760px;
-  row-gap: 102px;
   @media (max-width: 1366px) {
     max-width: 565px;
-    row-gap: 50px;
-    padding: 75px 0 0;
+    padding: 37px 0 37px;
   }
 `;
 
@@ -72,7 +70,7 @@ export default function PromoBanner() {
   return (
     <StyledContainer>
       <StyledLeftSideContainer>
-        <div>
+        <div style={{ marginBottom: "10%" }}>
           <GoldenText>best seller</GoldenText>
           <Heading as="h1">Best dispensary to buy weed online</Heading>
           <p>Vitamins & Supplements</p>

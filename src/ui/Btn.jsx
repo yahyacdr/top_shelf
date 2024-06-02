@@ -4,6 +4,9 @@ const variations = {
   regular: css`
     background-color: transparent;
   `,
+  label: css`
+    background-color: var(--light-400);
+  `,
   secondary: css`
     border: 1px solid var(--light-600);
     background-color: transparent;
@@ -28,7 +31,7 @@ const sizes = {
   medium: css`
     font-size: var(--font-size-medium-33);
     font-weight: 400;
-    padding: 10px;
+    /* padding: 10px; */
   `,
   large: css`
     font-size: var(--font-size-medium-66);
@@ -54,6 +57,9 @@ const shapes = {
       width: 50%;
       height: 50%;
     }
+  `,
+  button: css`
+    border-radius: 3px;
   `,
 };
 

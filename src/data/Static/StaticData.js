@@ -22,3 +22,90 @@ export const featureCards = [
     desc: `Here at Green Society, we take pride in the quality of our products and service. Our prices are set to ensure you receive your medication at a reasonable price and safely`,
   },
 ];
+
+export const buyCards = [
+  {
+    id: 0,
+    img: fast_truck,
+    type: "flower",
+    title: "2 Oz Deal Watermelon Zkittles + Purple Gushers",
+    rate: 4.6,
+    numRate: 135,
+    label: "Sative 100%",
+    price: 80,
+    discount: 0,
+    get currentPrice() {
+      return this.price - this.discount;
+    },
+  },
+  {
+    id: 1,
+    img: fast_truck,
+    type: "CONCENTRATES",
+    title: "Mix And Match Shatter/Budder 28g (4 X 7G)",
+    rate: 4.6,
+    numRate: 135,
+    label: "Indica 70%",
+    price: 200,
+    discount: 98,
+    get currentPrice() {
+      return this.price - this.discount;
+    },
+  },
+  {
+    id: 2,
+    img: fast_truck,
+    type: "flower",
+    title: "2 Oz Deal Ahi Tuna + Master Tuna",
+    rate: 4.6,
+    numRate: 135,
+    label: false,
+    price: 200,
+    discount: 80,
+    get currentPrice() {
+      return this.price - this.discount;
+    },
+  },
+  {
+    id: 3,
+    img: fast_truck,
+    type: "flower",
+    title: "2 Oz Deal Watermelon Zkittles + Purple Gushers",
+    rate: 4.6,
+    numRate: 135,
+    label: "Sative 100%",
+    price: 80,
+    discount: 0,
+    get currentPrice() {
+      return this.price - this.discount;
+    },
+  },
+  {
+    id: 4,
+    img: fast_truck,
+    type: "CONCENTRATES",
+    title: "Mix And Match Shatter/Budder 28g (4 X 7G)",
+    rate: 4.6,
+    numRate: 135,
+    label: "Indica 70%",
+    price: 200,
+    discount: 98,
+    get currentPrice() {
+      return this.price - this.discount;
+    },
+  },
+  {
+    id: 5,
+    img: fast_truck,
+    type: "flower",
+    title: "2 Oz Deal Ahi Tuna + Master Tuna",
+    rate: 4.6,
+    numRate: 135,
+    label: false,
+    price: 200,
+    discount: 80,
+    get currentPrice() {
+      return this.price - this.discount;
+    },
+  },
+];

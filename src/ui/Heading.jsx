@@ -1,8 +1,6 @@
 import styled, { css } from "styled-components";
 
 const Heading = styled.h1`
-  line-height: 150%;
-  letter-spacing: -0.5px;
   margin-bottom: 25px;
   ${(props) =>
     css`
@@ -29,8 +27,10 @@ const Heading = styled.h1`
     ${(props) =>
     props.as === "h3" &&
     css`
-      font-size: var(--font-size-large-33);
+      font-size: var(--font-size-medium-100);
       font-weight: 600;
+      line-height: 150%;
+      letter-spacing: -0.5px;
     `}
 `;
 
