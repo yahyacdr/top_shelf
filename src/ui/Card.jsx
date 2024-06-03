@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Heading from "./Heading";
 import PropTypes from "prop-types";
 import { formatCurrency } from "../utils/helper";
@@ -38,6 +38,15 @@ const Date = styled.span`
   font-weight: 300;
   color: var(--light-900);
   text-transform: capitalize;
+`;
+
+const Tag = styled.span`
+  ${(props) =>
+    props.shape === "circle" &&
+    css`
+      border-radius: 50%;
+      position: absolute;
+    `}
 `;
 
 const ItemType = styled.p`
@@ -308,3 +317,4 @@ Card.Name = Name;
 Card.RateStars = RateStars;
 Card.Date = Date;
 Card.TitleItem = TitleItem;
+Card.Tag = Tag;

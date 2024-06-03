@@ -4,6 +4,7 @@ import Card from "./Card";
 import ItemsSection from "./ItemsSection";
 import ReviewSection from "./ReviewSection";
 import ItemsGridSection from "./ItemsGridSection.jsx";
+import HowToSection from "./HowToSection.jsx";
 
 const StyleMain = styled.main`
   display: flex;
@@ -72,6 +73,7 @@ export default function Main() {
       <ItemsSection />
       <ReviewSection />
       <ItemsGridSection />
+      <HowToSection />
     </StyleMain>
   );
 }

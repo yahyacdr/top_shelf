@@ -8,6 +8,10 @@ import weed_img_3 from "../images/image_9_prev_ui_2.png";
 import weed_img_4 from "../images/image_8_prev_ui_2.png";
 import weed_img_5 from "../images/image_15_prev_ui_1.png";
 import weed_img_6 from "../images/image_14_prev_ui_1.png";
+import register_img from "../images/register_img.svg";
+import shop_img from "../images/shop_img.svg";
+import make_payment_img from "../images/make_payment_img.svg";
+import relax_img from "../images/relax_img.svg";
 
 export const featureCards = [
   {
@@ -211,5 +215,32 @@ export const testimonials = [
     numStars: 5,
     testimonial: "Best damn place to buy your canabis at great prices",
     date: "january 5, 2023",
+  },
+];
+
+export const howToCards = [
+  {
+    id: 0,
+    img: register_img,
+    name: "register",
+    desc: "Sign up for an account with us. This is quick and simple. We don’t require any more details from you than the bare minimum needed for you to place an order and get your product delivered.",
+  },
+  {
+    id: 1,
+    img: shop_img,
+    name: "shop",
+    desc: "Decide on what you want to purchase. We stock a wide range of edibles,flowers , concentrates and mushrooms there is bound to be something for everyone.",
+  },
+  {
+    id: 2,
+    img: make_payment_img,
+    name: "make payment",
+    desc: "Pay securely. Our site boasts sturdy protection certificates to keep your card details and related data safe.",
+  },
+  {
+    id: 3,
+    img: relax_img,
+    name: "make payment",
+    desc: "Your product will be packaged discretely and shipped by Canada Post Xpresspost. We will provide you with a tracking number so then you can follow your mail order marijuana every step of the way.",
   },
 ];
