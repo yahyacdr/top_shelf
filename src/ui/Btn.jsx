@@ -31,7 +31,6 @@ const sizes = {
   medium: css`
     font-size: var(--font-size-medium-33);
     font-weight: 400;
-    /* padding: 10px; */
   `,
   large: css`
     font-size: var(--font-size-medium-66);
@@ -70,10 +69,20 @@ const Btn = styled.button`
   line-height: 150%;
   letter-spacing: 0;
   transition: 0.25s;
+
   &:focus {
     border: none;
     outline: none;
   }
+
+  &:disabled:not(.label, .pages-btns) {
+    background-color: var(--dark-300);
+    cursor: not-allowed;
+  }
+  &.label {
+    text-transform: capitalize;
+  }
+
   ${(props) => variations[props.variation]}
   ${(props) => sizes[props.size]}
   ${(props) => shapes[props.shape]}

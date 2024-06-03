@@ -27,7 +27,7 @@ const Heading = styled.h1`
     ${(props) =>
     props.as === "h3" &&
     css`
-      font-size: var(--font-size-medium-100);
+      font-size: var(--font-size-large-33);
       font-weight: 600;
       line-height: 150%;
       letter-spacing: -0.5px;
@@ -35,8 +35,8 @@ const Heading = styled.h1`
     ${(props) =>
     props.as === "h4" &&
     css`
-      font-size: var(--font-size-medium-66);
-      font-weight: 400;
+      font-size: var(--font-size-medium-100);
+      font-weight: 500;
       line-height: 150%;
       letter-spacing: 0px;
     `}

@@ -11,7 +11,7 @@ const NavBtn = styled.button`
   top: 30%;
   transform: translateY(-30%);
   border-radius: 50%;
-  aspect-ratio: 1;
+  height: 36px;
   width: 36px;
   background-color: var(--light-300);
   display: flex;

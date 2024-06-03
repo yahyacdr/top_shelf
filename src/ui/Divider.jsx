@@ -4,17 +4,13 @@ const Divider = styled.span`
   width: ${(props) => props.width};
   height: 1px;
   background-color: ${(props) => props.color};
-  display: inline-flex;
+  display: inline-block;
   ${(props) =>
     props.polarity === "vertical" &&
     css`
       transform: rotate(90deg);
     `};
-  ${(props) =>
-    props.polarity === "horizontal" &&
-    css`
-      margin-bottom: 32px;
-    `}
+  ${(props) => props.polarity === "horizontal" && css``}
 `;
 
 export default Divider;

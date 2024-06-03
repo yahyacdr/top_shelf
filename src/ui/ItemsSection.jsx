@@ -136,16 +136,6 @@ export default function ItemsSection() {
               </Menu.CardContainer>
             </SwiperSlide>
           ))}
-          {/* <CarouselBtnNext clsName="btn-next" carouselEl={carouselEl}>
-            <div>
-              <IoIosArrowForward />
-            </div>
-          </CarouselBtnNext>
-          <CarouselBtnPrev clsName="btn-prev" carouselEl={carouselEl}>
-            <div>
-              <IoIosArrowBack />
-            </div>
-          </CarouselBtnPrev> */}
         </Carousel>
       </Menu.ItemCards>
     </StyledMenuSection>

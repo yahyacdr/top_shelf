@@ -3,12 +3,19 @@ import { featureCards } from "../data/Static/StaticData.js";
 import Card from "./Card";
 import ItemsSection from "./ItemsSection";
 import ReviewSection from "./ReviewSection";
+import ItemsGridSection from "./ItemsGridSection.jsx";
 
 const StyleMain = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  & > section {
+    width: 100%;
+    &:not(:first-child) {
+      padding: 120px 0 0 120px;
+    }
+  }
 `;
 
 const CardsContainer = styled.section`
@@ -64,6 +71,7 @@ export default function Main() {
       </CardsContainer>
       <ItemsSection />
       <ReviewSection />
+      <ItemsGridSection />
     </StyleMain>
   );
 }

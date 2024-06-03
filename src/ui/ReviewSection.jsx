@@ -3,12 +3,12 @@ import "swiper/css";
 
 import Heading from "./Heading";
 import Card from "./Card";
-import { buyCards } from "../data/Static/StaticData";
+import { testimonials } from "../data/Static/StaticData";
 import Menu from "./Menu";
 import Divider from "./Divider";
 import Carousel from "./Carousel";
-import review_img_1 from "../data/images/reviews_img_1.png";
 import { SwiperSlide } from "swiper/react";
+import { useRef } from "react";
 
 const StyledMenuSection = styled.section`
   display: flex;
@@ -23,9 +23,6 @@ const StyledMenuSection = styled.section`
     line-height: 120%;
     letter-spacing: -1.5px;
     font-size: var(--font-size-large-66);
-    margin-bottom: 32px;
-  }
-  & svg {
     margin-bottom: 32px;
   }
   .swiper-wrapper {
@@ -55,12 +52,20 @@ const StyledHeaderContainer = styled.div`
 
 const StyledReviewsCardHeader = styled.div`
   display: flex;
-  justify-content: flex-start;
-  align-self: flex-start;
-  & h4 {
-    margin-bottom: 0;
-    height: fit-content;
-    align-self: center;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 20%;
+  width: 100%;
+  & > div {
+    display: flex;
+    justify-content: flex-start;
+    align-self: flex-start;
+    & h4 {
+      margin-bottom: 0;
+      height: fit-content;
+      align-self: center;
+    }
   }
 `;
 
@@ -90,28 +95,47 @@ const StyledReview = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    & span {
+      &:first-child {
+        margin-inline: 16px;
+      }
+      &:last-child {
+        color: var(--green-200);
+        margin-left: 8px;
+      }
+    }
   }
   & > svg {
     margin-bottom: 0px;
-  }
-  & span {
-    color: var(--green-200);
-    margin-inline: 16px;
   }
 `;
 
 const StyledDesc = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 58%;
   & p {
-    font-weight: 400;
+    font-weight: 500;
     text-align: left;
+  }
+  & > svg {
+    margin-bottom: 32px;
   }
 `;
 
+Menu.CoverCard = styled(Menu.CoverCard)`
+  & > span {
+    margin-bottom: 32px;
+  }
+  & > svg {
+    margin-bottom: 32px;
+  }
+`;
 export default function ItemsSection() {
+  const carouselEl = useRef();
+
   return (
     <StyledMenuSection>
       <StyledHeaderContainer>
@@ -228,30 +252,33 @@ export default function ItemsSection() {
                 polarity="vertical"
                 color="var(--green-400)"
               />{" "}
-              on 135 <span>Reviews</span>
+              <span>on 135</span>
+              <span>Reviews</span>
             </p>
           </StyledReview>
         </Menu.CoverCard>
-        <Carousel>
-          {buyCards.map((bc) => (
-            <SwiperSlide key={bc.id}>
-              <Menu.CardContainer>
+        <Carousel refEl={carouselEl}>
+          {testimonials.map((testi) => (
+            <SwiperSlide key={testi.id}>
+              <Menu.CardContainer distribution="flex">
                 <StyledReviewsCardHeader>
-                  <ImgCardContainer>
-                    <Card.Img img={review_img_1} />
-                  </ImgCardContainer>
-                  <Card.Name color="--dark-800">Vikki Star</Card.Name>
+                  <div>
+                    <ImgCardContainer>
+                      <Card.Img img={testi.img} />
+                    </ImgCardContainer>
+                    <Card.Name color="--dark-800">{testi.name}</Card.Name>
+                  </div>
+                  <Divider
+                    polarity="horizonal"
+                    color="var(--light-700)"
+                    width="100%"
+                  />
                 </StyledReviewsCardHeader>
-                <Divider polarity="horizonal" color="var(--light-700)" />
                 <StyledDesc>
-                  <Card.RateStars numStars={4} />
-                  <Card.Desc color="--dark-900">
-                    Absolutely love TopShelfBC; affordable on any budget and
-                    such fast delivery, straight to my door! I recommend them to
-                    all my friends and family for their 420 needs.
-                  </Card.Desc>
+                  <Card.RateStars numStars={testi.numStars} />
+                  <Card.Desc color="--dark-900">{testi.testimonial}</Card.Desc>
                 </StyledDesc>
-                <Card.Date>january 15, 2023</Card.Date>
+                <Card.Date>{testi.date}</Card.Date>
               </Menu.CardContainer>
             </SwiperSlide>
           ))}

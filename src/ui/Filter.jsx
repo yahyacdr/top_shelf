@@ -10,6 +10,7 @@ const StyledFilter = styled.div`
   justify-content: space-between;
   align-items: center;
   column-gap: 30px;
+  flex-wrap: wrap;
 `;
 
 export { StyledFilter as Filter };

@@ -30,6 +30,7 @@ export default function PagesNavBar() {
           shape="none"
           color="--dark-600"
           key={pn}
+          className="pages-btns"
           disabled={true}
         >
           {pn}

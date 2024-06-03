@@ -9,11 +9,20 @@ const ItemCards = styled.div`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   position: relative;
-  /* min-width: 900px; */
+  ${(props) =>
+    props.distribution === "grid" &&
+    css`
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 32px;
+      min-height: 1136px;
+      & > div {
+        height: 568px;
+      }
+    `}/* min-width: 900px; */
 `;
 
 const StyledCardContainer = styled.div`
-  border-radius: 16px;
   text-align: center;
   height: 100%;
 `;
@@ -22,6 +31,8 @@ const CoverCard = styled(StyledCardContainer)`
   display: flex;
   justify-content: flex-start;
   margin-right: 32px;
+  border-radius: 16px;
+
   ${(props) =>
     props.side === "start"
       ? css`
@@ -61,17 +72,30 @@ const CoverCard = styled(StyledCardContainer)`
 `;
 
 const CardContainer = styled(StyledCardContainer)`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows:
-    40% calc((60% / 7))
-    calc((60% / 7) * 1.2)
-    calc((60% / 7) / 1.2)
-    calc((60% / 7) / 1.5)
-    calc(60% / 7)
-    calc(60% / 7)
-    calc((60% / 7) * 1.3);
+  ${(props) =>
+    props.distribution === "flex"
+      ? css`
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: flex-start;
+          row-gap: 12%;
+        `
+      : css`
+          display: grid;
+          grid-template-columns: 1fr;
+          grid-template-rows:
+            40% calc((60% / 7))
+            calc((60% / 7) * 1.2)
+            calc((60% / 7) / 1.2)
+            calc((60% / 7) / 1.5)
+            calc(60% / 7)
+            calc(60% / 7)
+            calc((60% / 7) * 1.3);
+        `}
+
   /* margin-left: 15px; */
+  border-radius: 8px;
   width: 291px;
   & > h3 {
     margin-bottom: 0;
