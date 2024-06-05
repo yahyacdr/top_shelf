@@ -23,6 +23,9 @@ const StyledWeedTypesSection = styled.section`
     text-transform: none;
     font-size: var(--font-size-small-100);
   }
+  .card-container {
+    margin-top: 64px;
+  }
 `;
 
 const TopBar = styled.span`
@@ -52,17 +55,18 @@ const ImgCardContainer = styled.div`
   }
 `;
 
-Menu.CardContainer = styled(Menu.CardContainer)`
-  margin-top: 64px;
-`;
-
 export default function WeedTypesSection() {
   return (
     <StyledWeedTypesSection>
       <Menu.ItemCards distribution="grid">
         <TopBar />
         {weedTypes.map((wt) => (
-          <Menu.CardContainer distribution="flex" key={wt.id} width="379px">
+          <Menu.CardContainer
+            distribution="flex"
+            key={wt.id}
+            width="379px"
+            className="card-container"
+          >
             <ImgCardContainer>
               <Card.Img img={wt.img} />
             </ImgCardContainer>
