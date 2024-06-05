@@ -5,6 +5,10 @@ import ItemsSection from "./ItemsSection";
 import ReviewSection from "./ReviewSection";
 import ItemsGridSection from "./ItemsGridSection.jsx";
 import HowToSection from "./HowToSection.jsx";
+import ServiceFeaturesSection from "./ServiceFeaturesSection.jsx";
+import RecentlyAddedSection from "./RecentlyAddedSection.jsx";
+import WeedTypesSection from "./WeedTypesSection.jsx";
+import WeedEduSection from "./WeedEduSection.jsx";
 
 const StyleMain = styled.main`
   display: flex;
@@ -14,7 +18,7 @@ const StyleMain = styled.main`
   & > section {
     width: 100%;
     &:not(:first-child) {
-      padding: 120px 0 0 120px;
+      padding: 120px 60px 0 120px;
     }
   }
 `;
@@ -74,6 +78,10 @@ export default function Main() {
       <ReviewSection />
       <ItemsGridSection />
       <HowToSection />
+      <ServiceFeaturesSection />
+      <RecentlyAddedSection />
+      <WeedTypesSection />
+      <WeedEduSection />
     </StyleMain>
   );
 }

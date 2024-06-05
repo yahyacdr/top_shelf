@@ -15,11 +15,8 @@ const ItemCards = styled.div`
       flex-wrap: wrap;
       align-items: flex-start;
       gap: 32px;
-      min-height: 1136px;
-      & > div {
-        height: 568px;
-      }
-    `}/* min-width: 900px; */
+      /* min-height: 1136px; */
+    `}
 `;
 
 const StyledCardContainer = styled.div`
@@ -78,8 +75,8 @@ const CardContainer = styled(StyledCardContainer)`
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          align-items: flex-start;
-          row-gap: 12%;
+          align-items: center;
+          /* row-gap: 12%; */
         `
       : css`
           display: grid;
@@ -96,7 +93,7 @@ const CardContainer = styled(StyledCardContainer)`
 
   /* margin-left: 15px; */
   border-radius: 8px;
-  width: 291px;
+  width: ${(props) => props.width};
   & > h3 {
     margin-bottom: 0;
     margin-top: 0px;

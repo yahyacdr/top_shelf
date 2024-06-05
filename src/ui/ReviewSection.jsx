@@ -260,7 +260,7 @@ export default function ItemsSection() {
         <Carousel refEl={carouselEl}>
           {testimonials.map((testi) => (
             <SwiperSlide key={testi.id}>
-              <Menu.CardContainer distribution="flex">
+              <Menu.CardContainer distribution="flex" width="100%">
                 <StyledReviewsCardHeader>
                   <div>
                     <ImgCardContainer>

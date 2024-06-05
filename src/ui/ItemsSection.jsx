@@ -23,6 +23,9 @@ const StyledMenuSection = styled.section`
   padding: 120px 0 0 120px;
   width: 100%;
   overflow: hidden;
+  .swiper-slide {
+    height: 568px;
+  }
 `;
 
 const FilterSection = styled.div`
@@ -131,7 +134,7 @@ export default function ItemsSection() {
         <Carousel nextBtnClass="btn-next" refEl={carouselEl}>
           {buyCards.map((bc) => (
             <SwiperSlide key={bc.id}>
-              <Menu.CardContainer>
+              <Menu.CardContainer width="291px">
                 <BuyCard bc={bc} />
               </Menu.CardContainer>
             </SwiperSlide>

@@ -84,13 +84,21 @@ const PublicStyles = createGlobalStyle`
     }
 
     a{
-        color: var(--green-300);
+        color: var(--green-200);
         text-decoration: underline;
         font-size: var(--font-size-small-100);
         font-weight: 300;
         margin: 15px 0;
         &:hover {
             color: var(--green-300);
+        }
+    }
+
+    main {
+        section:nth-child(5) {
+            & > div {
+                gap: 64px 57px;
+            }
         }
     }
 

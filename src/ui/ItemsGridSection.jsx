@@ -11,6 +11,11 @@ const StyledItemsGridSection = styled.section`
   & h1 {
     color: var(--dark-800);
   }
+  & > div:last-child {
+    & > div {
+      height: 568px;
+    }
+  }
 `;
 
 const FilterSection = styled.div`
@@ -92,7 +97,7 @@ export default function ItemsGridSection() {
       </FilterSection>
       <Menu.ItemCards distribution="grid">
         {buyCards.map((bc) => (
-          <Menu.CardContainer key={bc.id}>
+          <Menu.CardContainer key={bc.id} width="291px">
             <BuyCard bc={bc} />
           </Menu.CardContainer>
         ))}
