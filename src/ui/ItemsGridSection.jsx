@@ -27,6 +27,7 @@ const FilterSection = styled.div`
   justify-content: space-between;
   max-width: 960px;
   flex-wrap: wrap;
+  height: 150px;
   & h3 {
     color: var(--dark-800);
     font-weight: 400;

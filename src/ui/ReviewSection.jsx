@@ -25,11 +25,29 @@ const StyledMenuSection = styled.section`
     font-size: var(--font-size-large-66);
     margin-bottom: 32px;
   }
+  .items-cards {
+    height: 424px;
+    @media (max-width: 920px) {
+      height: 848px;
+    }
+  }
+  .cover-card,
+  .swiper {
+    height: 424px;
+  }
   .swiper-wrapper {
     & > div {
       border: 2px solid #f4f4f4;
       border-radius: 16px;
       padding: 40px;
+    }
+    @media (max-width: 920px) {
+      height: 100%;
+    }
+  }
+  @media (max-width: 920px) {
+    .swiper {
+      height: 40%;
     }
   }
 `;
@@ -57,10 +75,12 @@ const StyledReviewsCardHeader = styled.div`
   align-items: flex-start;
   height: 20%;
   width: 100%;
+  margin-bottom: 15px;
   & > div {
     display: flex;
     justify-content: flex-start;
     align-self: flex-start;
+    margin-bottom: 15px;
     & h4 {
       margin-bottom: 0;
       height: fit-content;
@@ -133,6 +153,7 @@ Menu.CoverCard = styled(Menu.CoverCard)`
     margin-bottom: 32px;
   }
 `;
+
 export default function ItemsSection() {
   const carouselEl = useRef();
 
@@ -141,8 +162,8 @@ export default function ItemsSection() {
       <StyledHeaderContainer>
         <Heading as="h1">customer testimonials</Heading>
       </StyledHeaderContainer>
-      <Menu.ItemCards width="1612px" height="424px">
-        <Menu.CoverCard side="start">
+      <Menu.ItemCards width="1612px" height="424" className="items-cards">
+        <Menu.CoverCard side="start" className="cover-card">
           <Card.Title color="--light-300" case="uppercase">
             voted best online dispensary in canada
           </Card.Title>

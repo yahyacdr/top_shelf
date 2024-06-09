@@ -14,10 +14,13 @@ const PagesNames = [
 
 const StyledContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: 75%;
+  width: 100%;
   margin: 15px 0;
+  column-gap: 48px;
+  flex-wrap: wrap;
+  padding-inline: 32px;
 `;
 
 export default function PagesNavBar() {

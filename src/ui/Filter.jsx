@@ -11,6 +11,7 @@ const StyledFilter = styled.div`
   align-items: center;
   column-gap: 30px;
   flex-wrap: wrap;
+  row-gap: 15px;
 `;
 
 export { StyledFilter as Filter };

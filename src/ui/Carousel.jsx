@@ -44,11 +44,21 @@ const NavBtn = styled.button`
 function Carousel({ children, nextBtnClass, prevBtnClass, refEl }) {
   return (
     <Swiper
-      spaceBetween={50}
-      slidesPerView={3}
       loop={true}
       navigation={{ nextEl: "." + nextBtnClass, prevEl: "." + prevBtnClass }}
       ref={refEl}
+      breakpoints={{
+        0: {
+          spaceBetween: 12,
+          slidesPerView: 3,
+          centeredSlides: true,
+          centerInsufficientSlides: true,
+        },
+        540: {
+          spaceBetween: 50,
+          slidesPerView: 3,
+        },
+      }}
     >
       {children}
       <CarouselBtnNext carouselEl={refEl}>

@@ -26,6 +26,9 @@ const StyledWeedEduSection = styled.section`
     & a {
       font-size: var(--font-size-medium-33);
     }
+    @media (max-width: 920px) {
+      width: 352px;
+    }
   }
 `;
 const Header = styled.div`

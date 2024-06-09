@@ -6,3 +6,11 @@ export function formatCurrency(currency) {
       : currency % 1;
   return `$${fixed}.${float}`;
 }
+
+export function formatCurrencyWithCommas(currency) {
+  return formatCurrency(currency).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+export function formattPercent(percent) {
+  return `${percent}%`;
+}

@@ -35,6 +35,11 @@ const StyledServiceFeaturesSection = styled.section`
       }
     }
   }
+  .card-container {
+    @media (max-width: 920px) {
+      width: 352px;
+    }
+  }
 `;
 
 export default function ServiceFeaturesSection() {
@@ -51,7 +56,12 @@ export default function ServiceFeaturesSection() {
       </p>
       <Menu.ItemCards distribution="grid">
         {featureCards2.map((fc2) => (
-          <Menu.CardContainer distribution="flex" key={fc2.id} width="379px">
+          <Menu.CardContainer
+            className="card-container"
+            distribution="flex"
+            key={fc2.id}
+            width="379px"
+          >
             <Card.Img img={fc2.img} />
             <Card.Title case="capitalize" color="--dark-900">
               {fc2.title}

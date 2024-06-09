@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import Heading from "./Heading";
 import Btn from "./Btn";
-import bgImg from "../data/images/MainHeaderBackgroundDesktop.png";
+import bgImgDesktop from "../data/images/MainHeaderBackgroundDesktop.png";
+import bgImgMobile from "../data/images/MainHeaderBackgroundMobile.png";
+import { useEffect, useState } from "react";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -12,7 +14,7 @@ const StyledContainer = styled.div`
   width: 100%;
   aspect-ratio: 2/0.7;
   padding: 30px 60px 35px;
-  background-image: url(${bgImg});
+  background-image: url(${(props) => props.bgImg});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -67,8 +69,17 @@ const StyledLeftSideContainer = styled.div`
 `;
 
 export default function PromoBanner() {
+  const [mobileSize, setWindowWidth] = useState(window.innerWidth >= 540);
+
+  useEffect(() => {
+    window.addEventListener("resize", () =>
+      setWindowWidth(window.innerWidth >= 540)
+    );
+    console.log(mobileSize);
+  }, [mobileSize]);
+
   return (
-    <StyledContainer>
+    <StyledContainer bgImg={mobileSize ? bgImgDesktop : bgImgMobile}>
       <StyledLeftSideContainer>
         <div style={{ marginBottom: "10%" }}>
           <GoldenText>best seller</GoldenText>

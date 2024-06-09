@@ -58,7 +58,7 @@ const StyledSearchBtnContainer = styled.div`
 
 export default function SearchBar() {
   return (
-    <StyledSearchBarContainer>
+    <StyledSearchBarContainer className="search-bar-container">
       <StyledSearchInput type="search" placeholder="Search" />
       <StyledSearchBtnContainer>
         <Btn

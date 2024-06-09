@@ -28,6 +28,9 @@ const StyledRecentlyAddedSection = styled.section`
   & a {
     font-size: inherit;
   }
+  .view-all-btn {
+    width: 66px;
+  }
 `;
 
 const FilterSection = styled.div`
@@ -38,6 +41,7 @@ const FilterSection = styled.div`
   width: 100%;
   max-width: 960px;
   flex-wrap: wrap;
+  height: 150px;
   & h3 {
     color: var(--dark-800);
     font-weight: 400;
@@ -107,7 +111,13 @@ export default function RecentlyAddedSection() {
             </Btn>
           </Filter>
         </FilterSection>
-        <Btn variation="regular" size="small" shape="none" color="--green-200">
+        <Btn
+          variation="regular"
+          size="small"
+          shape="none"
+          color="--green-200"
+          className="view-all-btn"
+        >
           <Link to="/">View all</Link>
         </Btn>
       </div>

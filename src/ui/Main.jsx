@@ -18,6 +18,9 @@ const StyleMain = styled.main`
   & > section {
     width: 100%;
     &:not(:first-child) {
+      @media (max-width: 540px) {
+        padding: 64px 24px 0 24px;
+      }
       padding: 120px 60px 0 120px;
     }
   }

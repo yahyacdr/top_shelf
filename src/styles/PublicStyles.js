@@ -104,8 +104,21 @@ const PublicStyles = createGlobalStyle`
 
     .swiper {
         width: 75%;
-        height: 100%;
+        /* height: 100%; */
         position: relative;
+        @media (max-width: 920px) {
+            /* width: 100%; */
+            margin-inline: unset;
+            /* margin-top: 50px; */
+        }
+        /* @media (max-width: 540px) {
+            width: calc((100vw - 48px));
+            & > .swiper-wrapper{
+                width: calc((1348px * 75) / 100);
+                justify-content: center;
+                align-items: center;
+            }
+        } */
     }
 `;
 

@@ -3,6 +3,9 @@ import Logo from "../ui/Logo";
 import Btn from "./Btn";
 import SearchBar from "../ui/SearchBar";
 import PagesNavBar from "./PagesNavBar";
+import { useEffect, useState } from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 
 const StyledNav = styled.nav`
   width: 100%;
@@ -10,6 +13,11 @@ const StyledNav = styled.nav`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  .search-bar-container {
+    width: 100%;
+    grid-area: search;
+    justify-self: center;
+  }
 `;
 
 const StyledGlobalNav = styled.div`
@@ -19,6 +27,13 @@ const StyledGlobalNav = styled.div`
   width: 100%;
   padding: 18px 3% 23px;
   border-bottom: 1px solid var(--light-600);
+  @media (max-width: 640px) {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50% 50%;
+    grid-template-areas: "logo accCart" "search search";
+    row-gap: 16px;
+  }
 `;
 
 const DivideBar = styled.span`
@@ -58,25 +73,55 @@ const StyleAccCart = styled.div`
   align-items: center;
   gap: 14px;
   flex-grow: 0;
+  grid-area: accCart;
+  @media (max-width: 640px) {
+    justify-content: flex-start;
+    justify-self: flex-end;
+  }
+  & > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const LogoContainer = styled.div`
   flex-grow: 0;
+  grid-area: logo;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const StyledBurgerIcon = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default function Navbar() {
+  const [mobileSize, setWindowWidth] = useState(window.innerWidth >= 540);
+
+  useEffect(() => {
+    window.addEventListener("resize", () =>
+      setWindowWidth(window.innerWidth >= 540)
+    );
+  }, [mobileSize]);
+
   return (
     <StyledNav>
-      <GlobalNav />
-      <PagesNavBar />
+      <GlobalNav mobileSize={mobileSize} />
+      {mobileSize && <PagesNavBar />}
+      {/* {windowWidth < 540 && <PagesNavBar />} */}
     </StyledNav>
   );
 }
 
-function GlobalNav() {
+function GlobalNav({ mobileSize }) {
   return (
     <StyledGlobalNav>
       <LogoContainer>
+        {!mobileSize && <BurgerIcon />}
         <Logo type="regular" />
       </LogoContainer>
       <SearchBar />
@@ -134,5 +179,11 @@ function GlobalNav() {
         </StyledCartBtn>
       </StyleAccCart>
     </StyledGlobalNav>
+  );
+}
+
+function BurgerIcon() {
+  return (
+    <StyledBurgerIcon style={{ color: "#000" }}>Burger Icon</StyledBurgerIcon>
   );
 }

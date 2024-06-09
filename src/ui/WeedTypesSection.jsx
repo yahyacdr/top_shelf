@@ -10,7 +10,7 @@ const StyledWeedTypesSection = styled.section`
   padding-top: 64px !important;
   & > div {
     align-items: flex-start;
-    column-gap: 32px;
+    padding-top: 64px;
     > div {
       padding: 32px;
       align-items: flex-start;
@@ -24,7 +24,10 @@ const StyledWeedTypesSection = styled.section`
     font-size: var(--font-size-small-100);
   }
   .card-container {
-    margin-top: 64px;
+    /* margin-top: 64px; */
+    @media (max-width: 920px) {
+      width: 352px;
+    }
   }
 `;
 
@@ -35,6 +38,7 @@ const TopBar = styled.span`
   background-color: var(--dark-300);
   position: absolute;
   top: 0;
+  margin-bottom: 64px;
 `;
 
 const ImgCardContainer = styled.div`

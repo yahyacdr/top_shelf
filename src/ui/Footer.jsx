@@ -64,6 +64,8 @@ const EmailContainer = styled.div`
   align-items: center;
   width: 100%;
   column-gap: 32px;
+  flex-wrap: wrap;
+  row-gap: 32px;
 `;
 
 const Container = styled.div`

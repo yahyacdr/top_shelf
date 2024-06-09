@@ -46,6 +46,10 @@ const Tag = styled.span`
     css`
       border-radius: 50%;
       position: absolute;
+      aspect-ratio: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     `}
 `;
 

@@ -51,7 +51,7 @@ const StyledHowToSection = styled.section`
     > div {
       width: 100%;
       display: grid;
-      grid-template-columns: 75% 25%;
+      grid-template-columns: 65% 35%;
       grid-template-rows: 50% 50%;
       grid-template-areas: "head btn" "text btn";
       align-items: flex-start;
@@ -75,7 +75,47 @@ const StyledHowToSection = styled.section`
         justify-content: center;
         align-items: center;
       }
+      @media (max-width: 920px) {
+        grid-template-columns: 57% 43%;
+      }
+      @media (max-width: 640px) {
+        grid-template-columns: 57% 43%;
+        grid-template-areas: "head text" "btn btn";
+      }
     }
+  }
+
+  .card-items {
+    @media (max-width: 540px) {
+      column-gap: 32px;
+    }
+  }
+
+  .card-container {
+    width: 100%;
+    max-width: 548px;
+    @media (max-width: 540px) {
+      width: 44%;
+    }
+  }
+
+  .card-desc {
+    max-width: 500px;
+    @media (max-width: 540px) {
+      max-width: 180px;
+    }
+  }
+
+  .tag {
+    background-color: var(--gold);
+    width: 32px;
+    top: 0;
+    left: 0;
+    color: var(--green-900);
+  }
+
+  @media (max-width: 540px) {
+    padding: 120px 24px !important;
   }
 `;
 
@@ -87,9 +127,16 @@ const ImgCardContainer = styled.div`
   z-index: 1;
   margin-bottom: 24px;
   height: fit-content;
+  width: 50%;
+  @media (max-width: 540px) {
+    width: 70%;
+  }
   & img {
-    width: 100%;
+    width: 144px;
     aspect-ratio: 1;
+    @media (max-width: 540px) {
+      width: 64px;
+    }
   }
 `;
 
@@ -106,17 +153,23 @@ export default function HowToSection() {
         understand, meaning that more people can come to us to buy their
         cannabis products online.
       </p>
-      <Menu.ItemCards distribution="grid">
+      <Menu.ItemCards distribution="grid" className="card-items">
         {howToCards.map((htc) => (
-          <Menu.CardContainer distribution="flex" width="548px" key={htc.id}>
+          <Menu.CardContainer
+            className="card-container"
+            distribution="flex"
+            key={htc.id}
+          >
             <ImgCardContainer>
-              <Card.Tag shape="circle">{htc.id + 1}</Card.Tag>
+              <Card.Tag className="tag" shape="circle">
+                {htc.id + 1}
+              </Card.Tag>
               <Card.Img img={htc.img} />
             </ImgCardContainer>
             <Card.TitleItem case="uppercase" color="--light-300">
               {htc.name}
             </Card.TitleItem>
-            <Card.Desc color="--light-900" opacity="1" maxwidth="500px">
+            <Card.Desc color="--light-900" opacity="1" className="card-desc">
               {htc.desc}
             </Card.Desc>
           </Menu.CardContainer>

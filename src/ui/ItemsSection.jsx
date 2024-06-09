@@ -23,6 +23,18 @@ const StyledMenuSection = styled.section`
   padding: 120px 0 0 120px;
   width: 100%;
   overflow: hidden;
+  .items-cards {
+    height: 568px;
+    @media (max-width: 920px) {
+      height: calc((568px * 2) + 100px);
+    }
+    @media (max-width: 540px) {
+      /* display: block; */
+    }
+  }
+  .cover-card {
+    height: 568px;
+  }
   .swiper-slide {
     height: 568px;
   }
@@ -71,6 +83,9 @@ const ImgCardContainer = styled.div`
           align-items: flex-end;
           & img {
             width: 74%;
+            @media (max-width: 540px) {
+              width: 58%;
+            }
           }
         `}
 `;
@@ -118,8 +133,8 @@ export default function ItemsSection() {
           </Btn>
         </Filter>
       </FilterSection>
-      <Menu.ItemCards width="1348px" height="568px">
-        <Menu.CoverCard side="center">
+      <Menu.ItemCards width="1348px" height="610" className="items-cards">
+        <Menu.CoverCard side="center" className="cover-card">
           <img src={vector} alt="" />
           <ImgCardContainer type="cover">
             <Card.Img img={weedImg1} />
@@ -133,7 +148,7 @@ export default function ItemsSection() {
         </Menu.CoverCard>
         <Carousel nextBtnClass="btn-next" refEl={carouselEl}>
           {buyCards.map((bc) => (
-            <SwiperSlide key={bc.id}>
+            <SwiperSlide key={bc.id} className="cards-container">
               <Menu.CardContainer width="291px">
                 <BuyCard bc={bc} />
               </Menu.CardContainer>

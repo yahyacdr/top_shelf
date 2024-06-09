@@ -7,7 +7,6 @@ const ItemCards = styled.div`
   align-items: center;
   overflow-x: hidden;
   width: ${(props) => props.width};
-  height: ${(props) => props.height};
   position: relative;
   ${(props) =>
     props.distribution === "grid" &&
@@ -17,6 +16,9 @@ const ItemCards = styled.div`
       gap: 32px;
       /* min-height: 1136px; */
     `}
+  @media (max-width: 920px) {
+    flex-wrap: wrap;
+  }
 `;
 
 const StyledCardContainer = styled.div`
@@ -65,6 +67,10 @@ const CoverCard = styled(StyledCardContainer)`
   }
   & > h3 {
     margin-bottom: 8px;
+  }
+
+  @media (max-width: 540px) {
+    width: calc(100vw - 48px);
   }
 `;
 
