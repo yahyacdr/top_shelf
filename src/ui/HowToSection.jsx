@@ -59,6 +59,9 @@ const StyledHowToSection = styled.section`
       > h1 {
         grid-area: head;
         text-align: left;
+        @media (max-width: 640px) {
+          text-align: center;
+        }
       }
       > p {
         grid-area: text;
@@ -79,8 +82,15 @@ const StyledHowToSection = styled.section`
         grid-template-columns: 57% 43%;
       }
       @media (max-width: 640px) {
-        grid-template-columns: 57% 43%;
-        grid-template-areas: "head text" "btn btn";
+        grid-template-columns: 100%;
+        grid-template-rows: repeat(3, calc(100% / 3));
+        grid-template-areas: "head" "text" "btn";
+        row-gap: 8px;
+        > p {
+          text-align: center;
+        }
+      }
+      @media (max-width: 640px) {
       }
     }
   }
@@ -115,7 +125,7 @@ const StyledHowToSection = styled.section`
   }
 
   @media (max-width: 540px) {
-    padding: 120px 24px !important;
+    padding: 280px 24px 120px !important;
   }
 `;
 

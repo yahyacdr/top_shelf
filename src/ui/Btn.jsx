@@ -27,10 +27,16 @@ const sizes = {
     font-size: var(--font-size-medium-33);
     font-weight: 400;
     padding: 5px;
+    @media (max-width: 540px) {
+      font-size: var(--font-size-small-100);
+    }
   `,
   medium: css`
     font-size: var(--font-size-medium-33);
     font-weight: 400;
+    @media (max-width: 540px) {
+      font-size: var(--font-size-small-100);
+    }
   `,
   large: css`
     font-size: var(--font-size-medium-66);

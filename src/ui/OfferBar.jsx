@@ -1,3 +1,4 @@
+import { createPortal } from "react-dom";
 import styled from "styled-components";
 
 const StyledBar = styled.div`
@@ -10,6 +11,16 @@ const StyledBar = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 10;
+  @media (max-width: 540px) {
+    p {
+      font-size: var(--font-size-small-50);
+    }
+  }
+
+  @media (max-width: 360px) {
+    height: 70px;
+    padding: 0 16px;
+  }
 `;
 
 const StyledText = styled.p`
@@ -22,10 +33,13 @@ const StyledText = styled.p`
 const StyledTextLowOpacity = styled(StyledText)`
   opacity: 0.7;
   margin-right: 20px;
+  @media (max-width: 390px) {
+    margin-right: 10px;
+  }
 `;
 
 export default function OfferBar() {
-  return (
+  return createPortal(
     <StyledBar>
       <div>
         <StyledTextLowOpacity>
@@ -33,6 +47,7 @@ export default function OfferBar() {
         </StyledTextLowOpacity>
         <StyledText>23 : 15 : 00</StyledText>
       </div>
-    </StyledBar>
+    </StyledBar>,
+    document.getElementById("root")
   );
 }

@@ -33,6 +33,12 @@ const StyledFooter = styled.footer`
         width: 100%;
       }
     }
+    @media (max-width: 460px) {
+      padding: 64px 32px;
+    }
+    @media (max-width: 390px) {
+      padding: 64px 16px;
+    }
   }
 `;
 
@@ -56,6 +62,10 @@ const Input = styled.input`
   &:-ms-input-placeholder {
     color: var(--green-400);
   }
+
+  @media (max-width: 640px) {
+    width: 100%;
+  }
 `;
 
 const EmailContainer = styled.div`
@@ -66,6 +76,12 @@ const EmailContainer = styled.div`
   column-gap: 32px;
   flex-wrap: wrap;
   row-gap: 32px;
+  @media (max-width: 640px) {
+    > button {
+      width: 100%;
+      flex-grow: 1;
+    }
+  }
 `;
 
 const Container = styled.div`
@@ -82,7 +98,11 @@ const Container = styled.div`
     letter-spacing: 0;
     margin-bottom: 16px;
   }
+  @media (max-width: 640px) {
+    padding: 380px 30px 64px 64px;
+  }
 `;
+
 const Column = styled.div`
   flex-grow: 1;
   & > h4,
@@ -120,6 +140,7 @@ const Column = styled.div`
     margin-right: 132px;
   }
 `;
+
 const Imgs = styled.div`
   > img {
     margin-right: 16px;
@@ -153,8 +174,11 @@ const BottomLinks = styled.div`
     grid-area: links;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 0px;
   }
 `;
+
 export default function Footer() {
   return (
     <StyledFooter>

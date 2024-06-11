@@ -133,7 +133,7 @@ export default function ItemsSection() {
           </Btn>
         </Filter>
       </FilterSection>
-      <Menu.ItemCards width="1348px" height="610" className="items-cards">
+      <Menu.ItemCards width="100%" height="610" className="items-cards">
         <Menu.CoverCard side="center" className="cover-card">
           <img src={vector} alt="" />
           <ImgCardContainer type="cover">

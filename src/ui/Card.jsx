@@ -31,6 +31,9 @@ const Desc = styled.p`
   color: var(${(props) => props.color});
   opacity: ${(props) => props.opacity};
   max-width: ${(props) => props.maxwidth};
+  @media (max-width: 640px) {
+    font-size: var(--font-size-small-100);
+  }
 `;
 
 const Date = styled.span`
@@ -57,6 +60,9 @@ const ItemType = styled.p`
   color: var(--light-900);
   text-transform: uppercase;
   margin-top: 20px;
+  @media (max-width: 540px) {
+    font-size: var(--font-size-small-50);
+  }
 `;
 
 const StyledReview = styled.div`
@@ -67,10 +73,19 @@ const StyledReview = styled.div`
   color: var(--dark-900);
   & svg {
     margin-right: 10px;
+    @media (max-width: 540px) {
+      margin-right: 5px;
+    }
   }
   & span {
     color: var(--light-700);
     margin-inline: 10px;
+    @media (max-width: 540px) {
+      margin-inline: 5px;
+    }
+  }
+  @media (max-width: 540px) {
+    font-size: var(--font-size-small-50);
   }
 `;
 
@@ -92,7 +107,10 @@ const StyledPrice = styled.div`
   }
   & span {
     color: var(--light-700);
-    font-size: var(--font-size-100);
+    font-size: var(--font-size-small-100);
+  }
+  @media (max-width: 540px) {
+    font-size: var(--font-size-small-100);
   }
 `;
 
@@ -105,6 +123,9 @@ const StyledWeightOptions = styled.div`
     padding: 5px 10px;
     &:not(:last-child) {
       margin-right: 15px;
+      @media (max-width: 540px) {
+        margin-right: 5px;
+      }
     }
   }
 `;

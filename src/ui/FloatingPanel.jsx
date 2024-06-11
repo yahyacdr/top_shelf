@@ -22,6 +22,15 @@ const FloatingPanel = styled.div`
     width: 80%;
     padding: 84px 50px;
   }
+  @media (max-width: 540px) {
+    padding: 84px 50px;
+  }
+  @media (max-width: 460px) {
+    padding: 64px 32px;
+  }
+  @media (max-width: 390px) {
+    padding: 64px 0px;
+  }
 `;
 
 export default FloatingPanel;

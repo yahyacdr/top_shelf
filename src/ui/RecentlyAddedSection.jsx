@@ -29,7 +29,15 @@ const StyledRecentlyAddedSection = styled.section`
     font-size: inherit;
   }
   .view-all-btn {
-    width: 66px;
+    /* width: 66px; */
+  }
+  .card-container {
+    @media (max-width: 480px) {
+      /* width: 100%; */
+      h4 {
+        font-size: var(--font-size-medium-66);
+      }
+    }
   }
 `;
 
@@ -123,7 +131,11 @@ export default function RecentlyAddedSection() {
       </div>
       <Menu.ItemCards distribution="grid">
         {buyCards.slice(4).map((bc) => (
-          <Menu.CardContainer key={bc.id} width="291px">
+          <Menu.CardContainer
+            key={bc.id}
+            width="291px"
+            className="card-container"
+          >
             <BuyCard bc={bc} />
           </Menu.CardContainer>
         ))}

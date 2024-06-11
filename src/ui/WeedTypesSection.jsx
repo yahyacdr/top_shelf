@@ -28,6 +28,9 @@ const StyledWeedTypesSection = styled.section`
     @media (max-width: 920px) {
       width: 352px;
     }
+    @media (max-width: 640px) {
+      width: 100%;
+    }
   }
 `;
 

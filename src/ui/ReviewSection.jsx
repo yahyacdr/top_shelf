@@ -24,6 +24,9 @@ const StyledMenuSection = styled.section`
     letter-spacing: -1.5px;
     font-size: var(--font-size-large-66);
     margin-bottom: 32px;
+    @media (max-width: 480px) {
+      font-size: var(--font-size-large-33);
+    }
   }
   .items-cards {
     height: 424px;
@@ -133,15 +136,18 @@ const StyledReview = styled.div`
 const StyledDesc = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
   height: 58%;
+  row-gap: 10px;
   & p {
     font-weight: 500;
     text-align: left;
   }
   & > svg {
-    margin-bottom: 32px;
+    @media (max-width: 480px) {
+      /* margin-bottom: 10px; */
+    }
   }
 `;
 
@@ -162,7 +168,7 @@ export default function ItemsSection() {
       <StyledHeaderContainer>
         <Heading as="h1">customer testimonials</Heading>
       </StyledHeaderContainer>
-      <Menu.ItemCards width="1612px" height="424" className="items-cards">
+      <Menu.ItemCards width="100%" height="424" className="items-cards">
         <Menu.CoverCard side="start" className="cover-card">
           <Card.Title color="--light-300" case="uppercase">
             voted best online dispensary in canada

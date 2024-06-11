@@ -31,26 +31,26 @@ const PublicStyles = createGlobalStyle`
 
     @media (max-width: 480px) {
         :root {
-            --font-size-small-50: 12px;
+            /* --font-size-small-50: 12px;
             --font-size-small-100: 14px;
             --font-size-medium-50: 16px;
             --font-size-medium-100: 18px;
             --font-size-large-33: 20px;
             --font-size-large-66: 24px;
-            --font-size-large-100: 32px;
+            --font-size-large-100: 32px; */
         }
     }
 
     @media (max-width: 1366px) {
         :root {
-            --font-size-small-50: 12px;
+            /* --font-size-small-50: 12px;
             --font-size-small-100: 14px;
             --font-size-medium-33: 14px;
             --font-size-medium-66: 16px;
             --font-size-medium-100: 18px;
             --font-size-large-33: 20px;
             --font-size-large-66: 32px; 
-            --font-size-large-100: 44px;
+            --font-size-large-100: 44px; */
         }
     }
 
@@ -103,7 +103,7 @@ const PublicStyles = createGlobalStyle`
     }
 
     .swiper {
-        width: 75%;
+        width: 100%;
         /* height: 100%; */
         position: relative;
         @media (max-width: 920px) {
@@ -111,14 +111,19 @@ const PublicStyles = createGlobalStyle`
             margin-inline: unset;
             /* margin-top: 50px; */
         }
-        /* @media (max-width: 540px) {
-            width: calc((100vw - 48px));
+        @media (max-width: 540px) {
+            /* width: calc((100vw - 48px)); */
             & > .swiper-wrapper{
-                width: calc((1348px * 75) / 100);
-                justify-content: center;
+                /* width: calc((1348px * 75) / 100); */
+                /* justify-content: center; */
                 align-items: center;
+                .swiper-slide {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
             }
-        } */
+        }
     }
 `;
 

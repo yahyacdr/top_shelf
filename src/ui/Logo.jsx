@@ -10,7 +10,7 @@ const StyledLogo = styled.div`
   align-items: center;
   width: 167px;
   height: 40px;
-  @media (max: 480px) {
+  @media (max-width: 480px) {
     width: 119px;
     height: 28 px;
   }

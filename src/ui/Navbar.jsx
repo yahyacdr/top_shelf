@@ -3,7 +3,10 @@ import Logo from "../ui/Logo";
 import Btn from "./Btn";
 import SearchBar from "../ui/SearchBar";
 import PagesNavBar from "./PagesNavBar";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Player } from "@lottiefiles/react-lottie-player";
+import humbergerMenu from "../assets/humberger-menu-animation-1.json";
+import CurtainPagesNavbar from "./CurtainPagesNavbar";
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
@@ -13,6 +16,7 @@ const StyledNav = styled.nav`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  position: relative;
   .search-bar-container {
     width: 100%;
     grid-area: search;
@@ -27,6 +31,12 @@ const StyledGlobalNav = styled.div`
   width: 100%;
   padding: 18px 3% 23px;
   border-bottom: 1px solid var(--light-600);
+  position: relative;
+  > div:not(:last-child) {
+    position: relative;
+    z-index: 1;
+    background-color: var(--light-300);
+  }
   @media (max-width: 640px) {
     display: grid;
     grid-template-columns: 50% 50%;
@@ -91,16 +101,29 @@ const LogoContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 220px;
+  @media (max-width: 480px) {
+    width: 160px;
+  }
 `;
 
 const StyledBurgerIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  .humberger-menu-player {
+    width: 32px;
+    aspect-ratio: 1;
+    @media (max-width: 480px) {
+      width: 24px;
+    }
+  }
 `;
 
 export default function Navbar() {
   const [mobileSize, setWindowWidth] = useState(window.innerWidth >= 540);
+  const [menuOpen, setIsMenuOpen] = useState(false);
+  console.log(menuOpen, !mobileSize);
 
   useEffect(() => {
     window.addEventListener("resize", () =>
@@ -109,19 +132,26 @@ export default function Navbar() {
   }, [mobileSize]);
 
   return (
-    <StyledNav>
-      <GlobalNav mobileSize={mobileSize} />
-      {mobileSize && <PagesNavBar />}
-      {/* {windowWidth < 540 && <PagesNavBar />} */}
-    </StyledNav>
+    <>
+      <StyledNav>
+        <GlobalNav
+          mobileSize={mobileSize}
+          menuOpen={menuOpen}
+          setIsMenuOpen={setIsMenuOpen}
+        />
+        {mobileSize && <PagesNavBar />}
+      </StyledNav>
+    </>
   );
 }
 
-function GlobalNav({ mobileSize }) {
+function GlobalNav({ mobileSize, menuOpen, setIsMenuOpen }) {
   return (
     <StyledGlobalNav>
       <LogoContainer>
-        {!mobileSize && <BurgerIcon />}
+        {!mobileSize && (
+          <BurgerIcon menuOpen={menuOpen} setIsMenuOpen={setIsMenuOpen} />
+        )}
         <Logo type="regular" />
       </LogoContainer>
       <SearchBar />
@@ -178,12 +208,37 @@ function GlobalNav({ mobileSize }) {
           </ItemsCounter>
         </StyledCartBtn>
       </StyleAccCart>
+      {!mobileSize && menuOpen && <CurtainPagesNavbar open={menuOpen} />}
     </StyledGlobalNav>
   );
 }
 
-function BurgerIcon() {
+function BurgerIcon({ menuOpen, setIsMenuOpen }) {
+  const menuPlayer = useRef();
+
+  function handleMenuAnimation() {
+    if (!menuOpen) {
+      menuPlayer.current.setPlayerDirection(1);
+      menuPlayer.current.play();
+      setTimeout(() => {
+        menuPlayer.current.pause();
+        menuPlayer.current.setSeeker("50%");
+      }, 500);
+      setIsMenuOpen(true);
+    } else {
+      menuPlayer.current.setPlayerDirection(-1);
+      menuPlayer.current.play();
+      setIsMenuOpen(false);
+    }
+  }
   return (
-    <StyledBurgerIcon style={{ color: "#000" }}>Burger Icon</StyledBurgerIcon>
+    <StyledBurgerIcon style={{ color: "#000" }} onClick={handleMenuAnimation}>
+      <Player
+        src={humbergerMenu}
+        speed={2}
+        className="humberger-menu-player"
+        ref={menuPlayer}
+      />
+    </StyledBurgerIcon>
   );
 }

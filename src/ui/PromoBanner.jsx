@@ -12,12 +12,24 @@ const StyledContainer = styled.div`
   align-items: flex-start;
   background-color: black;
   width: 100%;
-  aspect-ratio: 2/0.7;
-  padding: 30px 60px 35px;
+  aspect-ratio: 2/1;
+  padding: 120px 64px;
   background-image: url(${(props) => props.bgImg});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+
+  @media (max-width: 540px) {
+    aspect-ratio: 1.95/3.47;
+    justify-content: flex-start;
+    padding: 56px 24px;
+  }
+
+  @media (max-width: 480px) {
+    button {
+      font-size: var(--font-size-medium-33);
+    }
+  }
 `;
 
 const GoldenText = styled.p`
@@ -44,8 +56,11 @@ const StyledPromoText = styled.p`
 
   @media (max-width: 1366px) {
     margin-bottom: 40px;
-    margin-top: 20px;
     width: 300px;
+  }
+
+  @media (max-width: 540px) {
+    font-size: var(--font-size-medium-100);
   }
 `;
 
@@ -62,9 +77,19 @@ const StyledLeftSideContainer = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   max-width: 760px;
+  row-gap: 102px;
+
   @media (max-width: 1366px) {
     max-width: 565px;
-    padding: 37px 0 37px;
+    /* padding: 37px 0 37px; */
+  }
+
+  @media (max-width: 640px) {
+    row-gap: 120px;
+  }
+
+  @media (max-width: 420px) {
+    row-gap: 40px;
   }
 `;
 
@@ -81,7 +106,7 @@ export default function PromoBanner() {
   return (
     <StyledContainer bgImg={mobileSize ? bgImgDesktop : bgImgMobile}>
       <StyledLeftSideContainer>
-        <div style={{ marginBottom: "10%" }}>
+        <div>
           <GoldenText>best seller</GoldenText>
           <Heading as="h1">Best dispensary to buy weed online</Heading>
           <p>Vitamins & Supplements</p>

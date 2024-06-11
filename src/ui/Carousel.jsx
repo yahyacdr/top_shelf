@@ -32,6 +32,9 @@ const NavBtn = styled.button`
   ${(props) =>
     props.className.includes("btn-next") &&
     css`
+      @media (max-width: 540px) {
+        left: 92%;
+      }
       left: 95%;
     `};
   ${(props) =>
@@ -49,14 +52,39 @@ function Carousel({ children, nextBtnClass, prevBtnClass, refEl }) {
       ref={refEl}
       breakpoints={{
         0: {
-          spaceBetween: 12,
-          slidesPerView: 3,
+          spaceBetween: 24,
+          slidesPerView: 1.4,
           centeredSlides: true,
           centerInsufficientSlides: true,
+          centeredSlidesBounds: true,
         },
-        540: {
-          spaceBetween: 50,
-          slidesPerView: 3,
+        640: {
+          spaceBetween: 24,
+          slidesPerView: 1.5,
+        },
+        720: {
+          spaceBetween: 24,
+          slidesPerView: 2,
+        },
+        920: {
+          spaceBetween: 24,
+          slidesPerView: 2.5,
+        },
+        1080: {
+          spaceBetween: 32,
+          slidesPerView: 1.8,
+        },
+        1200: {
+          spaceBetween: 32,
+          slidesPerView: 2,
+        },
+        1366: {
+          spaceBetween: 32,
+          slidesPerView: 2.5,
+        },
+        1440: {
+          spaceBetween: 32,
+          slidesPerView: 2.8,
         },
       }}
     >

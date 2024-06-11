@@ -19,6 +19,9 @@ const ImgCardContainer = styled.div`
           height: 100%;
           & img {
             width: 164px;
+            @media (max-width: 540px) {
+              width: 120px;
+            }
           }
         `
       : css`
@@ -52,6 +55,10 @@ const OutOfStockBadge = styled.div`
     color: var(--light-300);
   }
   backdrop-filter: blur(5px);
+  @media (max-width: 540px) {
+    width: 136px;
+    height: 48px;
+  }
 `;
 
 const Offer = styled.div`
@@ -92,7 +99,7 @@ export default function BuyCard({ bc }) {
       <Card.ItemType>{bc.type}</Card.ItemType>
       <Card.TitleItem color="--dark-900">{bc.title}</Card.TitleItem>
       <Card.Review rate={bc.rate} numRate={bc.numRate} />
-      <div>
+      <div className="label-container">
         {bc.label && (
           <Btn
             size="small"

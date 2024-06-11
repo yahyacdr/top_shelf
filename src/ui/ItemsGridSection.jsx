@@ -16,6 +16,23 @@ const StyledItemsGridSection = styled.section`
       height: 568px;
     }
   }
+
+  .cards-container {
+    @media (max-width: 390px) {
+      column-gap: 24px;
+    }
+  }
+  .card-container {
+    width: 291px;
+    @media (max-width: 540px) {
+      width: 45%;
+    }
+  }
+  .label-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const FilterSection = styled.div`
@@ -96,9 +113,13 @@ export default function ItemsGridSection() {
           </Btn>
         </Filter>
       </FilterSection>
-      <Menu.ItemCards distribution="grid">
+      <Menu.ItemCards distribution="grid" className="cards-container">
         {buyCards.map((bc) => (
-          <Menu.CardContainer key={bc.id} width="291px">
+          <Menu.CardContainer
+            key={bc.id}
+            width="291px"
+            className="card-container"
+          >
             <BuyCard bc={bc} />
           </Menu.CardContainer>
         ))}
