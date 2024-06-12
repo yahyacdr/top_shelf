@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import "swiper/css";
 
-import Heading from "./Heading";
-import Card from "./Card";
-import { testimonials } from "../data/Static/StaticData";
-import Menu from "./Menu";
-import Divider from "./Divider";
-import Carousel from "./Carousel";
+import Heading from "../../ui/Heading";
+import Card from "../../ui/Card";
+import { testimonials } from "../../data/Static/StaticData";
+import Menu from "../../ui/Menu";
+import Divider from "../../ui/Divider";
+import Carousel from "../../ui/Carousel";
 import { SwiperSlide } from "swiper/react";
 import { useRef } from "react";
 

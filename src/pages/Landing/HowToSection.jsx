@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import Heading from "./Heading";
-import Menu from "./Menu";
-import Card from "./Card";
-import { howToCards } from "../data/Static/StaticData";
-import Btn from "./Btn";
-import refer_a_friend_img from "../data/images/refer-a-friend-bg.svg";
-import FloatingPanel from "./FloatingPanel";
+import Heading from "../../ui/Heading";
+import Menu from "../../ui/Menu";
+import Card from "../../ui/Card";
+import { howToCards } from "../../data/Static/StaticData";
+import Btn from "../../ui/Btn";
+import refer_a_friend_img from "../../data/images/refer-a-friend-bg.svg";
+import FloatingPanel from "../../ui/FloatingPanel";
 import PropTypes from "prop-types";
 
 const StyledHowToSection = styled.section`

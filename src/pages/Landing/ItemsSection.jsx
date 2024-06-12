@@ -1,19 +1,15 @@
 import styled, { css } from "styled-components";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { SwiperSlide } from "swiper/react";
-import "swiper/css";
 
-import Heading from "./Heading";
-import { Filter } from "./Filter";
-import Btn from "./Btn";
-import Card from "./Card";
-import weedImg1 from "../data/images/image_13_prev_ui_1.png";
-import { buyCards } from "../data/Static/StaticData";
-import vector from "../data/images/vector.png";
-import Menu from "./Menu";
-import Carousel from "./Carousel";
-import BuyCard from "../features/BuyCard/BuyCard";
+import Heading from "../../ui/Heading";
+import Filter from "../../ui/Filter";
+import Btn from "../../ui/Btn";
+import Card from "../../ui/Card";
+import weedImg1 from "../../data/images/image_13_prev_ui_1.png";
+import vector from "../../data/images/vector.png";
+import Menu from "../../ui/Menu";
+import BuyCardsCarousel from "../../ui/BuyCardsCarousel";
 
 const StyledMenuSection = styled.section`
   display: flex;
@@ -91,8 +87,8 @@ const ImgCardContainer = styled.div`
 `;
 
 export default function ItemsSection() {
-  const carouselEl = useRef();
   const [active, setActive] = useState(true);
+
   let a = 1;
   if (a === 0) setActive(true);
 
@@ -108,7 +104,7 @@ export default function ItemsSection() {
             variation="secondary"
             shape="pill"
             color={`${active ? "--green-900" : "--dark-300"}`}
-            active={active}
+            active="active"
             custom={{ "max-width": "280px" }}
           >
             Best seller
@@ -133,7 +129,7 @@ export default function ItemsSection() {
           </Btn>
         </Filter>
       </FilterSection>
-      <Menu.ItemCards width="100%" height="610" className="items-cards">
+      <BuyCardsCarousel>
         <Menu.CoverCard side="center" className="cover-card">
           <img src={vector} alt="" />
           <ImgCardContainer type="cover">
@@ -146,16 +142,7 @@ export default function ItemsSection() {
           </Card.Desc>
           <Link to="/">View all</Link>
         </Menu.CoverCard>
-        <Carousel nextBtnClass="btn-next" refEl={carouselEl}>
-          {buyCards.map((bc) => (
-            <SwiperSlide key={bc.id} className="cards-container">
-              <Menu.CardContainer width="291px">
-                <BuyCard bc={bc} />
-              </Menu.CardContainer>
-            </SwiperSlide>
-          ))}
-        </Carousel>
-      </Menu.ItemCards>
+      </BuyCardsCarousel>
     </StyledMenuSection>
   );
 }

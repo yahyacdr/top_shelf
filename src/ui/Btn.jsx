@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import screens from "../utils/screens";
 
 const variations = {
   regular: css`
@@ -24,11 +25,11 @@ const variations = {
 
 const sizes = {
   small: css`
-    font-size: var(--font-size-medium-33);
+    font-size: var(--font-size-small-100);
     font-weight: 400;
     padding: 5px;
-    @media (max-width: 540px) {
-      font-size: var(--font-size-small-100);
+    @media (max-width: ${screens.xm}) {
+      font-size: var(--font-size-small-50);
     }
   `,
   medium: css`
@@ -93,7 +94,7 @@ const Btn = styled.button`
   ${(props) => sizes[props.size]}
   ${(props) => shapes[props.shape]}
   ${(props) =>
-    props.active &&
+    props.active === "active" &&
     css`
       border: 1px solid var(--green-900);
       background-color: var(--light-400);

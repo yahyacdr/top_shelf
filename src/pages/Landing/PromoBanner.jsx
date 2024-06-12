@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import Heading from "./Heading";
-import Btn from "./Btn";
-import bgImgDesktop from "../data/images/MainHeaderBackgroundDesktop.png";
-import bgImgMobile from "../data/images/MainHeaderBackgroundMobile.png";
-import { useEffect, useState } from "react";
+import Heading from "../../ui/Heading";
+import Btn from "../../ui/Btn";
+import bgImgDesktop from "../../data/images/MainHeaderBackgroundDesktop.png";
+import bgImgMobile from "../../data/images/MainHeaderBackgroundMobile.png";
+import useWindowSize from "../../hooks/useWindowSize";
+import screens from "../../utils/screens";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -53,6 +54,7 @@ const StyledPromoText = styled.p`
   align-items: center;
   width: 400px;
   margin-bottom: 50px;
+  word-break: break-all;
 
   @media (max-width: 1366px) {
     margin-bottom: 40px;
@@ -61,6 +63,10 @@ const StyledPromoText = styled.p`
 
   @media (max-width: 540px) {
     font-size: var(--font-size-medium-100);
+  }
+
+  @media (max-width: ${screens.m}) {
+    width: calc(100% + 50px);
   }
 `;
 
@@ -94,17 +100,10 @@ const StyledLeftSideContainer = styled.div`
 `;
 
 export default function PromoBanner() {
-  const [mobileSize, setWindowWidth] = useState(window.innerWidth >= 540);
-
-  useEffect(() => {
-    window.addEventListener("resize", () =>
-      setWindowWidth(window.innerWidth >= 540)
-    );
-    console.log(mobileSize);
-  }, [mobileSize]);
+  const isTableView = useWindowSize(540);
 
   return (
-    <StyledContainer bgImg={mobileSize ? bgImgDesktop : bgImgMobile}>
+    <StyledContainer bgImg={isTableView ? bgImgDesktop : bgImgMobile}>
       <StyledLeftSideContainer>
         <div>
           <GoldenText>best seller</GoldenText>
@@ -116,7 +115,7 @@ export default function PromoBanner() {
             Get 25% off <DivideBar /> Free Shipping
           </StyledPromoText>
           <Btn
-            size="large"
+            size={isTableView ? "large" : "medium"}
             variation="primary"
             shape="pill"
             color="--light-400"

@@ -12,7 +12,7 @@ const StyledLogo = styled.div`
   height: 40px;
   @media (max-width: 480px) {
     width: 119px;
-    height: 28 px;
+    height: 28px;
   }
 `;
 

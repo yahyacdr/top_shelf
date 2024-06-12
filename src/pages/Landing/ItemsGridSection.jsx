@@ -1,52 +1,45 @@
 import styled from "styled-components";
-import Heading from "./Heading";
-import Btn from "./Btn";
-import Filter from "./Filter";
+import Heading from "../../ui/Heading";
+import Filter from "../../ui/Filter";
+import Btn from "../../ui/Btn";
 import { useState } from "react";
-import Menu from "./Menu";
-import { buyCards } from "../data/Static/StaticData";
-import BuyCard from "../features/BuyCard/BuyCard";
-import { Link } from "react-router-dom";
+import BuyCardsGrid from "../../ui/BuyCardsGrid";
 
-const StyledRecentlyAddedSection = styled.section`
+const StyledItemsGridSection = styled.section`
   & h1 {
     color: var(--dark-800);
-  }
-  & > div:nth-child(2) {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 96px;
-    padding: 30px 58px 0 0;
   }
   & > div:last-child {
     & > div {
       height: 568px;
     }
   }
-  & a {
-    font-size: inherit;
-  }
-  .view-all-btn {
-    /* width: 66px; */
+
+  .cards-container {
+    @media (max-width: 390px) {
+      column-gap: 24px;
+    }
   }
   .card-container {
-    @media (max-width: 480px) {
-      /* width: 100%; */
-      h4 {
-        font-size: var(--font-size-medium-66);
-      }
+    width: 291px;
+    @media (max-width: 540px) {
+      width: 45%;
     }
+  }
+  .label-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
 
 const FilterSection = styled.div`
+  padding: 30px 0 0;
   width: 100%;
+  margin-bottom: 96px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
   max-width: 960px;
   flex-wrap: wrap;
   height: 150px;
@@ -60,14 +53,14 @@ const FilterSection = styled.div`
   }
 `;
 
-export default function RecentlyAddedSection() {
+export default function ItemsGridSection() {
   const [active, setActive] = useState(true);
   let a = 1;
   if (a === 0) setActive(true);
   return (
-    <StyledRecentlyAddedSection>
-      <Heading as="h1">recently added</Heading>
-      <div>
+    <StyledItemsGridSection>
+      <BuyCardsGrid>
+        <Heading as="h1">choose your weed</Heading>
         <FilterSection>
           <Heading as="h3">Filter by Interest</Heading>
           <Filter>
@@ -119,27 +112,7 @@ export default function RecentlyAddedSection() {
             </Btn>
           </Filter>
         </FilterSection>
-        <Btn
-          variation="regular"
-          size="small"
-          shape="none"
-          color="--green-200"
-          className="view-all-btn"
-        >
-          <Link to="/">View all</Link>
-        </Btn>
-      </div>
-      <Menu.ItemCards distribution="grid">
-        {buyCards.slice(4).map((bc) => (
-          <Menu.CardContainer
-            key={bc.id}
-            width="291px"
-            className="card-container"
-          >
-            <BuyCard bc={bc} />
-          </Menu.CardContainer>
-        ))}
-      </Menu.ItemCards>
-    </StyledRecentlyAddedSection>
+      </BuyCardsGrid>
+    </StyledItemsGridSection>
   );
 }

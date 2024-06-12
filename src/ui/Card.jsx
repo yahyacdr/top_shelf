@@ -16,6 +16,7 @@ const Title = styled(Heading).attrs(() => ({ as: "h3" }))`
 const TitleItem = styled(Heading).attrs(() => ({ as: "h4" }))`
   text-transform: ${(props) => props.case};
   color: var(${(props) => props.color});
+  margin-bottom: 0;
 `;
 
 const Name = styled(Heading).attrs(() => ({ as: "h4" }))`

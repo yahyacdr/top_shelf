@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import Heading from "./Heading";
-import Menu from "./Menu";
-import Card from "./Card";
-import { featureCards2 } from "../data/Static/StaticData";
+import Heading from "../../ui/Heading";
+import Menu from "../../ui/Menu";
+import Card from "../../ui/Card";
+import { featureCards2 } from "../../data/Static/StaticData";
 
 const StyledServiceFeaturesSection = styled.section`
   h1 {

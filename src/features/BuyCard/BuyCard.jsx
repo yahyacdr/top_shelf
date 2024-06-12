@@ -3,11 +3,18 @@ import Btn from "../../ui/Btn";
 import Card from "../../ui/Card";
 import PropTypes from "prop-types";
 
-const ImgCardContainer = styled.div`
+const ImgContainer = styled.div`
   position: relative;
   z-index: 1;
   display: flex;
   justify-content: center;
+  align-items: center;
+  img {
+    position: relative;
+    z-index: 2;
+  }
+`;
+const ImgCardContainer = styled(ImgContainer)`
   margin-bottom: 24px;
   ${(props) =>
     props.type === "item"
@@ -33,6 +40,14 @@ const ImgCardContainer = styled.div`
             width: 83%;
           }
         `}
+`;
+
+const ImgPanelCardContainer = styled(ImgContainer)`
+  backdrop-filter: blur(5px);
+  border-radius: 16px;
+  img {
+    width: 70%;
+  }
 `;
 
 const OutOfStockBadge = styled.div`
@@ -80,10 +95,30 @@ const Offer = styled.div`
   }
 `;
 
-export default function BuyCard({ bc }) {
+const Oval = styled.div`
+  position: absolute;
+  top: 70%;
+  background-color: var(--light-400);
+  width: 120%;
+  aspect-ratio: 3/1;
+  border-radius: 50%;
+`;
+
+const BtnPrice = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export default function BuyCard({ bc, bgRevert }) {
   return (
     <>
-      <ImgCardContainer type="item">
+      <ImgCardContainer
+        type="item"
+        style={{
+          backgroundColor: bgRevert && "var(--light-300)",
+        }}
+      >
         {!bc.quantity && (
           <OutOfStockBadge>
             <span>out of stock</span>
@@ -94,6 +129,7 @@ export default function BuyCard({ bc }) {
             <span>{bc.offer}</span>
           </Offer>
         )}
+        {bgRevert && <Oval />}
         <Card.Img img={bc.img} />
       </ImgCardContainer>
       <Card.ItemType>{bc.type}</Card.ItemType>
@@ -133,6 +169,51 @@ export default function BuyCard({ bc }) {
   );
 }
 
+export function PanelBuyCard({ bc }) {
+  return (
+    <>
+      <Card.ItemType>{bc.type}</Card.ItemType>
+      <Card.TitleItem color="--light-300">{bc.title}</Card.TitleItem>
+      <Card.Review rate={bc.rate} numRate={bc.numRate} />
+      <Card.WeightOptions revert />
+      <BtnPrice>
+        <Btn
+          size="medium"
+          variation="primary"
+          shape="pill"
+          color="--light-300"
+          disabled={!bc.quantity}
+        >
+          Add to Cart
+        </Btn>
+        <Card.Price
+          hasDiscount={!!bc.discount}
+          price={bc.price}
+          currentPrice={bc.currentPrice}
+        />
+      </BtnPrice>
+      <ImgPanelCardContainer>
+        {!bc.quantity && (
+          <OutOfStockBadge>
+            <span>out of stock</span>
+          </OutOfStockBadge>
+        )}
+        {bc.offer && (
+          <Offer>
+            <span>{bc.offer}</span>
+          </Offer>
+        )}
+        <Card.Img img={bc.img} />
+      </ImgPanelCardContainer>
+    </>
+  );
+}
+
 BuyCard.propTypes = {
+  bc: PropTypes.object,
+  bgRevert: PropTypes.bool,
+};
+
+PanelBuyCard.propTypes = {
   bc: PropTypes.object,
 };

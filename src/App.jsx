@@ -1,8 +1,9 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
-import Landing from "./pages/Landing";
+import Landing from "./pages/Landing/Landing";
 import AppLayout from "./ui/AppLayout";
 import PublicStyles from "./styles/PublicStyles";
+import Categories from "./pages/Categories/Categories";
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Landing />,
+      },
+      {
+        path: "/category",
+        element: <Categories />,
       },
     ],
   },

@@ -13,7 +13,7 @@ const FloatingPanel = styled.div`
       background-repeat: no-repeat;
       background-size: cover;
     `}
-  background-color: var(${(props) => props.bgColor});
+  background-color: var(--green-900);
   position: absolute;
   top: 0%;
   left: 50%;

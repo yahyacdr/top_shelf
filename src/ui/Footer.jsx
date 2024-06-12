@@ -8,6 +8,8 @@ import mastercard from "../data/images/mastercard.svg";
 import visa from "../data/images/visa.svg";
 import bitcoin from "../data/images/bitcoin.svg";
 import interac from "../data/images/interac.svg";
+import screens from "../utils/screens";
+import { useEffect, useState } from "react";
 
 const StyledFooter = styled.footer`
   background: linear-gradient(0deg, var(--dark-900) 0%, #01100b 100%);
@@ -24,10 +26,16 @@ const StyledFooter = styled.footer`
       .head {
         max-width: 700px;
         color: var(--light-300);
+        @media (max-width: ${screens.xs}) {
+          font-size: var(--font-size-medium-66);
+        }
       }
-      > p {
+      p {
         color: #c3d2cc;
         font-size: var(--font-size-medium-100);
+        @media (max-width: ${screens.xs}) {
+          font-size: var(--font-size-small-50);
+        }
       }
       > * {
         width: 100%;
@@ -38,6 +46,9 @@ const StyledFooter = styled.footer`
     }
     @media (max-width: 390px) {
       padding: 64px 16px;
+    }
+    @media (max-width: ${screens.xs}) {
+      padding: 32px 16px;
     }
   }
 `;
@@ -65,6 +76,11 @@ const Input = styled.input`
 
   @media (max-width: 640px) {
     width: 100%;
+  }
+
+  @media (max-width: ${screens.xs}) {
+    padding: 12px 22px;
+    font-size: var(--font-size-small-50);
   }
 `;
 
@@ -138,6 +154,9 @@ const Column = styled.div`
   }
   &.column-1 {
     margin-right: 132px;
+    @media (max-width: ${screens.xm}) {
+      margin-right: 0;
+    }
   }
 `;
 
@@ -257,8 +276,15 @@ export default function Footer() {
 }
 
 function OfferFloatingPanel() {
+  const [isSizeXS, setIsSizeXS] = useState(window.innerWidth <= 280);
+
+  useEffect(() => {
+    window.addEventListener("resize", () =>
+      setIsSizeXS(window.innerWidth <= 280)
+    );
+  }, [isSizeXS]);
   return (
-    <FloatingPanel className="offer-floating-panel" bgColor="--green-900">
+    <FloatingPanel className="offer-floating-panel">
       <div>
         <div>
           <Heading as="h1" className="head">
@@ -271,7 +297,7 @@ function OfferFloatingPanel() {
           <Input type="email" placeholder="Email Address" />
           <Btn
             variation="primary"
-            size="large"
+            size={"medium"}
             shape="pill"
             color="--light-300"
           >

@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import Heading from "./Heading";
+import Heading from "../../ui/Heading";
 import { Link } from "react-router-dom";
-import Menu from "./Menu";
-import { eduCards } from "../data/Static/StaticData";
-import Card from "./Card";
+import Menu from "../../ui/Menu";
+import { eduCards } from "../../data/Static/StaticData";
+import Card from "../../ui/Card";
 
 const StyledWeedEduSection = styled.section`
   background-color: var(--light-600);

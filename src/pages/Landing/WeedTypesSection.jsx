@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Menu from "./Menu";
-import { weedTypes } from "../data/Static/StaticData";
-import Card from "./Card";
+import Menu from "../../ui/Menu";
+import { weedTypes } from "../../data/Static/StaticData";
+import Card from "../../ui/Card";
 import { Link } from "react-router-dom";
 
 const StyledWeedTypesSection = styled.section`

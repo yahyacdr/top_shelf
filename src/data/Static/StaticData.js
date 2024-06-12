@@ -175,6 +175,22 @@ export const buyCards = [
     quantity: 15,
     offer: false,
   },
+  {
+    id: 8,
+    img: weed_img_6,
+    type: "concentrate",
+    title: "Mix And Match Shatter/Budder 28g (4 X 7G)",
+    rate: 4.6,
+    numRate: 135,
+    label: false,
+    price: 200,
+    discount: 98,
+    get currentPrice() {
+      return this.price - this.discount;
+    },
+    quantity: 15,
+    offer: false,
+  },
 ];
 
 export const testimonials = [
@@ -340,4 +356,19 @@ export const eduCards = [
     desc: `Quality cannabis is a term used to describe cannabis products that meet specific standards of excellence. It is essential to understand what quality cannabis means, …`,
     date: "january 19, 2023",
   },
+];
+
+export const filters = [
+  "Sales",
+  "Cannabis",
+  "Pre-rolls",
+  "Cbd oil",
+  "Magic mushrooms",
+  "Extracts",
+  "Edibles",
+  "Vape pens",
+  "Accessories",
+  "Bath & body",
+  "Bundles",
+  "Wholesale",
 ];
