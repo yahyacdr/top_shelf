@@ -33,9 +33,9 @@ const NavBtn = styled.button`
     props.className.includes("btn-next") &&
     css`
       @media (max-width: 540px) {
-        left: 92%;
+        right: 1%;
       }
-      left: 95%;
+      right: 1%;
     `};
   ${(props) =>
     props.className.includes("btn-prev") &&
@@ -44,7 +44,13 @@ const NavBtn = styled.button`
     `};
 `;
 
-function Carousel({ children, nextBtnClass, prevBtnClass, refEl }) {
+function Carousel({
+  children,
+  nextBtnClass,
+  prevBtnClass,
+  refEl,
+  slides_per_view,
+}) {
   return (
     <Swiper
       loop={true}
@@ -53,7 +59,7 @@ function Carousel({ children, nextBtnClass, prevBtnClass, refEl }) {
       breakpoints={{
         0: {
           spaceBetween: 24,
-          slidesPerView: 1.4,
+          slidesPerView: slides_per_view || 1.4,
           centeredSlides: true,
           centerInsufficientSlides: true,
           centeredSlidesBounds: true,

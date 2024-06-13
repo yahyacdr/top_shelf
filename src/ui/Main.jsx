@@ -12,8 +12,9 @@ const StyleMain = styled.main`
   }
 
   &.main-cat {
+    row-gap: 15px;
     > section:last-child {
-      margin-bottom: 1000px;
+      margin-bottom: 380px;
     }
   }
 

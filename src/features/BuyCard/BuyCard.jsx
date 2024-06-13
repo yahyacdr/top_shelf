@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import Btn from "../../ui/Btn";
 import Card from "../../ui/Card";
 import PropTypes from "prop-types";
+import screens from "../../utils/screens";
 
 const ImgContainer = styled.div`
   position: relative;
@@ -43,10 +44,16 @@ const ImgCardContainer = styled(ImgContainer)`
 `;
 
 const ImgPanelCardContainer = styled(ImgContainer)`
-  backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.12);
   border-radius: 16px;
   img {
     width: 70%;
+    @media (min-width: ${screens.xm}) {
+      width: 50%;
+    }
+    @media (min-width: ${screens.xxl}) {
+      width: 45%;
+    }
   }
 `;
 
@@ -108,6 +115,19 @@ const BtnPrice = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  > div {
+    width: fit-content;
+    align-self: center;
+    margin-bottom: 0;
+    font-size: var(--font-size-medium-66);
+    display: flex;
+    .price {
+      color: var(--gold);
+    }
+    .discount {
+      order: 1;
+    }
+  }
 `;
 
 export default function BuyCard({ bc, bgRevert }) {
@@ -115,6 +135,7 @@ export default function BuyCard({ bc, bgRevert }) {
     <>
       <ImgCardContainer
         type="item"
+        className="img-container"
         style={{
           backgroundColor: bgRevert && "var(--light-300)",
         }}

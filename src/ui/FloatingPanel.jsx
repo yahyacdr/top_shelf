@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 const FloatingPanel = styled.div`
-  width: 80%;
+  width: 89%;
   max-width: 1200px;
   display: flex;
   padding: 84px 120px;

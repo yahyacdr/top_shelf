@@ -128,6 +128,13 @@ const StyledWeightOptions = styled.div`
         margin-right: 5px;
       }
     }
+    ${(props) =>
+      props.revert &&
+      css`
+        color: var(--light-300);
+        background-color: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      `}
   }
 `;
 
@@ -145,7 +152,7 @@ Img.propTypes = {
 
 function Review({ rate, numRate }) {
   return (
-    <StyledReview>
+    <StyledReview className="card-review">
       <svg
         width="12"
         height="13"
@@ -190,9 +197,9 @@ Price.propTypes = {
   currentPrice: PropTypes.number,
 };
 
-function WeightOptions() {
+function WeightOptions({ revert }) {
   return (
-    <StyledWeightOptions>
+    <StyledWeightOptions revert={revert} className="card-weights">
       <div>
         <Btn
           size="small"

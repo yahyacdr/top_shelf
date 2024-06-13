@@ -45,7 +45,7 @@ const StyledFooter = styled.footer`
       padding: 64px 32px;
     }
     @media (max-width: 390px) {
-      padding: 64px 16px;
+      padding: 24px;
     }
     @media (max-width: ${screens.xs}) {
       padding: 32px 16px;
@@ -276,7 +276,7 @@ export default function Footer() {
 }
 
 function OfferFloatingPanel() {
-  const [isSizeXS, setIsSizeXS] = useState(window.innerWidth <= 280);
+  const [isSizeXS, setIsSizeXS] = useState(window.innerWidth <= 360);
 
   useEffect(() => {
     window.addEventListener("resize", () =>
@@ -297,7 +297,7 @@ function OfferFloatingPanel() {
           <Input type="email" placeholder="Email Address" />
           <Btn
             variation="primary"
-            size={"medium"}
+            size={isSizeXS ? "medium" : "large"}
             shape="pill"
             color="--light-300"
           >
