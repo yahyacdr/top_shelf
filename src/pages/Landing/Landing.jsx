@@ -21,7 +21,7 @@ const CardsContainer = styled.section`
   row-gap: 40px;
   padding: 80px 64px;
   width: 100%;
-  @media (max-width: ${screens.xm}) {
+  @media (max-width: ${screens.mobile.xm}) {
     padding: 60px 32px;
   }
 `;

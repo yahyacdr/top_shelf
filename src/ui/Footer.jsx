@@ -26,14 +26,14 @@ const StyledFooter = styled.footer`
       .head {
         max-width: 700px;
         color: var(--light-300);
-        @media (max-width: ${screens.xs}) {
+        @media (max-width: ${screens.mobile.xs}) {
           font-size: var(--font-size-medium-66);
         }
       }
       p {
         color: #c3d2cc;
         font-size: var(--font-size-medium-100);
-        @media (max-width: ${screens.xs}) {
+        @media (max-width: ${screens.mobile.xs}) {
           font-size: var(--font-size-small-50);
         }
       }
@@ -47,7 +47,7 @@ const StyledFooter = styled.footer`
     @media (max-width: 390px) {
       padding: 24px;
     }
-    @media (max-width: ${screens.xs}) {
+    @media (max-width: ${screens.mobile.xs}) {
       padding: 32px 16px;
     }
   }
@@ -78,7 +78,7 @@ const Input = styled.input`
     width: 100%;
   }
 
-  @media (max-width: ${screens.xs}) {
+  @media (max-width: ${screens.mobile.xs}) {
     padding: 12px 22px;
     font-size: var(--font-size-small-50);
   }
@@ -154,7 +154,7 @@ const Column = styled.div`
   }
   &.column-1 {
     margin-right: 132px;
-    @media (max-width: ${screens.xm}) {
+    @media (max-width: ${screens.mobile.xm}) {
       margin-right: 0;
     }
   }

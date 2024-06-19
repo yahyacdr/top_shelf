@@ -1,0 +1,156 @@
+|   .eslintrc.cjs
+|   .gitignore
+|   index.html
+|   package-lock.json
+|   package.json
+|   README.md
+|   tree.txt
+|   vite.config.js
+|   
++---public
+|       vite.svg
+|       
+\---src
+    |   App.css
+    |   App.jsx
+    |   index.css
+    |   main.jsx
+    |   
+    +---animations
+    |       menuAnimation.js
+    |       
+    +---assets
+    |       humberger-icon-animation.json
+    |       humberger-menu-animation-1.json
+    |       react.svg
+    |       
+    +---data
+    |   +---images
+    |   |       4-star.svg
+    |   |       5-stars.svg
+    |   |       arrow-left.svg
+    |   |       best_value_icon.svg
+    |   |       bitcoin.svg
+    |   |       Buddha-Bomb-Green-Apple-Gummies.png
+    |   |       cart.svg
+    |   |       coin.svg
+    |   |       conic-bg.png
+    |   |       customer_service_icon.svg
+    |   |       delivery_insurance_icon.svg
+    |   |       education_img_1.png
+    |   |       education_img_2.png
+    |   |       education_img_3.png
+    |   |       google-logo-svg-150px.svg
+    |   |       highest_quality_icon.svg
+    |   |       hybrids_icon.png
+    |   |       image_12_prev_ui_1.png
+    |   |       image_13_prev_ui_1.png
+    |   |       image_14_prev_ui_1.png
+    |   |       image_15_prev_ui_1.png
+    |   |       image_8_prev_ui_2.png
+    |   |       image_9_prev_ui_2.png
+    |   |       indica_icon.png
+    |   |       interac.svg
+    |   |       linear-bg-low-opacity.png
+    |   |       Logo.png
+    |   |       Logo_invert.png
+    |   |       MainHeaderBackgroundDesktop.png
+    |   |       MainHeaderBackgroundMobile.png
+    |   |       makes_you_awake_icon.svg
+    |   |       makes_you_sleep_icon.svg
+    |   |       make_payment_img.svg
+    |   |       mastercard.svg
+    |   |       refer-a-friend-bg.svg
+    |   |       register_img.svg
+    |   |       relax_img.svg
+    |   |       reviews_img_1.png
+    |   |       reviews_img_2.png
+    |   |       reviews_img_3.png
+    |   |       safe-home.svg
+    |   |       sativa_icon.png
+    |   |       search_icon.svg
+    |   |       security_icon.svg
+    |   |       shop_img.svg
+    |   |       star.svg
+    |   |       truck-fast.svg
+    |   |       trust_icon.svg
+    |   |       vector.png
+    |   |       visa.svg
+    |   |       
+    |   \---Static
+    |           StaticData.js
+    |           
+    +---features
+    |   +---BuyCard
+    |   |       BuyCard.jsx
+    |   |       
+    |   +---cart
+    |   |       AddtoCart.jsx
+    |   |       Cart.jsx
+    |   |       
+    |   +---Checkout
+    |   |       Checkout.jsx
+    |   |       
+    |   +---Description
+    |   |       Description.jsx
+    |   |       
+    |   \---ImageDetails
+    |           ImageDetails.jsx
+    |           
+    +---hooks
+    |       useWindowSize.js
+    |       
+    +---pages
+    |   |   Price.jsx
+    |   |   Product.jsx
+    |   |   
+    |   +---Categories
+    |   |       Categories.jsx
+    |   |       DescSection.jsx
+    |   |       FilterSection.jsx
+    |   |       PanelBuyCardCarousel.jsx
+    |   |       
+    |   \---Landing
+    |           HowToSection.jsx
+    |           ItemsGridSection.jsx
+    |           ItemsSection.jsx
+    |           Landing.jsx
+    |           PromoBanner.jsx
+    |           ReviewSection.jsx
+    |           ServiceFeaturesSection.jsx
+    |           WeedEduSection.jsx
+    |           WeedTypesSection.jsx
+    |           
+    +---styles
+    |       PublicStyles.js
+    |       
+    +---ui
+    |       AppLayout.jsx
+    |       Btn.jsx
+    |       BuyCardsCarousel.jsx
+    |       BuyCardsGrid.jsx
+    |       Card.jsx
+    |       Carousel.jsx
+    |       CoverPanel.jsx
+    |       CurtainPagesNavbar.jsx
+    |       Divider.jsx
+    |       FeaturesCard.jsx
+    |       Filter.jsx
+    |       FloatingPanel.jsx
+    |       Footer.jsx
+    |       Heading.jsx
+    |       Logo.jsx
+    |       Main.jsx
+    |       MainHeader.jsx
+    |       Menu.jsx
+    |       Navbar.jsx
+    |       OfferBar.jsx
+    |       PagesNavBar.jsx
+    |       RecentlyAddedSection.jsx
+    |       SearchBar.jsx
+    |       SimpleSlider.jsx
+    |       
+    \---utils
+            helper.js
+            screens.js
+            

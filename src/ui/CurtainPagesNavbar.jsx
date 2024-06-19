@@ -1,6 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
 import Btn from "./Btn";
-// import { createPortal } from "react-dom";
 
 const PagesNames = [
   "Shop All",
@@ -41,7 +40,7 @@ const StyledContainer = styled.div`
   flex-wrap: wrap;
   padding: 32px;
   position: absolute;
-  z-index: 0;
+  z-index: 99;
   background-color: var(--light-300);
   top: 100%;
   left: -100%;

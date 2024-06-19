@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
+import screens from "../../utils/screens";
 
 const StyledDescContainer = styled.section`
+  grid-area: section3;
   padding: 16px;
   h4 {
     color: var(--green-200);
@@ -16,6 +18,9 @@ const StyledDescContainer = styled.section`
     font-weight: 400;
     line-height: 150%;
     letter-spacing: 0px;
+    @media (min-width: ${screens.tablet.m}) {
+      font-size: var(--font-size-medium-33);
+    }
   }
 `;
 

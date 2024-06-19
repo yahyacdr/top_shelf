@@ -28,7 +28,7 @@ const sizes = {
     font-size: var(--font-size-small-100);
     font-weight: 400;
     padding: 5px;
-    @media (max-width: ${screens.xm}) {
+    @media (max-width: ${screens.mobile.xm}) {
       font-size: var(--font-size-small-50);
     }
   `,

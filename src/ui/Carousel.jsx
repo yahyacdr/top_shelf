@@ -5,6 +5,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { Pagination, Navigation, HashNavigation } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 const NavBtn = styled.button`
   position: absolute;
@@ -49,7 +54,8 @@ function Carousel({
   nextBtnClass,
   prevBtnClass,
   refEl,
-  slides_per_view,
+  slides_per_view = false,
+  hasDots = false,
 }) {
   return (
     <Swiper
@@ -66,33 +72,40 @@ function Carousel({
         },
         640: {
           spaceBetween: 24,
-          slidesPerView: 1.5,
+          slidesPerView: slides_per_view || 1.5,
         },
         720: {
           spaceBetween: 24,
-          slidesPerView: 2,
+          slidesPerView: slides_per_view || 2,
         },
         920: {
           spaceBetween: 24,
-          slidesPerView: 2.5,
+          slidesPerView: slides_per_view["920"] || 1,
         },
         1080: {
           spaceBetween: 32,
-          slidesPerView: 1.8,
+          slidesPerView: slides_per_view || 1.8,
         },
         1200: {
           spaceBetween: 32,
-          slidesPerView: 2,
+          slidesPerView: slides_per_view || 2,
         },
         1366: {
           spaceBetween: 32,
-          slidesPerView: 2.5,
+          slidesPerView: slides_per_view || 2.5,
         },
         1440: {
           spaceBetween: 32,
-          slidesPerView: 2.8,
+          slidesPerView: slides_per_view || 2.8,
         },
       }}
+      pagination={{
+        clickable: hasDots,
+      }}
+      hashNavigation={{
+        watchState: hasDots,
+      }}
+      modules={hasDots && [Pagination, Navigation, HashNavigation]}
     >
       {children}
       <CarouselBtnNext carouselEl={refEl}>
@@ -100,7 +113,7 @@ function Carousel({
           <IoIosArrowForward />
         </div>
       </CarouselBtnNext>
-      <CarouselBtnPrev carouselEl={refEl}>
+      <CarouselBtnPrev carouselEl={refEl} hasDots={hasDots}>
         <div>
           <IoIosArrowBack />
         </div>
@@ -134,11 +147,15 @@ CarouselBtnNext.propTypes = {
   children: PropTypes.element,
 };
 
-export function CarouselBtnPrev({ children, carouselEl }) {
+export function CarouselBtnPrev({ children, carouselEl, hasDots }) {
   return (
     <NavBtn
       className={`btn-prev nav-btn`}
-      onClick={() => carouselEl.current.swiper.slideNext()}
+      onClick={() => {
+        hasDots
+          ? carouselEl.current.swiper.slidePrev()
+          : carouselEl.current.swiper.slideNext();
+      }}
     >
       {children}
     </NavBtn>

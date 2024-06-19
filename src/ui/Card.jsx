@@ -134,6 +134,7 @@ const StyledWeightOptions = styled.div`
         color: var(--light-300);
         background-color: rgba(255, 255, 255, 0.08);
         border: 1px solid rgba(255, 255, 255, 0.2);
+        font-size: var(--font-size-small-50);
       `}
   }
 `;
@@ -229,6 +230,10 @@ function WeightOptions({ revert }) {
     </StyledWeightOptions>
   );
 }
+
+WeightOptions.propTypes = {
+  revert: PropTypes.bool,
+};
 
 function RateStars({ numStars }) {
   if (numStars === 5)

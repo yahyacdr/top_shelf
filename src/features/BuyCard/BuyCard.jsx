@@ -48,10 +48,13 @@ const ImgPanelCardContainer = styled(ImgContainer)`
   border-radius: 16px;
   img {
     width: 70%;
-    @media (min-width: ${screens.xm}) {
+    @media (min-width: ${screens.mobile.xm}) {
       width: 50%;
     }
-    @media (min-width: ${screens.xxl}) {
+    @media (min-width: ${screens.mobile.xxl}) {
+      width: 45%;
+    }
+    @media (min-width: ${screens.mobile.xxl}) {
       width: 45%;
     }
   }
@@ -193,10 +196,10 @@ export default function BuyCard({ bc, bgRevert }) {
 export function PanelBuyCard({ bc }) {
   return (
     <>
-      <Card.ItemType>{bc.type}</Card.ItemType>
+      <Card.ItemType className="card-item-type">{bc.type}</Card.ItemType>
       <Card.TitleItem color="--light-300">{bc.title}</Card.TitleItem>
       <Card.Review rate={bc.rate} numRate={bc.numRate} />
-      <Card.WeightOptions revert />
+      <Card.WeightOptions revert={true} />
       <BtnPrice>
         <Btn
           size="medium"
@@ -213,7 +216,7 @@ export function PanelBuyCard({ bc }) {
           currentPrice={bc.currentPrice}
         />
       </BtnPrice>
-      <ImgPanelCardContainer>
+      <ImgPanelCardContainer className="card-img-container">
         {!bc.quantity && (
           <OutOfStockBadge>
             <span>out of stock</span>

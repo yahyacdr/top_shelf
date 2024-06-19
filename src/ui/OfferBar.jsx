@@ -10,7 +10,13 @@ const StyledBar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10;
+  z-index: 999;
+  > div {
+    display: contents;
+    p:last-child {
+      min-width: fit-content;
+    }
+  }
   @media (max-width: 540px) {
     p {
       font-size: var(--font-size-small-50);
@@ -18,7 +24,6 @@ const StyledBar = styled.div`
   }
 
   @media (max-width: 360px) {
-    height: 70px;
     padding: 0 16px;
   }
 `;
@@ -33,6 +38,9 @@ const StyledText = styled.p`
 const StyledTextLowOpacity = styled(StyledText)`
   opacity: 0.7;
   margin-right: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   @media (max-width: 390px) {
     margin-right: 10px;
   }

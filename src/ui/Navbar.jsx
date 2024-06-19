@@ -43,17 +43,19 @@ const StyledGlobalNav = styled.div`
     z-index: 1;
     background-color: var(--light-300);
   }
-  @media (max-width: 640px) {
+  @media (max-width: ${screens.tablet.xm}) {
     display: grid;
     grid-template-columns: 50% 50%;
     grid-template-rows: 50% 50%;
     grid-template-areas: "logo accCart" "search search";
     row-gap: 16px;
   }
-  @media (max-width: ${screens.m}) {
+  @media (max-width: ${screens.mobile.m}) {
     grid-template-columns: 100%;
-    grid-template-rows: 50% 50% 50%;
+    grid-template-rows: repeat(3, calc(100% / 3));
     grid-template-areas: "logo logo" "accCart accCart" "search search";
+    padding: 8px 16px;
+    row-gap: 0px;
   }
 `;
 
@@ -96,12 +98,12 @@ const StyleAccCart = styled.div`
   flex-grow: 0;
   grid-area: accCart;
 
-  @media (max-width: 640px) {
+  @media (max-width: ${screens.tablet.xm}) {
     justify-content: flex-start;
     justify-self: flex-end;
   }
 
-  @media (max-width: ${screens.m}) {
+  @media (max-width: ${screens.mobile.m}) {
     justify-self: center;
   }
   & > button {
@@ -123,7 +125,7 @@ const LogoContainer = styled.div`
     width: 160px;
   }
 
-  @media (max-width: ${screens.m}) {
+  @media (max-width: ${screens.mobile.m}) {
     width: 100%;
   }
 `;
@@ -142,7 +144,7 @@ const StyledBurgerIcon = styled.div`
 `;
 
 export default function Navbar() {
-  const isTabletView = useWindowSize(540);
+  const isTabletView = useWindowSize(640);
   const [menuOpen, setIsMenuOpen] = useState(false);
 
   return (

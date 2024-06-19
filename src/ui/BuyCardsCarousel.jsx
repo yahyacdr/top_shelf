@@ -6,13 +6,21 @@ import Carousel from "./Carousel";
 import BuyCard from "../features/BuyCard/BuyCard";
 import PropTypes from "prop-types";
 
-export default function BuyCardsCarousel({ children, bgRevert }) {
+export default function BuyCardsCarousel({
+  children,
+  bgRevert,
+  slides_per_view,
+}) {
   const carouselEl = useRef();
 
   return (
     <Menu.ItemCards width="100%" height="610" className="items-cards">
       {children}
-      <Carousel nextBtnClass="btn-next" refEl={carouselEl}>
+      <Carousel
+        nextBtnClass="btn-next"
+        refEl={carouselEl}
+        slides_per_view={slides_per_view}
+      >
         {buyCards.map((bc) => (
           <SwiperSlide key={bc.id} className="cards-container">
             <Menu.CardContainer width="">
@@ -28,4 +36,5 @@ export default function BuyCardsCarousel({ children, bgRevert }) {
 BuyCardsCarousel.propTypes = {
   children: PropTypes.element,
   bgRevert: PropTypes.bool,
+  slides_per_view: PropTypes.object,
 };

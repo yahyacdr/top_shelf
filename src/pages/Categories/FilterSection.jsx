@@ -4,8 +4,10 @@ import Filter from "../../ui/Filter";
 import { filters } from "../../data/Static/StaticData";
 import PropTypes from "prop-types";
 import screens from "../../utils/screens";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const StyledFilterContainer = styled.section`
+  grid-area: section2;
   background-color: var(--light-300);
   display: flex;
   justify-content: space-between;
@@ -13,9 +15,15 @@ const StyledFilterContainer = styled.section`
   border-bottom: 1px solid var(--light-600);
   margin-bottom: 24px;
   padding: 16px;
-  @media (max-width: ${screens.m}) {
+  .filter-container {
+    gap: 15px;
+  }
+  @media (max-width: ${screens.mobile.m}) {
     &.filter-section {
       padding: 16px 3px;
+      .filter-container {
+        column-gap: 0px;
+      }
     }
   }
 
@@ -26,11 +34,13 @@ const StyledFilterContainer = styled.section`
   }
 `;
 
-export default function FilterSection({ isTabletView }) {
+export default function FilterSection() {
+  const isTabletView = useWindowSize(962);
+
   return (
     <StyledFilterContainer className="filter-section">
       <Heading as="h4">shop</Heading>
-      <Filter>
+      <Filter className="filter-container">
         {!isTabletView && (
           <Filter.SelectBox id="canibs" shape="pill">
             <Filter.Option value="filter" defaultValue>

@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
 import Filter from "../../ui/Filter";
-import Btn from "../../ui/Btn";
-import { useState } from "react";
 import BuyCardsGrid from "../../ui/BuyCardsGrid";
 
 const StyledItemsGridSection = styled.section`
@@ -54,9 +52,6 @@ const FilterSection = styled.div`
 `;
 
 export default function ItemsGridSection() {
-  const [active, setActive] = useState(true);
-  let a = 1;
-  if (a === 0) setActive(true);
   return (
     <StyledItemsGridSection>
       <BuyCardsGrid>
@@ -64,52 +59,11 @@ export default function ItemsGridSection() {
         <FilterSection>
           <Heading as="h3">Filter by Interest</Heading>
           <Filter>
-            <Btn
-              size="medium"
-              variation="secondary"
-              shape="pill"
-              color={`${active ? "--green-900" : "--dark-300"}`}
-              active="active"
-              custom={{ "max-width": "280px" }}
-            >
-              flowers
-            </Btn>
-            <Btn
-              size="medium"
-              variation="secondary"
-              shape="pill"
-              color="--dark-300"
-              custom={{ "max-width": "280px" }}
-            >
-              mushrooms
-            </Btn>
-            <Btn
-              size="medium"
-              variation="secondary"
-              shape="pill"
-              color="--dark-300"
-              custom={{ "max-width": "280px" }}
-            >
-              concentrate
-            </Btn>
-            <Btn
-              size="medium"
-              variation="secondary"
-              shape="pill"
-              color="--dark-300"
-              custom={{ "max-width": "280px" }}
-            >
-              edibles
-            </Btn>
-            <Btn
-              size="medium"
-              variation="secondary"
-              shape="pill"
-              color="--dark-300"
-              custom={{ "max-width": "280px" }}
-            >
-              shop all weed
-            </Btn>
+            <Filter.Pill content="flowers" active={true} />
+            <Filter.Pill content="mushrooms" active={false} />
+            <Filter.Pill content="concentrate" active={false} />
+            <Filter.Pill content="edibles" active={false} />
+            <Filter.Pill content="shop all weed" active={false} />
           </Filter>
         </FilterSection>
       </BuyCardsGrid>

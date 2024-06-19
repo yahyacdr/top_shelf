@@ -65,7 +65,7 @@ const StyledPromoText = styled.p`
     font-size: var(--font-size-medium-100);
   }
 
-  @media (max-width: ${screens.m}) {
+  @media (max-width: ${screens.mobile.m}) {
     width: calc(100% + 50px);
   }
 `;

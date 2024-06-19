@@ -1,10 +1,8 @@
 import styled, { css } from "styled-components";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import Heading from "../../ui/Heading";
 import Filter from "../../ui/Filter";
-import Btn from "../../ui/Btn";
 import Card from "../../ui/Card";
 import weedImg1 from "../../data/images/image_13_prev_ui_1.png";
 import vector from "../../data/images/vector.png";
@@ -87,11 +85,6 @@ const ImgCardContainer = styled.div`
 `;
 
 export default function ItemsSection() {
-  const [active, setActive] = useState(true);
-
-  let a = 1;
-  if (a === 0) setActive(true);
-
   return (
     <StyledMenuSection>
       <StyledHeaderContainer>
@@ -99,34 +92,9 @@ export default function ItemsSection() {
       </StyledHeaderContainer>
       <FilterSection>
         <Filter>
-          <Btn
-            size="medium"
-            variation="secondary"
-            shape="pill"
-            color={`${active ? "--green-900" : "--dark-300"}`}
-            active="active"
-            custom={{ "max-width": "280px" }}
-          >
-            Best seller
-          </Btn>
-          <Btn
-            size="medium"
-            variation="secondary"
-            shape="pill"
-            color="--dark-300"
-            custom={{ "max-width": "280px" }}
-          >
-            Bundles & Promotions
-          </Btn>
-          <Btn
-            size="medium"
-            variation="secondary"
-            shape="pill"
-            color="--dark-300"
-            custom={{ "max-width": "280px" }}
-          >
-            On Sale
-          </Btn>
+          <Filter.Pill content="Best seller" active={true} />
+          <Filter.Pill content="Bundles & Promotions" active={false} />
+          <Filter.Pill content="On Sale" active={false} />
         </Filter>
       </FilterSection>
       <BuyCardsCarousel>

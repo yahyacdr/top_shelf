@@ -4,18 +4,17 @@ import styled from "styled-components";
 const StyleMain = styled.main`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   width: 100%;
-  > section {
-    width: 100%;
-  }
 
   &.main-cat {
-    row-gap: 15px;
-    > section:last-child {
-      margin-bottom: 380px;
-    }
+    padding-inline: 16px;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    grid-template-rows: repeat(7, auto);
+    grid-template-areas: "section1 section1" "filter section2" "filter section3" "filter section4" "filter section5" "filter section6" "filter section7";
+    margin-bottom: 380px;
   }
 
   &.main-landing > section {
