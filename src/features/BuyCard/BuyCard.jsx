@@ -57,6 +57,15 @@ const ImgPanelCardContainer = styled(ImgContainer)`
     @media (min-width: ${screens.mobile.xxl}) {
       width: 45%;
     }
+    @media (min-width: ${screens.tablet.xxs}) {
+      width: 30%;
+    }
+    @media (min-width: ${screens.tablet.xs}) {
+      width: 50%;
+    }
+    @media (min-width: ${screens.tablet.xl}) {
+      width: 35%;
+    }
   }
 `;
 
@@ -90,8 +99,8 @@ const Offer = styled.div`
   background-color: var(--gold);
   width: 103px;
   height: 36px;
-  border-top-left-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-top-left-radius: inherit;
+  border-bottom-right-radius: inherit;
   position: absolute;
   top: 0;
   left: 0;

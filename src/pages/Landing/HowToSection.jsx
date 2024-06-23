@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
 import Menu from "../../ui/Menu";
@@ -7,6 +9,7 @@ import Btn from "../../ui/Btn";
 import refer_a_friend_img from "../../data/images/refer-a-friend-bg.svg";
 import FloatingPanel from "../../ui/FloatingPanel";
 import PropTypes from "prop-types";
+import { memo } from "react";
 
 const StyledHowToSection = styled.section`
   margin-top: 240px;
@@ -150,7 +153,7 @@ const ImgCardContainer = styled.div`
   }
 `;
 
-export default function HowToSection() {
+const HowToSection = memo(() => {
   return (
     <StyledHowToSection>
       <ReferAFriend className="refer-a-friend" />
@@ -190,9 +193,9 @@ export default function HowToSection() {
       </Btn>
     </StyledHowToSection>
   );
-}
+});
 
-function ReferAFriend({ className }) {
+const ReferAFriend = memo(({ className }) => {
   return (
     <FloatingPanel className={className} img={refer_a_friend_img}>
       <div>
@@ -213,8 +216,10 @@ function ReferAFriend({ className }) {
       </div>
     </FloatingPanel>
   );
-}
+});
 
 ReferAFriend.propTypes = {
   className: PropTypes.string,
 };
+
+export default HowToSection;

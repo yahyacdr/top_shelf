@@ -1,8 +1,10 @@
+/* eslint-disable react/display-name */
+
 import styled from "styled-components";
 import Heading from "./Heading";
 import Btn from "./Btn";
 import Filter from "./Filter";
-import { useState } from "react";
+import { memo, useState } from "react";
 import Menu from "./Menu";
 import { buyCards } from "../data/Static/StaticData";
 import BuyCard from "../features/BuyCard/BuyCard";
@@ -60,7 +62,7 @@ const FilterSection = styled.div`
   }
 `;
 
-export default function RecentlyAddedSection() {
+const RecentlyAddedSection = memo(() => {
   const [active, setActive] = useState(true);
   let a = 1;
   if (a === 0) setActive(true);
@@ -142,4 +144,6 @@ export default function RecentlyAddedSection() {
       </Menu.ItemCards>
     </StyledRecentlyAddedSection>
   );
-}
+});
+
+export default RecentlyAddedSection;

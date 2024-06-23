@@ -1,3 +1,6 @@
+/* eslint-disable react/display-name */
+
+import { memo } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
 
@@ -46,7 +49,7 @@ const StyledTextLowOpacity = styled(StyledText)`
   }
 `;
 
-export default function OfferBar() {
+const OfferBar = memo(() => {
   return createPortal(
     <StyledBar>
       <div>
@@ -58,4 +61,6 @@ export default function OfferBar() {
     </StyledBar>,
     document.getElementById("root")
   );
-}
+});
+
+export default OfferBar;

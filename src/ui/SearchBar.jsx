@@ -1,5 +1,8 @@
+/* eslint-disable react/display-name */
+
 import styled from "styled-components";
 import Btn from "./Btn";
+import { memo } from "react";
 
 const StyledSearchInput = styled.input`
   border-radius: 25px;
@@ -56,7 +59,7 @@ const StyledSearchBtnContainer = styled.div`
   right: 0;
 `;
 
-export default function SearchBar() {
+const SearchBar = memo(() => {
   return (
     <StyledSearchBarContainer className="search-bar-container">
       <StyledSearchInput type="search" placeholder="Search" />
@@ -95,4 +98,6 @@ export default function SearchBar() {
       </StyledSearchBtnContainer>
     </StyledSearchBarContainer>
   );
-}
+});
+
+export default SearchBar;

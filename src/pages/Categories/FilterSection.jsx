@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
 import Filter from "../../ui/Filter";
@@ -5,6 +7,7 @@ import { filters } from "../../data/Static/StaticData";
 import PropTypes from "prop-types";
 import screens from "../../utils/screens";
 import useWindowSize from "../../hooks/useWindowSize";
+import { memo } from "react";
 
 const StyledFilterContainer = styled.section`
   grid-area: section2;
@@ -34,7 +37,7 @@ const StyledFilterContainer = styled.section`
   }
 `;
 
-export default function FilterSection() {
+const FilterSection = memo(() => {
   const isTabletView = useWindowSize(962);
 
   return (
@@ -61,8 +64,10 @@ export default function FilterSection() {
       </Filter>
     </StyledFilterContainer>
   );
-}
+});
 
 FilterSection.propTypes = {
   isTabletView: PropTypes.bool,
 };
+
+export default FilterSection;

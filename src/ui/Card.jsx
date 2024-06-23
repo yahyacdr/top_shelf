@@ -1,8 +1,11 @@
+/* eslint-disable react/display-name */
+
 import styled, { css } from "styled-components";
 import Heading from "./Heading";
 import PropTypes from "prop-types";
 import { formatCurrency } from "../utils/helper";
 import Btn from "./Btn";
+import { memo } from "react";
 
 const StyledImg = styled.img`
   /* width: 50%; */
@@ -61,6 +64,7 @@ const ItemType = styled.p`
   color: var(--light-900);
   text-transform: uppercase;
   margin-top: 20px;
+  font-size: var(--font-size-small-100);
   @media (max-width: 540px) {
     font-size: var(--font-size-small-50);
   }
@@ -139,19 +143,23 @@ const StyledWeightOptions = styled.div`
   }
 `;
 
-export default function Card({ children }) {
+const Card = memo(({ children }) => {
   return { children };
-}
+});
 
-function Img({ img }) {
+Card.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+const Img = memo(({ img }) => {
   return <StyledImg src={img} />;
-}
+});
 
 Img.propTypes = {
   img: PropTypes.string,
 };
 
-function Review({ rate, numRate }) {
+const Review = memo(({ rate, numRate }) => {
   return (
     <StyledReview className="card-review">
       <svg
@@ -175,14 +183,14 @@ function Review({ rate, numRate }) {
       </p>
     </StyledReview>
   );
-}
+});
 
 Review.propTypes = {
   rate: PropTypes.number,
   numRate: PropTypes.number,
 };
 
-function Price({ hasDiscount, price, currentPrice }) {
+const Price = memo(({ hasDiscount, price, currentPrice }) => {
   return (
     <StyledPrice>
       {hasDiscount && <p className="discount">{formatCurrency(price)}</p>}
@@ -190,7 +198,7 @@ function Price({ hasDiscount, price, currentPrice }) {
       {!hasDiscount && <span>/ gram</span>}
     </StyledPrice>
   );
-}
+});
 
 Price.propTypes = {
   hasDiscount: PropTypes.bool,
@@ -198,7 +206,7 @@ Price.propTypes = {
   currentPrice: PropTypes.number,
 };
 
-function WeightOptions({ revert }) {
+const WeightOptions = memo(({ revert }) => {
   return (
     <StyledWeightOptions revert={revert} className="card-weights">
       <div>
@@ -229,13 +237,13 @@ function WeightOptions({ revert }) {
       </div>
     </StyledWeightOptions>
   );
-}
+});
 
 WeightOptions.propTypes = {
   revert: PropTypes.bool,
 };
 
-function RateStars({ numStars }) {
+const RateStars = memo(({ numStars }) => {
   if (numStars === 5)
     return (
       <svg
@@ -338,7 +346,7 @@ function RateStars({ numStars }) {
         />
       </svg>
     );
-}
+});
 
 RateStars.propTypes = {
   numStars: PropTypes.number,
@@ -356,3 +364,5 @@ Card.RateStars = RateStars;
 Card.Date = Date;
 Card.TitleItem = TitleItem;
 Card.Tag = Tag;
+
+export default Card;

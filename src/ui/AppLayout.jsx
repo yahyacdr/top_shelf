@@ -1,8 +1,11 @@
+/* eslint-disable react/display-name */
+
 import styled from "styled-components";
 import OfferBar from "./OfferBar";
 import { Outlet } from "react-router-dom";
 import MainHeader from "./MainHeader";
 import Footer from "./Footer";
+import { memo } from "react";
 
 const StyledLayout = styled.div`
   width: 100%;
@@ -12,7 +15,7 @@ const StyledLayout = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
-export default function AppLayout() {
+const AppLayout = memo(() => {
   return (
     <StyledLayout>
       <OfferBar />
@@ -21,4 +24,6 @@ export default function AppLayout() {
       <Footer />
     </StyledLayout>
   );
-}
+});
+
+export default AppLayout;

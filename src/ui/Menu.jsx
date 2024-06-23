@@ -1,3 +1,7 @@
+/* eslint-disable react/display-name */
+
+import PropTypes from "prop-types";
+import { memo } from "react";
 import styled, { css } from "styled-components";
 import "swiper/css";
 
@@ -92,14 +96,7 @@ const CardContainer = styled(StyledCardContainer)`
       : css`
           display: grid;
           grid-template-columns: 1fr;
-          grid-template-rows:
-            40% calc((60% / 7))
-            calc((60% / 7) * 1.2)
-            calc((60% / 7) / 1.2)
-            calc((60% / 7) / 1.5)
-            calc(60% / 7)
-            calc(60% / 7)
-            calc((60% / 7) * 1.3);
+          grid-template-rows: 40% repeat(5, auto) 10% auto;
           @media (max-width: 540px) {
             grid-template-rows: 40% 7% 14% 6% 7% 8% 8% 10%;
           }
@@ -129,9 +126,13 @@ const CardContainer = styled(StyledCardContainer)`
   }
 `;
 
-function Menu({ children }) {
+const Menu = memo(({ children }) => {
   return { children };
-}
+});
+
+Menu.propTypes = {
+  children: PropTypes.array,
+};
 
 Menu.ItemCards = ItemCards;
 Menu.CoverCard = CoverCard;

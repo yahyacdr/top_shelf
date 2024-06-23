@@ -1,9 +1,12 @@
+/* eslint-disable react/display-name */
+
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
 import { Link } from "react-router-dom";
 import Menu from "../../ui/Menu";
 import { eduCards } from "../../data/Static/StaticData";
 import Card from "../../ui/Card";
+import { memo } from "react";
 
 const StyledWeedEduSection = styled.section`
   background-color: var(--light-600);
@@ -60,7 +63,7 @@ const ImgCardContainer = styled.div`
     border-radius: inherit;
   }
 `;
-export default function WeedEduSection() {
+const WeedEduSection = memo(() => {
   return (
     <StyledWeedEduSection>
       <Header>
@@ -87,4 +90,6 @@ export default function WeedEduSection() {
       </Menu.ItemCards>
     </StyledWeedEduSection>
   );
-}
+});
+
+export default WeedEduSection;

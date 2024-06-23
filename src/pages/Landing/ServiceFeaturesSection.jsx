@@ -1,8 +1,11 @@
+/* eslint-disable react/display-name */
+
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
 import Menu from "../../ui/Menu";
 import Card from "../../ui/Card";
 import { featureCards2 } from "../../data/Static/StaticData";
+import { memo } from "react";
 
 const StyledServiceFeaturesSection = styled.section`
   h1 {
@@ -45,7 +48,7 @@ const StyledServiceFeaturesSection = styled.section`
   }
 `;
 
-export default function ServiceFeaturesSection() {
+const ServiceFeaturesSection = memo(() => {
   return (
     <StyledServiceFeaturesSection>
       <Heading as="h1">
@@ -77,4 +80,6 @@ export default function ServiceFeaturesSection() {
       </Menu.ItemCards>
     </StyledServiceFeaturesSection>
   );
-}
+});
+
+export default ServiceFeaturesSection;

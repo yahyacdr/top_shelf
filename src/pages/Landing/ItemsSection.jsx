@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -8,6 +10,7 @@ import weedImg1 from "../../data/images/image_13_prev_ui_1.png";
 import vector from "../../data/images/vector.png";
 import Menu from "../../ui/Menu";
 import BuyCardsCarousel from "../../ui/BuyCardsCarousel";
+import { memo } from "react";
 
 const StyledMenuSection = styled.section`
   display: flex;
@@ -84,7 +87,7 @@ const ImgCardContainer = styled.div`
         `}
 `;
 
-export default function ItemsSection() {
+const ItemsSection = memo(() => {
   return (
     <StyledMenuSection>
       <StyledHeaderContainer>
@@ -113,4 +116,6 @@ export default function ItemsSection() {
       </BuyCardsCarousel>
     </StyledMenuSection>
   );
-}
+});
+
+export default ItemsSection;

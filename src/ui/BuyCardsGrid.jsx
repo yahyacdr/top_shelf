@@ -2,8 +2,10 @@ import PropTypes from "prop-types";
 import { buyCards } from "../data/Static/StaticData";
 import BuyCard from "../features/BuyCard/BuyCard";
 import Menu from "./Menu";
+import { memo } from "react";
 
-export default function BuyCardsGrid({ children }) {
+// eslint-disable-next-line react/display-name
+const BuyCardsGrid = memo(({ children }) => {
   return (
     <>
       {children}
@@ -20,8 +22,10 @@ export default function BuyCardsGrid({ children }) {
       </Menu.ItemCards>
     </>
   );
-}
+});
 
 BuyCardsGrid.propTypes = {
   children: PropTypes.array,
 };
+
+export default BuyCardsGrid;

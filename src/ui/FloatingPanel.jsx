@@ -1,3 +1,4 @@
+import { memo } from "react";
 import styled, { css } from "styled-components";
 
 const FloatingPanel = styled.div`
@@ -33,4 +34,6 @@ const FloatingPanel = styled.div`
   }
 `;
 
-export default FloatingPanel;
+const MemoizedFloatingPanel = memo(FloatingPanel);
+
+export default MemoizedFloatingPanel;

@@ -1,7 +1,10 @@
+/* eslint-disable react/display-name */
+
 import styled from "styled-components";
 import Navbar from "./Navbar";
 import PromoBanner from "../pages/Landing/PromoBanner";
 import { useLocation } from "react-router-dom";
+import { memo } from "react";
 
 const StyledHeader = styled.header`
   display: flex;
@@ -11,7 +14,7 @@ const StyledHeader = styled.header`
   width: 100%;
 `;
 
-export default function MainHeader() {
+const MainHeader = memo(() => {
   const location = useLocation();
   return (
     <StyledHeader>
@@ -19,4 +22,6 @@ export default function MainHeader() {
       {location.pathname === "/" && <PromoBanner />}
     </StyledHeader>
   );
-}
+});
+
+export default MainHeader;

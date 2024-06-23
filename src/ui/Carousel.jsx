@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
@@ -10,6 +11,8 @@ import { Pagination, Navigation, HashNavigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { memo } from "react";
+import useWindowSize from "../hooks/useWindowSize";
 
 const NavBtn = styled.button`
   position: absolute;
@@ -49,78 +52,81 @@ const NavBtn = styled.button`
     `};
 `;
 
-function Carousel({
-  children,
-  nextBtnClass,
-  prevBtnClass,
-  refEl,
-  slides_per_view = false,
-  hasDots = false,
-}) {
-  return (
-    <Swiper
-      loop={true}
-      navigation={{ nextEl: "." + nextBtnClass, prevEl: "." + prevBtnClass }}
-      ref={refEl}
-      breakpoints={{
-        0: {
-          spaceBetween: 24,
-          slidesPerView: slides_per_view || 1.4,
-          centeredSlides: true,
-          centerInsufficientSlides: true,
-          centeredSlidesBounds: true,
-        },
-        640: {
-          spaceBetween: 24,
-          slidesPerView: slides_per_view || 1.5,
-        },
-        720: {
-          spaceBetween: 24,
-          slidesPerView: slides_per_view || 2,
-        },
-        920: {
-          spaceBetween: 24,
-          slidesPerView: slides_per_view["920"] || 1,
-        },
-        1080: {
-          spaceBetween: 32,
-          slidesPerView: slides_per_view || 1.8,
-        },
-        1200: {
-          spaceBetween: 32,
-          slidesPerView: slides_per_view || 2,
-        },
-        1366: {
-          spaceBetween: 32,
-          slidesPerView: slides_per_view || 2.5,
-        },
-        1440: {
-          spaceBetween: 32,
-          slidesPerView: slides_per_view || 2.8,
-        },
-      }}
-      pagination={{
-        clickable: hasDots,
-      }}
-      hashNavigation={{
-        watchState: hasDots,
-      }}
-      modules={hasDots && [Pagination, Navigation, HashNavigation]}
-    >
-      {children}
-      <CarouselBtnNext carouselEl={refEl}>
-        <div>
-          <IoIosArrowForward />
-        </div>
-      </CarouselBtnNext>
-      <CarouselBtnPrev carouselEl={refEl} hasDots={hasDots}>
-        <div>
-          <IoIosArrowBack />
-        </div>
-      </CarouselBtnPrev>
-    </Swiper>
-  );
-}
+const Carousel = memo(
+  ({
+    children,
+    nextBtnClass,
+    prevBtnClass,
+    refEl,
+    slides_per_view = false,
+    hasDots = false,
+  }) => {
+    useWindowSize(0);
+    return (
+      <Swiper
+        loop={true}
+        navigation={{ nextEl: "." + nextBtnClass, prevEl: "." + prevBtnClass }}
+        ref={refEl}
+        breakpoints={{
+          0: {
+            spaceBetween: 24,
+            slidesPerView: slides_per_view ? slides_per_view["0"] : 1.4,
+            centeredSlides: true,
+            centerInsufficientSlides: true,
+            centeredSlidesBounds: true,
+          },
+          640: {
+            spaceBetween: 24,
+            slidesPerView: slides_per_view ? slides_per_view["640"] : 1.5,
+          },
+          720: {
+            spaceBetween: 24,
+            slidesPerView: 2,
+          },
+          920: {
+            spaceBetween: 24,
+            slidesPerView: slides_per_view ? slides_per_view["920"] : 1,
+          },
+          1080: {
+            spaceBetween: 32,
+            slidesPerView: slides_per_view ? slides_per_view["1080"] : 1.8,
+          },
+          1200: {
+            spaceBetween: 32,
+            slidesPerView: slides_per_view ? slides_per_view["1200"] : 2,
+          },
+          1366: {
+            spaceBetween: 32,
+            slidesPerView: slides_per_view ? slides_per_view["1366"] : 2.5,
+          },
+          1440: {
+            spaceBetween: 32,
+            slidesPerView: slides_per_view ? slides_per_view["1440"] : 2.8,
+          },
+        }}
+        pagination={{
+          clickable: hasDots,
+        }}
+        hashNavigation={{
+          watchState: hasDots,
+        }}
+        modules={hasDots && [Pagination, Navigation, HashNavigation]}
+      >
+        {children}
+        <CarouselBtnNext carouselEl={refEl}>
+          <div>
+            <IoIosArrowForward />
+          </div>
+        </CarouselBtnNext>
+        <CarouselBtnPrev carouselEl={refEl} hasDots={hasDots}>
+          <div>
+            <IoIosArrowBack />
+          </div>
+        </CarouselBtnPrev>
+      </Swiper>
+    );
+  }
+);
 
 Carousel.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element),
@@ -128,11 +134,11 @@ Carousel.propTypes = {
   prevBtnClass: PropTypes.string,
 };
 
-export function CarouselCard({ children }) {
+const CarouselCard = memo(({ children }) => {
   return <SwiperSlide>{children}</SwiperSlide>;
-}
+});
 
-export function CarouselBtnNext({ children, carouselEl }) {
+const CarouselBtnNext = memo(({ children, carouselEl }) => {
   return (
     <NavBtn
       className={`btn-next nav-btn`}
@@ -141,13 +147,13 @@ export function CarouselBtnNext({ children, carouselEl }) {
       {children}
     </NavBtn>
   );
-}
+});
 
 CarouselBtnNext.propTypes = {
   children: PropTypes.element,
 };
 
-export function CarouselBtnPrev({ children, carouselEl, hasDots }) {
+const CarouselBtnPrev = memo(({ children, carouselEl, hasDots }) => {
   return (
     <NavBtn
       className={`btn-prev nav-btn`}
@@ -160,10 +166,12 @@ export function CarouselBtnPrev({ children, carouselEl, hasDots }) {
       {children}
     </NavBtn>
   );
-}
+});
 
 CarouselBtnPrev.propTypes = {
   children: PropTypes.element,
 };
+
+export { CarouselCard, CarouselBtnNext, CarouselBtnPrev };
 
 export default Carousel;

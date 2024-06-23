@@ -1,9 +1,11 @@
+/* eslint-disable react/display-name */
+
 import styled from "styled-components";
 import Logo from "../ui/Logo";
 import Btn from "./Btn";
 import SearchBar from "../ui/SearchBar";
 import PagesNavBar from "./PagesNavBar";
-import { useRef, useState } from "react";
+import { memo, useRef, useState } from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
 import humbergerMenu from "../assets/humberger-menu-animation-1.json";
 import CurtainPagesNavbar from "./CurtainPagesNavbar";
@@ -143,7 +145,7 @@ const StyledBurgerIcon = styled.div`
   }
 `;
 
-export default function Navbar() {
+const Navbar = memo(() => {
   const isTabletView = useWindowSize(640);
   const [menuOpen, setIsMenuOpen] = useState(false);
 
@@ -159,9 +161,9 @@ export default function Navbar() {
       </StyledNav>
     </>
   );
-}
+});
 
-function GlobalNav({ mobileSize, menuOpen, setIsMenuOpen }) {
+const GlobalNav = memo(({ mobileSize, menuOpen, setIsMenuOpen }) => {
   return (
     <div>
       <StyledGlobalNav>
@@ -234,9 +236,9 @@ function GlobalNav({ mobileSize, menuOpen, setIsMenuOpen }) {
       {!mobileSize && menuOpen && <CurtainPagesNavbar open={menuOpen} />}
     </div>
   );
-}
+});
 
-function BurgerIcon({ menuOpen, setIsMenuOpen }) {
+const BurgerIcon = memo(({ menuOpen, setIsMenuOpen }) => {
   const menuPlayer = useRef();
 
   function handleMenuAnimation() {
@@ -264,4 +266,6 @@ function BurgerIcon({ menuOpen, setIsMenuOpen }) {
       />
     </StyledBurgerIcon>
   );
-}
+});
+
+export default Navbar;

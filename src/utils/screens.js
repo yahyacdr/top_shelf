@@ -22,6 +22,15 @@ const screens = {
     xxl: "1180px",
     xxxl: "1280px",
   },
+  desktop: {
+    xxs: "1366px",
+    xs: "1440px",
+    s: "1520px",
+    m: "1600px",
+    xm: "1920px",
+    xxm: "2560px",
+    l: "3550px",
+  },
 };
 
 export default screens;

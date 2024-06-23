@@ -13,6 +13,7 @@ import PanelBuyCardCarousel from "./PanelBuyCardCarousel";
 import conicBg from "../../data/images/conic-bg.png";
 import linearBg from "../../data/images/linear-bg-low-opacity.png";
 import SideFilterSection from "./SideFilterSection";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const CardsContainer = styled.section`
   grid-area: section1;
@@ -34,8 +35,16 @@ const CardsContainer = styled.section`
   }
   @media (min-width: ${screens.tablet.xxs}) {
     h3 {
+      font-size: var(--font-size-medium-33);
+      font-weight: 600;
       max-width: none;
       margin-bottom: 0;
+    }
+  }
+  @media (min-width: ${screens.tablet.xxm}) {
+    padding-inline: 64px;
+    h3 {
+      font-size: var(--font-size-medium-100);
     }
   }
 `;
@@ -67,7 +76,6 @@ const StyledImgContainer = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  width: 100px;
   aspect-ratio: 1/1;
   img {
     width: 60%;
@@ -82,6 +90,13 @@ const StyledImgContainer = styled.div`
   @media (min-width: ${screens.tablet.xxs}) {
     margin-bottom: 0;
     margin-right: 16px;
+  }
+
+  @media (min-width: ${screens.tablet.xxm}) {
+    width: 48px;
+    img {
+      width: 26px;
+    }
   }
 `;
 
@@ -98,6 +113,21 @@ const TopSellingSection = styled.section`
     justify-content: space-between;
     color: var(--dark-900);
     margin: 24px 0;
+  }
+
+  .cards-container {
+    > div {
+      min-height: 283px;
+      max-width: 304px;
+      @media (min-width: ${screens.tablet.xxs}) {
+        h4 {
+          font-size: var(--font-size-medium-66);
+        }
+      }
+      @media (min-width: ${screens.desktop.s}) {
+        max-width: unset;
+      }
+    }
   }
 
   .items-cards {
@@ -140,16 +170,31 @@ const ItemsGridSection = styled.section`
     gap: 24px;
     > div {
       width: 45%;
+      max-width: 304px;
       height: 491px;
       @media (max-width: ${screens.mobile.m}) {
         width: 80%;
       }
       @media (min-width: ${screens.tablet.xxs}) {
         height: 591px;
+        h4 {
+          font-size: var(--font-size-medium-66);
+        }
+      }
+      @media (min-width: ${screens.tablet.s}) {
+        width: calc((100% / 3) - 16px);
+      }
+      @media (min-width: ${screens.tablet.xxm}) {
+        /* max-width: calc((100% / 2) - 24px); */
       }
     }
+
     @media (min-width: ${screens.mobile.xm}) {
       justify-content: flex-start;
+    }
+    @media (min-width: ${screens.tablet.xxm}) {
+      justify-content: space-between;
+      column-gap: unset;
     }
   }
 `;
@@ -216,14 +261,6 @@ const PanelCardSection = styled.section`
       justify-content: flex-start;
     }
 
-    @media (min-width: ${screens.tablet.xxs}) {
-      .card-img-container {
-        & img {
-          width: 30%;
-        }
-      }
-    }
-
     @media (min-width: ${screens.tablet.xs}) {
       grid-template-columns: 49% 49%;
       grid-template-rows: 10% 44% 12% 14% 20%;
@@ -256,9 +293,6 @@ const PanelCardSection = styled.section`
       }
       .card-img-container {
         grid-area: img;
-        & img {
-          width: 50%;
-        }
       }
     }
   }
@@ -283,6 +317,9 @@ const PanelCardSection = styled.section`
     padding: 56px 24px;
     height: 460px;
   }
+  @media (min-width: ${screens.tablet.xxxl}) {
+    padding: 56px;
+  }
 `;
 
 const LinearBg = styled.div`
@@ -299,6 +336,8 @@ const LinearBg = styled.div`
 `;
 
 export default function Categories() {
+  const isDesktopView = useWindowSize(962);
+
   return (
     <Main className="main-cat">
       <CardsContainer>
@@ -326,7 +365,18 @@ export default function Categories() {
       <DescSection />
       <TopSellingSection>
         <Heading as="h3">top selling</Heading>
-        <BuyCardsCarousel bgRevert={true} slides_per_view={{ 920: 2 }} />
+        <BuyCardsCarousel
+          bgRevert={true}
+          slides_per_view={{
+            0: 1,
+            640: 2,
+            920: 3,
+            1080: 2,
+            1200: 2.5,
+            1366: 3,
+            1440: 3,
+          }}
+        />
       </TopSellingSection>
       <ItemsGridSection className="grid-section1">
         <BuyCardsGrid />
@@ -338,7 +388,7 @@ export default function Categories() {
       <ItemsGridSection className="grid-section2">
         <BuyCardsGrid />
       </ItemsGridSection>
-      <SideFilterSection />
+      {isDesktopView && <SideFilterSection />}
     </Main>
   );
 }

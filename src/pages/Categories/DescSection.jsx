@@ -1,6 +1,9 @@
+/* eslint-disable react/display-name */
+
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
 import screens from "../../utils/screens";
+import { memo } from "react";
 
 const StyledDescContainer = styled.section`
   grid-area: section3;
@@ -24,7 +27,7 @@ const StyledDescContainer = styled.section`
   }
 `;
 
-export default function DescSection() {
+const DescSection = memo(() => {
   return (
     <StyledDescContainer>
       <Heading as="h4">cannabis</Heading>
@@ -42,4 +45,6 @@ export default function DescSection() {
       </p>
     </StyledDescContainer>
   );
-}
+});
+
+export default DescSection;

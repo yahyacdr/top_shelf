@@ -1,8 +1,11 @@
+/* eslint-disable react/display-name */
+
 import styled from "styled-components";
 import Menu from "../../ui/Menu";
 import { weedTypes } from "../../data/Static/StaticData";
 import Card from "../../ui/Card";
 import { Link } from "react-router-dom";
+import { memo } from "react";
 
 const StyledWeedTypesSection = styled.section`
   margin-top: 120px;
@@ -62,7 +65,7 @@ const ImgCardContainer = styled.div`
   }
 `;
 
-export default function WeedTypesSection() {
+const WeedTypesSection = memo(() => {
   return (
     <StyledWeedTypesSection>
       <Menu.ItemCards distribution="grid">
@@ -89,4 +92,6 @@ export default function WeedTypesSection() {
       </Menu.ItemCards>
     </StyledWeedTypesSection>
   );
-}
+});
+
+export default WeedTypesSection;

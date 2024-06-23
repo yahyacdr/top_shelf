@@ -1,8 +1,11 @@
+/* eslint-disable react/display-name */
+
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../data/images/Logo.png";
 import logoInvert from "../data/images/Logo_invert.png";
+import { memo } from "react";
 
 const StyledLogo = styled.div`
   display: flex;
@@ -21,7 +24,7 @@ const Img = styled.img`
   height: 100%;
 `;
 
-export default function Logo({ type }) {
+const Logo = memo(({ type }) => {
   const img = type === "regular" ? logo : logoInvert;
   return (
     <StyledLogo>
@@ -30,8 +33,10 @@ export default function Logo({ type }) {
       </Link>
     </StyledLogo>
   );
-}
+});
 
 Logo.propTypes = {
   type: PropTypes.string,
 };
+
+export default Logo;

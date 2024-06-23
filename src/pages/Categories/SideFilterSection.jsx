@@ -1,7 +1,13 @@
+/* eslint-disable react/display-name */
+
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
 import Divider from "../../ui/Divider";
 import Filter from "../../ui/Filter";
+import PostContext from "../../utils/context";
+import { memo, useContext, useState } from "react";
+import { formatCurrencyWithCommas } from "../../utils/helper";
+import Btn from "../../ui/Btn";
 
 const filters = [
   {
@@ -78,6 +84,54 @@ const filters = [
   },
 ];
 
+const orders = [
+  {
+    id: 1,
+    name: "Default",
+    checked: false,
+  },
+  {
+    id: 2,
+    name: "Review Count",
+    checked: true,
+  },
+  {
+    id: 3,
+    name: "Popularity",
+    checked: false,
+  },
+  {
+    id: 4,
+    name: "Average Rating",
+    checked: false,
+  },
+  {
+    id: 5,
+    name: "Newness",
+    checked: false,
+  },
+  {
+    id: 6,
+    name: "Price: Low to High",
+    checked: false,
+  },
+  {
+    id: 7,
+    name: "Price: High to Low",
+    checked: false,
+  },
+  {
+    id: 8,
+    name: "Random Products",
+    checked: false,
+  },
+  {
+    id: 9,
+    name: "Product Name: A to Z",
+    checked: false,
+  },
+];
+
 const StyledSection = styled.section`
   grid-area: filter;
   padding: 16px;
@@ -90,8 +144,25 @@ const StyledSection = styled.section`
   > span {
     margin-bottom: 20px;
   }
+  > button {
+    background-color: #f3fbf4;
+    color: var(--green-200);
+    border: none;
+    font-size: var(--font-size-small-100);
+    font-weight: 400;
+    padding: 10px 32px;
+    &:hover {
+      border: none;
+      background-color: #f3fbf4;
+      color: var(--green-200);
+      outline: none;
+    }
+  }
 `;
 const StyledFilterContainer = styled.div`
+  margin-bottom: 40px;
+  max-width: 272px;
+
   > p {
     color: var(--dark-300);
     font-size: var(--font-size-small-50);
@@ -99,34 +170,110 @@ const StyledFilterContainer = styled.div`
     text-transform: uppercase;
     margin-bottom: 20px;
   }
+  > button {
+    font-size: var(--font-size-small-100);
+    font-weight: 300;
+    padding: 10px 32px;
+    margin-top: 16px;
+  }
 `;
 
-export default function SideFilterSection() {
+const ValueLabel = styled.span`
+  padding: 5px 10px;
+  color: var(--dark-900);
+  border-radius: 100px;
+  background-color: var(--light-600);
+  font-size: var(--font-size-small-50);
+`;
+
+const ValueLabels = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const SideFilterSection = memo(() => {
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(50000);
+
   return (
-    <StyledSection>
-      <Heading as="h4">filters</Heading>
-      <Divider width="100%" color="var(--light-600)" />
-      <StyledFilterContainer>
-        <p>product category</p>
-        <Filter direction="vertical">
-          {filters.map((filter) => (
-            <Filter.Radio
-              content={filter.name}
-              name="categoryOption"
-              id={`catOption${filter.id}`}
-              quantity={filter.quantity}
-              checked={filter.checked}
-              key={filter.id}
-            />
-          ))}
-        </Filter>
-      </StyledFilterContainer>
-      <StyledFilterContainer>
-        <p>order by</p>
-        <Filter direction={"vertical"}>
-          <Filter.Range min={0} max={100} />
-        </Filter>
-      </StyledFilterContainer>
-    </StyledSection>
+    <PostContext.Provider
+      value={{
+        minValue,
+        maxValue,
+        setMaxValue,
+        setMinValue,
+      }}
+    >
+      <StyledSection>
+        <Heading as="h4">filters</Heading>
+        <Divider width="100%" color="var(--light-600)" />
+        <StyledFilterContainer>
+          <p>product category</p>
+          <Filter direction="vertical">
+            {filters.map((filter) => (
+              <Filter.Radio
+                content={filter.name}
+                name="categoryOption"
+                id={`catOption${filter.id}`}
+                quantity={filter.quantity}
+                checked={filter.checked}
+                key={filter.id}
+              />
+            ))}
+          </Filter>
+        </StyledFilterContainer>
+        <StyledFilterContainer>
+          <p>filter by price</p>
+          <ValueLabels>
+            <MinValueLabel />
+            <MaxValueLabel />
+          </ValueLabels>
+          <Filter direction={"vertical"}>
+            <Filter.MultiRange />
+          </Filter>
+          <Btn variation="primary" size="medium" shape="pill">
+            Apply
+          </Btn>
+        </StyledFilterContainer>
+        <StyledFilterContainer>
+          <p>order by</p>
+          <Filter direction="vertical">
+            {orders.map((order) => (
+              <Filter.Radio
+                content={order.name}
+                name="orderOption"
+                id={`orderOption${order.id}`}
+                checked={order.checked}
+                key={order.id}
+              />
+            ))}
+          </Filter>
+        </StyledFilterContainer>
+        <StyledFilterContainer>
+          <p>filter by reviews</p>
+          <Filter direction="vertical">
+            {[5, 4, 3, 2, 1].map((i) => (
+              <Filter.Check starsNum={i} key={i} />
+            ))}
+          </Filter>
+        </StyledFilterContainer>
+        <Btn variation="secondary" size="medium" shape="pill">
+          Clear Filters
+        </Btn>
+      </StyledSection>
+    </PostContext.Provider>
   );
-}
+});
+
+const MinValueLabel = memo(() => {
+  const { minValue } = useContext(PostContext);
+  return <ValueLabel>{formatCurrencyWithCommas(minValue)}</ValueLabel>;
+});
+
+const MaxValueLabel = memo(() => {
+  const { maxValue } = useContext(PostContext);
+  return <ValueLabel>{formatCurrencyWithCommas(maxValue)}</ValueLabel>;
+});
+
+export default SideFilterSection;

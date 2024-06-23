@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
 import Btn from "../../ui/Btn";
@@ -5,6 +7,7 @@ import bgImgDesktop from "../../data/images/MainHeaderBackgroundDesktop.png";
 import bgImgMobile from "../../data/images/MainHeaderBackgroundMobile.png";
 import useWindowSize from "../../hooks/useWindowSize";
 import screens from "../../utils/screens";
+import { memo } from "react";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -99,7 +102,7 @@ const StyledLeftSideContainer = styled.div`
   }
 `;
 
-export default function PromoBanner() {
+const PromoBanner = memo(() => {
   const isTableView = useWindowSize(540);
 
   return (
@@ -126,4 +129,6 @@ export default function PromoBanner() {
       </StyledLeftSideContainer>
     </StyledContainer>
   );
-}
+});
+
+export default PromoBanner;

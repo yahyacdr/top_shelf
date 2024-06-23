@@ -1,5 +1,8 @@
+/* eslint-disable react/display-name */
+
 import styled, { css, keyframes } from "styled-components";
 import Btn from "./Btn";
+import { memo } from "react";
 
 const PagesNames = [
   "Shop All",
@@ -57,7 +60,7 @@ const StyledContainer = styled.div`
         `};
 `;
 
-export default function CurtainPagesNavbar() {
+const CurtainPagesNavbar = memo(() => {
   return (
     <StyledContainer>
       {PagesNames.map((pn) => (
@@ -75,4 +78,6 @@ export default function CurtainPagesNavbar() {
       ))}
     </StyledContainer>
   );
-}
+});
+
+export default CurtainPagesNavbar;

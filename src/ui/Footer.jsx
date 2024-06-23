@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+
 import styled from "styled-components";
 import FloatingPanel from "./FloatingPanel";
 import Heading from "./Heading";
@@ -9,11 +11,12 @@ import visa from "../data/images/visa.svg";
 import bitcoin from "../data/images/bitcoin.svg";
 import interac from "../data/images/interac.svg";
 import screens from "../utils/screens";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 const StyledFooter = styled.footer`
   background: linear-gradient(0deg, var(--dark-900) 0%, #01100b 100%);
   position: relative;
+  width: 100%;
   .offer-floating-panel {
     padding: 64px;
     > div {
@@ -198,7 +201,7 @@ const BottomLinks = styled.div`
   }
 `;
 
-export default function Footer() {
+const Footer = memo(() => {
   return (
     <StyledFooter>
       <OfferFloatingPanel />
@@ -273,9 +276,9 @@ export default function Footer() {
       </BottomLinks>
     </StyledFooter>
   );
-}
+});
 
-function OfferFloatingPanel() {
+const OfferFloatingPanel = memo(() => {
   const [isSizeXS, setIsSizeXS] = useState(window.innerWidth <= 360);
 
   useEffect(() => {
@@ -307,4 +310,6 @@ function OfferFloatingPanel() {
       </div>
     </FloatingPanel>
   );
-}
+});
+
+export default Footer;

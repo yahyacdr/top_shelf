@@ -1,7 +1,10 @@
+/* eslint-disable react/display-name */
+
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
 import Filter from "../../ui/Filter";
 import BuyCardsGrid from "../../ui/BuyCardsGrid";
+import { memo } from "react";
 
 const StyledItemsGridSection = styled.section`
   & h1 {
@@ -51,7 +54,7 @@ const FilterSection = styled.div`
   }
 `;
 
-export default function ItemsGridSection() {
+const ItemsGridSection = memo(() => {
   return (
     <StyledItemsGridSection>
       <BuyCardsGrid>
@@ -69,4 +72,6 @@ export default function ItemsGridSection() {
       </BuyCardsGrid>
     </StyledItemsGridSection>
   );
-}
+});
+
+export default ItemsGridSection;

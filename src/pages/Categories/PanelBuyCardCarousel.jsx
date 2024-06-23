@@ -1,11 +1,13 @@
+/* eslint-disable react/display-name */
+
 import { SwiperSlide } from "swiper/react";
 import { buyCards } from "../../data/Static/StaticData";
 import Carousel from "../../ui/Carousel";
 import Menu from "../../ui/Menu";
 import { PanelBuyCard } from "../../features/BuyCard/BuyCard";
-import { useRef } from "react";
+import { memo, useRef } from "react";
 
-export default function PanelBuyCardCarousel() {
+const PanelBuyCardCarousel = memo(() => {
   const carouselEl = useRef();
 
   return (
@@ -13,8 +15,16 @@ export default function PanelBuyCardCarousel() {
       <Carousel
         nextBtnClass="btn-next"
         refEl={carouselEl}
-        slides_per_view={1}
         hasDots={true}
+        slides_per_view={{
+          0: 1,
+          640: 1,
+          920: 1,
+          1080: 1,
+          1200: 1,
+          1366: 1,
+          1440: 1,
+        }}
       >
         {buyCards.map((bc, i) => (
           <SwiperSlide key={bc.id} data-hash={`slide${i + 1}`}>
@@ -26,4 +36,6 @@ export default function PanelBuyCardCarousel() {
       </Carousel>
     </Menu.ItemCards>
   );
-}
+});
+
+export default PanelBuyCardCarousel;

@@ -1,5 +1,8 @@
+/* eslint-disable react/display-name */
+
 import styled from "styled-components";
 import Btn from "./Btn";
+import { memo } from "react";
 
 const PagesNames = [
   "Shop All",
@@ -23,7 +26,7 @@ const StyledContainer = styled.div`
   padding-inline: 32px;
 `;
 
-export default function PagesNavBar() {
+const PagesNavBar = memo(() => {
   return (
     <StyledContainer>
       {PagesNames.map((pn) => (
@@ -41,4 +44,6 @@ export default function PagesNavBar() {
       ))}
     </StyledContainer>
   );
-}
+});
+
+export default PagesNavBar;

@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+
 import styled from "styled-components";
 import "swiper/css";
 
@@ -8,7 +10,7 @@ import Menu from "../../ui/Menu";
 import Divider from "../../ui/Divider";
 import Carousel from "../../ui/Carousel";
 import { SwiperSlide } from "swiper/react";
-import { useRef } from "react";
+import { memo, useRef } from "react";
 
 const StyledMenuSection = styled.section`
   display: flex;
@@ -160,7 +162,7 @@ Menu.CoverCard = styled(Menu.CoverCard)`
   }
 `;
 
-export default function ItemsSection() {
+const ItemsSection = memo(() => {
   const carouselEl = useRef();
 
   return (
@@ -313,4 +315,6 @@ export default function ItemsSection() {
       </Menu.ItemCards>
     </StyledMenuSection>
   );
-}
+});
+
+export default ItemsSection;

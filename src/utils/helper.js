@@ -1,16 +1,21 @@
-export function formatCurrency(currency) {
+/* eslint-disable react/display-name */
+import { memo } from "react";
+
+const formatCurrency = memo((currency) => {
   const fixed = Math.floor(currency);
   const float =
     currency % 1 >= 0 && currency % 1 < 10
       ? "0" + (currency % 1)
       : currency % 1;
   return `$${fixed}.${float}`;
-}
+});
 
-export function formatCurrencyWithCommas(currency) {
+const formatCurrencyWithCommas = memo((currency) => {
   return formatCurrency(currency).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
+});
 
-export function formattPercent(percent) {
+const formattPercent = memo((percent) => {
   return `${percent}%`;
-}
+});
+
+export { formatCurrency, formatCurrencyWithCommas, formattPercent };

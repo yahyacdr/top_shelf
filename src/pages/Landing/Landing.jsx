@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+
 import Main from "../../ui/Main.jsx";
 import styled from "styled-components";
 import { featureCards } from "../../data/Static/StaticData.js";
@@ -11,6 +13,7 @@ import RecentlyAddedSection from "../../ui/RecentlyAddedSection.jsx";
 import WeedTypesSection from "./WeedTypesSection.jsx";
 import WeedEduSection from "./WeedEduSection.jsx";
 import screens from "../../utils/screens.js";
+import { memo } from "react";
 
 const CardsContainer = styled.section`
   background-color: var(--light-400);
@@ -46,7 +49,7 @@ const StyledImgContainer = styled.div`
   }
 `;
 
-export default function Landing() {
+const Landing = memo(() => {
   return (
     <>
       <Main className="main-landing">
@@ -78,4 +81,6 @@ export default function Landing() {
       </Main>
     </>
   );
-}
+});
+
+export default Landing;

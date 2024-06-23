@@ -5,12 +5,10 @@ import { SwiperSlide } from "swiper/react";
 import Carousel from "./Carousel";
 import BuyCard from "../features/BuyCard/BuyCard";
 import PropTypes from "prop-types";
+import { memo } from "react";
 
-export default function BuyCardsCarousel({
-  children,
-  bgRevert,
-  slides_per_view,
-}) {
+// eslint-disable-next-line react/display-name
+const BuyCardsCarousel = memo(({ children, bgRevert, slides_per_view }) => {
   const carouselEl = useRef();
 
   return (
@@ -31,10 +29,12 @@ export default function BuyCardsCarousel({
       </Carousel>
     </Menu.ItemCards>
   );
-}
+});
 
 BuyCardsCarousel.propTypes = {
   children: PropTypes.element,
   bgRevert: PropTypes.bool,
   slides_per_view: PropTypes.object,
 };
+
+export default BuyCardsCarousel;
