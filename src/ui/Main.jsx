@@ -11,6 +11,13 @@ const StyleMain = styled.main`
   align-items: flex-start;
   justify-content: space-between;
   width: 100%;
+  overflow: hidden;
+
+  &.prod-main {
+    > section:last-child {
+      /* margin-bottom: 500px; */
+    }
+  }
 
   &.main-cat {
     padding-right: 32px;

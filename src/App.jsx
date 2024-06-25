@@ -4,6 +4,7 @@ import Landing from "./pages/Landing/Landing";
 import AppLayout from "./ui/AppLayout";
 import PublicStyles from "./styles/PublicStyles";
 import Categories from "./pages/Categories/Categories";
+import Product from "./pages/ProductPage/Product";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: "/category",
         element: <Categories />,
+      },
+      {
+        path: "/product",
+        element: <Product />,
       },
     ],
   },

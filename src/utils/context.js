@@ -1,5 +1,6 @@
 import { createContext } from "react";
 
 const PostContext = createContext();
+const CounterContext = createContext();
 
-export default PostContext;
+export { PostContext, CounterContext };

@@ -6,7 +6,7 @@ import Btn from "./Btn";
 import Divider from "./Divider";
 import { memo, useContext } from "react";
 import MultiRangeSlider from "multi-range-slider-react";
-import PostContext from "../utils/context";
+import { PostContext } from "../utils/context";
 import checkMark from "../data/images/check-mark.png";
 
 const StyledFilter = styled.div`
@@ -136,33 +136,31 @@ const Stars = styled.div`
 const CheckInput = styled.input`
   position: relative;
   border-radius: 6px;
+  width: 16px;
+  aspect-ratio: 1/1;
   cursor: pointer;
+  &::after,
   &::before {
-    display: block;
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: -2px;
+    left: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    border-radius: 6px;
+  }
+  &::before {
+    display: block;
     background-color: var(--light-300);
-    border-radius: inherit;
     border: 1px solid var(--light-600);
   }
   &::after {
     display: none;
-    content: "";
     background-image: url(${checkMark});
-    background-size: cover;
+    background-size: 16px 16px;
     background-position: center;
     background-repeat: no-repeat;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     background-color: var(--green-200);
-    border-radius: inherit;
   }
   &:checked::after {
     display: block;
@@ -242,13 +240,11 @@ const MultiRange = memo(() => {
   );
 });
 
-const Check = memo(({ id, name, handleChange, starsNum }) => {
+const Check = memo(({ id, name, handleChange, label }) => {
   return (
     <Checkbox>
       <CheckInput type="checkbox" id={id} name={name} onChange={handleChange} />
-      <label htmlFor={id}>
-        <StarReview starsNum={starsNum} />
-      </label>
+      <label htmlFor={id}>{label}</label>
     </Checkbox>
   );
 });
@@ -302,9 +298,10 @@ Check.propTypes = {
   name: PropTypes.string,
   handleChange: PropTypes.func,
   starsNum: PropTypes.number,
+  label: PropTypes.any,
 };
 
-const returnStars = memo((num = 1) => {
+function returnStars(num = 1) {
   const filledStars = Array(num).fill(
     <svg
       width="14"
@@ -342,7 +339,7 @@ const returnStars = memo((num = 1) => {
   );
 
   return [...filledStars, ...emptyStars];
-});
+}
 
 Filter.SelectBox = SelectBox;
 Filter.Option = Option;
@@ -350,5 +347,6 @@ Filter.Pill = Pill;
 Filter.Radio = Radio;
 Filter.MultiRange = MultiRange;
 Filter.Check = Check;
+Filter.StarReview = StarReview;
 
 export default Filter;

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Heading from "../../ui/Heading";
 import Divider from "../../ui/Divider";
 import Filter from "../../ui/Filter";
-import PostContext from "../../utils/context";
+import { PostContext } from "../../utils/context";
 import { memo, useContext, useState } from "react";
 import { formatCurrencyWithCommas } from "../../utils/helper";
 import Btn from "../../ui/Btn";
@@ -254,7 +254,10 @@ const SideFilterSection = memo(() => {
           <p>filter by reviews</p>
           <Filter direction="vertical">
             {[5, 4, 3, 2, 1].map((i) => (
-              <Filter.Check starsNum={i} key={i} />
+              <Filter.Check
+                key={i}
+                label={<Filter.StarReview starsNum={i} />}
+              />
             ))}
           </Filter>
         </StyledFilterContainer>
