@@ -142,7 +142,7 @@ const BtnPrice = styled.div`
   }
 `;
 
-export default function BuyCard({ bc, bgRevert }) {
+export default function BuyCard({ bc, bgRevert, handleClick }) {
   return (
     <>
       <ImgCardContainer
@@ -194,6 +194,7 @@ export default function BuyCard({ bc, bgRevert }) {
           shape="pill"
           color="--light-300"
           disabled={!bc.quantity}
+          onClick={handleClick}
         >
           Add to Cart
         </Btn>
@@ -202,7 +203,7 @@ export default function BuyCard({ bc, bgRevert }) {
   );
 }
 
-export function PanelBuyCard({ bc }) {
+export function PanelBuyCard({ bc, handleClick }) {
   return (
     <>
       <Card.ItemType className="card-item-type">{bc.type}</Card.ItemType>
@@ -216,6 +217,7 @@ export function PanelBuyCard({ bc }) {
           shape="pill"
           color="--light-300"
           disabled={!bc.quantity}
+          onClick={handleClick}
         >
           Add to Cart
         </Btn>
@@ -245,8 +247,10 @@ export function PanelBuyCard({ bc }) {
 BuyCard.propTypes = {
   bc: PropTypes.object,
   bgRevert: PropTypes.bool,
+  handleClick: PropTypes.func,
 };
 
 PanelBuyCard.propTypes = {
   bc: PropTypes.object,
+  handleClick: PropTypes.func,
 };

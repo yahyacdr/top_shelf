@@ -6,6 +6,9 @@ import PublicStyles from "./styles/PublicStyles";
 import Categories from "./pages/Categories/Categories";
 import Product from "./pages/ProductPage/Product";
 
+import store from "./store";
+import { Provider } from "react-redux";
+
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -28,10 +31,10 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <RouterProvider router={router} />
       <PublicStyles />
-    </>
+    </Provider>
   );
 }
 

@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import Main from "../../ui/Main";
 import ImagePreview from "./ImagePreview";
 import styled from "styled-components";
@@ -8,6 +8,8 @@ import CardDetails from "./CardDetails";
 import { buyCards } from "../../data/Static/StaticData";
 import BuyCardsGrid from "../../ui/BuyCardsGrid";
 import Heading from "../../ui/Heading";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../../features/products/productsSlice";
 
 const ProductContainer = styled.section`
   display: flex;
@@ -34,6 +36,12 @@ const ItemsCardsGrid = styled.div`
 `;
 
 const Product = memo(() => {
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.products);
+  console.log(data);
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, []);
   return (
     <Main className="prod-main">
       <ProductContainer>
