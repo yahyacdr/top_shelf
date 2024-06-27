@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import supabase from "../../utils/supabase";
 
 const initialState = {
   items: [],
@@ -47,10 +48,9 @@ const productSlice = createSlice({
 });
 
 export const fetchProducts = createAsyncThunk("fetchProducts", async () => {
-  const res = await fetch("https://fakestoreapi.com/products/categories");
-  const data = await res.json();
-  console.log(data);
-  return data;
+  const { data: Products, error } = await supabase.from("Products").select("*");
+  console.log(Products);
+  return Products;
 });
 
 export const { increase, decrease, setWeight } = productSlice.actions;
