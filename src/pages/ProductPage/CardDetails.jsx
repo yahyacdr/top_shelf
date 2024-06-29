@@ -1,13 +1,16 @@
 /* eslint-disable react/display-name */
-import { memo } from "react";
+import { memo, useState } from "react";
 import Card from "../../ui/Card";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import Btn from "../../ui/Btn";
 import Filter from "../../ui/Filter";
 import { formatCurrency } from "../../utils/helper";
 import Counter from "./Counter";
 import Divider from "../../ui/Divider";
+import useFetchProducts from "../../hooks/useFetchProducts";
+import ContentLoadingAnimation from "../../ui/ContentLoadingAnimation";
+import { useLocation } from "react-router-dom";
+import ReviewsCard from "../../ui/ReviewsCard";
 
 const StyledCardDetails = styled.div`
   display: flex;
@@ -321,39 +324,59 @@ const FilterContent = styled.div`
   margin-top: 8px;
   padding-bottom: 32px;
   border-bottom: 1px solid var(--light-600);
-  p {
+
+  > p {
     font-size: var(--font-size-small-100);
     color: var(--dark-600);
     margin-bottom: 16px;
   }
+  > div {
+    width: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-height: auto;
+    margin-bottom: 20px;
+  }
 `;
 
-const CardDetails = memo(({ bc }) => {
+const CardDetails = memo(() => {
+  const [currentFilter, setCurrentFilter] = useState("Description");
+  const { items, isLoading } = useFetchProducts();
+  const location = useLocation();
+  const currentCard = Number(location.hash[location.hash.length - 1]) - 1;
+
+  function handleFilterClick(content) {
+    setCurrentFilter(content);
+  }
+
+  if (isLoading) return <ContentLoadingAnimation />;
+
   return (
     <StyledCardDetails>
-      <Card.ItemType>{bc.type}</Card.ItemType>
-      <Card.TitleItem color="--dark-900">{bc.title}</Card.TitleItem>
+      <Card.ItemType>{items[currentCard].type}</Card.ItemType>
+      <Card.TitleItem color="--dark-900">
+        {items[currentCard].name}
+      </Card.TitleItem>
       <Labels>
-        {bc.labels &&
-          bc.labels.map((label) => {
-            <Btn
-              size="small"
-              variation="label"
-              shape="button"
-              disabled={true}
-              className="label"
-            >
-              {label}
-            </Btn>;
-          })}
+        {items[currentCard].label && (
+          <Btn
+            size="small"
+            variation="label"
+            shape="button"
+            disabled={true}
+            className="label"
+          >
+            {items[currentCard].label}
+          </Btn>
+        )}
       </Labels>
       <PriceReview>
         <Card.Price
-          hasDiscount={!!bc.discount}
-          price={bc.price}
-          currentPrice={bc.currentPrice}
+          hasDiscount={!!items[currentCard].discount}
+          price={items[currentCard].price}
+          currentPrice={items[currentCard].price - items[currentCard].discount}
         />
-        <Card.Review rate={bc.rate} numRate={bc.numRate} />
+        <Card.Review rate={items[currentCard].rate} numRate={135} />
       </PriceReview>
       <Qualities>
         <Quality>
@@ -553,42 +576,32 @@ const CardDetails = memo(({ bc }) => {
       </ProductMetaData>
       <Divider width="100%" color="var(--light-700)" />
       <Filter className="pill-filter">
-        <Filter.Pill content="Desctription" active={true} />
-        <Filter.Pill content="Reviews (350)" active={false} />
-        <Filter.Pill content="Refer a Friend" active={false} />
+        <Filter.Pill
+          content="Description"
+          active={currentFilter === "Description"}
+          handleFilterClick={handleFilterClick}
+        />
+        <Filter.Pill
+          content="Reviews (350)"
+          active={currentFilter === "Reviews (350)"}
+          handleFilterClick={handleFilterClick}
+        />
+        <Filter.Pill
+          content="Refer a Friend"
+          active={currentFilter === "Refer a Friend"}
+          handleFilterClick={handleFilterClick}
+        />
       </Filter>
       <FilterContent>
-        <p>
-          Jungle Diamonds is a slightly indica dominant hybrid strain (60%
-          indica/40% sativa) created through crossing the infamous Slurricane X
-          Gorilla Glue #4 strains. Named for its gorgeous appearance and
-          breeder, Jungle Diamonds is a favorite of indica and hybrid lovers
-          alike thanks to its delicious taste and tingly, arousing high. Jungle
-          Diamonds buds have sparkling oversized spade-shaped olive green nugs
-          with vivid amber hairs and a thick frosty blanket of glittering tiny
-          blue-tinted white crystal trichomes. As you pull apart each sticky
-          little nugget, aromas of spicy mocha coffee and fruity herbs are
-          released.{" "}
-        </p>
-        <p>
-          The flavor is of sweet chocolate with hints of fresh ripe berries to
-          it, too. The Jungle Diamonds high is just as delicious, with happy
-          effects that will boost the spirits and kick negative thoughts and
-          moods to the curb. You’ll feel a tingly sense in your body from start
-          to finish that serves to remove any aches or pains while leaving you
-          pretty aroused at times. This is accompanied by a blissfully unfocused
-          heady lift that leaves your head in the clouds without causing
-          sedation. With these effects and its pretty high 17-24% THC level,
-          Jungle Diamonds is ideal for experienced patients with chronic pain,
-          cramps or muscle spasms and appetite loss or nausea.
-        </p>
+        {currentFilter === "Description" && (
+          <p>{items[currentCard].description}</p>
+        )}
+        {currentFilter === "Reviews (350)" && (
+          <ReviewsCard currentCard={currentCard} />
+        )}
       </FilterContent>
     </StyledCardDetails>
   );
 });
-
-CardDetails.propTypes = {
-  bc: PropTypes.object.isRequired,
-};
 
 export default CardDetails;

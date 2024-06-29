@@ -94,16 +94,16 @@ const CardContainer = styled(StyledCardContainer)`
       : css`
           display: grid;
           grid-template-columns: 1fr;
-          grid-template-rows: 40% repeat(5, auto) 10% auto;
+          grid-template-rows: 30% repeat(5, auto) 10% auto;
           @media (max-width: 540px) {
-            grid-template-rows: 40% 7% 14% 6% 7% 8% 8% 10%;
+            grid-template-rows: 30% 10% 16% 8% 8% 8% 8% 11%;
           }
         `}
   min-width: 159px;
   /* margin-left: 15px; */
   border-radius: 8px;
   width: ${(props) => props.width};
-  min-height: 491px;
+  min-height: 525px;
   & > h3 {
     margin-bottom: 0;
     margin-top: 0px;

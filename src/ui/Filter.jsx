@@ -174,7 +174,7 @@ const Checkbox = styled.div`
   column-gap: 12px;
 `;
 
-const Pill = memo(({ children, content, active }) => {
+const Pill = memo(({ children, content, active, handleFilterClick }) => {
   return (
     <Btn
       size="medium"
@@ -183,6 +183,7 @@ const Pill = memo(({ children, content, active }) => {
       color={`${active ? "--green-900" : "--dark-300"}`}
       active={`${active ? "active" : ""}`}
       custom={{ "max-width": "280px" }}
+      onClick={() => handleFilterClick(content)}
     >
       {content || children}
     </Btn>
@@ -271,6 +272,7 @@ Pill.propTypes = {
   children: PropTypes.node.isRequired,
   content: PropTypes.string,
   active: PropTypes.bool,
+  handleFilterClick: PropTypes.func,
 };
 
 Radio.propTypes = {

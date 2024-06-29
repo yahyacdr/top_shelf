@@ -4,6 +4,8 @@ import styled, { css } from "styled-components";
 import Carousel from "../../ui/Carousel";
 import { SwiperSlide } from "swiper/react";
 import { buyCards } from "../../data/Static/StaticData";
+import useFetchProducts from "../../hooks/useFetchProducts";
+import ContentLoadingAnimation from "../../ui/ContentLoadingAnimation";
 
 const StyledImgPreview = styled.div`
   width: 100%;
@@ -95,6 +97,9 @@ const Indicator = styled.span`
 
 const ImagePreview = memo(() => {
   const carouselEl = useRef();
+  const { items, isLoading } = useFetchProducts();
+
+  if (isLoading) return <ContentLoadingAnimation />;
 
   return (
     <StyledImgPreview>
@@ -112,10 +117,10 @@ const ImagePreview = memo(() => {
           1440: 1,
         }}
       >
-        {buyCards.map((bc, i) => (
-          <SwiperSlide key={bc.id} data-hash={`slide${i + 1}`}>
+        {items.map((product, i) => (
+          <SwiperSlide key={product.id} data-hash={`slide${i + 1}`}>
             <ImgCard>
-              <img src={bc.img} alt="" />
+              <img src={product.imgUrl} alt="" />
               <Indicator>
                 <svg
                   width="20"

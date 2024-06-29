@@ -15,4 +15,12 @@ function formattPercent(percent) {
   return `${percent}%`;
 }
 
-export { formatCurrency, formatCurrencyWithCommas, formattPercent };
+function formatDate(date) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  }).format(date);
+}
+
+export { formatCurrency, formatCurrencyWithCommas, formattPercent, formatDate };

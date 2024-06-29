@@ -97,8 +97,8 @@ const OutOfStockBadge = styled.div`
 
 const Offer = styled.div`
   background-color: var(--gold);
-  width: 103px;
-  height: 36px;
+  width: 96px;
+  height: 32px;
   border-top-left-radius: inherit;
   border-bottom-right-radius: inherit;
   position: absolute;
@@ -107,7 +107,7 @@ const Offer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  &span {
+  & span {
     color: var(--light-300);
     font-size: var(--font-size-small-100);
     font-weight: 300;
@@ -163,11 +163,11 @@ export default function BuyCard({ bc, bgRevert, handleClick }) {
           </Offer>
         )}
         {bgRevert && <Oval />}
-        <Card.Img img={bc.img} />
+        <Card.Img img={bc.imgUrl} />
       </ImgCardContainer>
       <Card.ItemType>{bc.type}</Card.ItemType>
-      <Card.TitleItem color="--dark-900">{bc.title}</Card.TitleItem>
-      <Card.Review rate={bc.rate} numRate={bc.numRate} />
+      <Card.TitleItem color="--dark-900">{bc.name}</Card.TitleItem>
+      <Card.Review rate={bc.rate} numRate={135} />
       <div className="label-container">
         {bc.label && (
           <Btn
@@ -184,7 +184,7 @@ export default function BuyCard({ bc, bgRevert, handleClick }) {
       <Card.Price
         hasDiscount={!!bc.discount}
         price={bc.price}
-        currentPrice={bc.currentPrice}
+        currentPrice={bc.price - bc.discount}
       />
       <Card.WeightOptions />
       <div>

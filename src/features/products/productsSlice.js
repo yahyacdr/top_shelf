@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import supabase from "../../utils/supabase";
+import { getProducts } from "../../services/apiProducts";
 
 const initialState = {
   items: [],
-  isLoading: false,
+  isLoading: true,
   err: false,
 };
 
@@ -11,9 +11,6 @@ const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
-    fetchProducts(state, action) {
-      state.items = action.payload;
-    },
     increase(state, action) {
       state.items.map((item) =>
         item.id === action.payload ? item.quantity++ : item
@@ -40,6 +37,7 @@ const productSlice = createSlice({
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.items = action.payload;
+        state.isLoading = false;
       })
       .addCase(fetchProducts.rejected, (state) => {
         state.err = true;
@@ -48,9 +46,7 @@ const productSlice = createSlice({
 });
 
 export const fetchProducts = createAsyncThunk("fetchProducts", async () => {
-  const { data: Products, error } = await supabase.from("Products").select("*");
-  console.log(Products);
-  return Products;
+  return getProducts();
 });
 
 export const { increase, decrease, setWeight } = productSlice.actions;

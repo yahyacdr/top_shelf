@@ -11,6 +11,7 @@ import Divider from "../../ui/Divider";
 import Carousel from "../../ui/Carousel";
 import { SwiperSlide } from "swiper/react";
 import { memo, useRef } from "react";
+import ReviewsCard from "../../ui/ReviewsCard";
 
 const StyledMenuSection = styled.section`
   display: flex;
@@ -73,43 +74,6 @@ const StyledHeaderContainer = styled.div`
   }
 `;
 
-const StyledReviewsCardHeader = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  height: 20%;
-  width: 100%;
-  margin-bottom: 15px;
-  & > div {
-    display: flex;
-    justify-content: flex-start;
-    align-self: flex-start;
-    margin-bottom: 15px;
-    & h4 {
-      margin-bottom: 0;
-      height: fit-content;
-      align-self: center;
-    }
-  }
-`;
-
-const ImgCardContainer = styled.div`
-  position: relative;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: var(--green-300);
-  margin-right: 16px;
-  & img {
-    aspect-ratio: 1.31/1.4;
-    border-radius: inherit;
-  }
-`;
-
 const StyledReview = styled.div`
   display: flex;
   justify-content: center;
@@ -132,24 +96,6 @@ const StyledReview = styled.div`
   }
   & > svg {
     margin-bottom: 0px;
-  }
-`;
-
-const StyledDesc = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  height: 58%;
-  row-gap: 10px;
-  & p {
-    font-weight: 500;
-    text-align: left;
-  }
-  & > svg {
-    @media (max-width: 480px) {
-      /* margin-bottom: 10px; */
-    }
   }
 `;
 
@@ -289,26 +235,7 @@ const ItemsSection = memo(() => {
         <Carousel refEl={carouselEl}>
           {testimonials.map((testi) => (
             <SwiperSlide key={testi.id}>
-              <Menu.CardContainer distribution="flex" width="100%">
-                <StyledReviewsCardHeader>
-                  <div>
-                    <ImgCardContainer>
-                      <Card.Img img={testi.img} />
-                    </ImgCardContainer>
-                    <Card.Name color="--dark-800">{testi.name}</Card.Name>
-                  </div>
-                  <Divider
-                    polarity="horizonal"
-                    color="var(--light-700)"
-                    width="100%"
-                  />
-                </StyledReviewsCardHeader>
-                <StyledDesc>
-                  <Card.RateStars numStars={testi.numStars} />
-                  <Card.Desc color="--dark-900">{testi.testimonial}</Card.Desc>
-                </StyledDesc>
-                <Card.Date>{testi.date}</Card.Date>
-              </Menu.CardContainer>
+              <ReviewsCard testi={testi} />
             </SwiperSlide>
           ))}
         </Carousel>

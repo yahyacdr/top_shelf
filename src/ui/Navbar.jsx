@@ -256,6 +256,7 @@ const BurgerIcon = memo(({ menuOpen, setIsMenuOpen }) => {
       setIsMenuOpen(false);
     }
   }
+
   return (
     <StyledBurgerIcon style={{ color: "#000" }} onClick={handleMenuAnimation}>
       <Player
