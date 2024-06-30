@@ -78,7 +78,12 @@ const ReviewsCard = memo((currentCard) => {
   if (isLoadingReviews) return <ContentLoadingAnimation />;
 
   return currentReviews.current.map((review) => (
-    <Menu.CardContainer key={review.id} distribution="flex" width="100%">
+    <Menu.CardContainer
+      key={review.id}
+      distribution="flex"
+      width="100%"
+      className="card-container"
+    >
       <StyledReviewsCardHeader>
         <div>
           <ImgCardContainer>
@@ -86,7 +91,7 @@ const ReviewsCard = memo((currentCard) => {
           </ImgCardContainer>
           <Card.Name color="--dark-900">{review.name}</Card.Name>
         </div>
-        <Divider polarity="horizonal" color="var(--light-700)" width="100%" />
+        <Divider polarity="horizonal" color="var(--light-600)" width="100%" />
       </StyledReviewsCardHeader>
       <StyledDesc>
         <Card.RateStars numStars={review.rate} />

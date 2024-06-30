@@ -11,6 +11,8 @@ import useFetchProducts from "../../hooks/useFetchProducts";
 import ContentLoadingAnimation from "../../ui/ContentLoadingAnimation";
 import { useLocation } from "react-router-dom";
 import ReviewsCard from "../../ui/ReviewsCard";
+import ReferAFriend from "./ReferAFriend";
+import AddReview from "./AddReview";
 
 const StyledCardDetails = styled.div`
   display: flex;
@@ -324,6 +326,9 @@ const FilterContent = styled.div`
   margin-top: 8px;
   padding-bottom: 32px;
   border-bottom: 1px solid var(--light-600);
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
 
   > p {
     font-size: var(--font-size-small-100);
@@ -337,13 +342,27 @@ const FilterContent = styled.div`
     min-height: auto;
     margin-bottom: 20px;
   }
+  > .card-container {
+    border: 1px solid var(--light-600);
+    border-radius: 16px;
+    padding: 20px;
+  }
+  > button {
+    font-size: var(--font-size-small-100);
+    font-weight: 400;
+    text-transform: capitalize;
+    line-height: 150%;
+    letter-spacing: 0;
+    color: var(--green-200);
+    margin-inline: auto;
+  }
 `;
 
 const CardDetails = memo(() => {
   const [currentFilter, setCurrentFilter] = useState("Description");
   const { items, isLoading } = useFetchProducts();
   const location = useLocation();
-  const currentCard = Number(location.hash[location.hash.length - 1]) - 1;
+  const currentCard = Number(location.hash[location.hash.length - 1]) - 1 || 0;
 
   function handleFilterClick(content) {
     setCurrentFilter(content);
@@ -597,8 +616,20 @@ const CardDetails = memo(() => {
           <p>{items[currentCard].description}</p>
         )}
         {currentFilter === "Reviews (350)" && (
-          <ReviewsCard currentCard={currentCard} />
+          <>
+            <ReviewsCard currentCard={currentCard} />
+            <Btn variation="secondary" shape="pill" size="medium">
+              show more
+            </Btn>
+            <Divider
+              polarity="horizonal"
+              color="var(--light-600)"
+              width="100%"
+            />
+            <AddReview />
+          </>
         )}
+        {currentFilter === "Refer a Friend" && <ReferAFriend />}
       </FilterContent>
     </StyledCardDetails>
   );
