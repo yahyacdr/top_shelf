@@ -1,11 +1,14 @@
 /* eslint-disable react/display-name */
-import { memo, useState } from "react";
+import { memo, useContext } from "react";
 import Btn from "../../ui/Btn";
 import { Form } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import Heading from "../../ui/Heading";
 import StarRating from "./starRating";
 import styled from "styled-components";
 import { StarReviewContext } from "../../utils/context";
+import { useDispatch, useSelector } from "react-redux";
+import { uploadReviews } from "../../features/Reviews/reviewsSlice";
 
 const StyledAddReview = styled.div`
   display: flex;
@@ -17,6 +20,7 @@ const StyledAddReview = styled.div`
     text-transform: capitalize;
   }
   > form {
+    width: 100%;
     > p {
       color: var(--dark-600);
       font-size: var(--font-size-small-100);
@@ -68,34 +72,99 @@ const TextArea = styled.textarea`
   }
 `;
 
+const Label = styled.label`
+  display: block;
+  color: var(--dark-600);
+  font-size: var(--font-size-small-100);
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: 0;
+  margin-bottom: 8px;
+`;
+
+const Input = styled.input`
+  border: 1px solid var(--light-600);
+  border-radius: 8px;
+  padding: 13.5px 16px;
+  width: 100%;
+  background-color: var(--light-300);
+  margin-bottom: 8px;
+  color: var(--dark-900);
+  &::-webkit-input-placeholder {
+    color: var(--light-600);
+  }
+
+  &::-ms-input-placeholder {
+    color: var(--light-600);
+  }
+
+  &:-ms-input-placeholder {
+    color: var(--light-600);
+  }
+`;
+
 const AddReview = memo(() => {
-  const [rating, setRating] = useState(0);
+  const { register, handleSubmit, reset, formState } = useForm();
+  const { errors } = formState;
+  const { currentCard: productId } = useContext(StarReviewContext);
+  const { rating } = useContext(StarReviewContext);
+  const dispatch = useDispatch();
+
+  const state = useSelector((state) => state.reviews);
+
+  function onSubmit(data) {
+    dispatch(
+      uploadReviews({
+        name: data.name,
+        review: data.review,
+        rating,
+        productId: productId + 1,
+      })
+    );
+    if (!state.isLoading && !state.err) reset();
+  }
+
+  function onError(errors) {
+    console.log(errors);
+  }
 
   return (
-    <StarReviewContext.Provider
-      value={{
-        rating,
-        setRating,
-      }}
-    >
-      <StyledAddReview>
-        <Heading as="h4">add a review</Heading>
-        <Form>
-          <Rating>
-            <p>Your rating</p>
-            <span>:</span>
-            <StarRating />
-          </Rating>
-          <p>
-            Your Review <span>*</span>
-          </p>
-          <TextArea placeholder="Enter your review" />
-          <Btn variation="primary" size="large" shape="pill" type="submit">
-            Submit
-          </Btn>
-        </Form>
-      </StyledAddReview>
-    </StarReviewContext.Provider>
+    <StyledAddReview>
+      <Heading as="h4">add a review</Heading>
+      <Form onSubmit={handleSubmit(onSubmit, onError)}>
+        <Rating>
+          <p>Your rating</p>
+          <span>:</span>
+          <StarRating />
+        </Rating>
+        <Label htmlFor="name-input">Name</Label>
+        <Input
+          type="text"
+          placeholder="Enter your name"
+          id="name"
+          {...register("name", { required: "Name is required" })}
+        />
+        {errors?.review?.message && (
+          <p style={{ color: "var(--red-600)" }}>{errors.name.message}</p>
+        )}
+        <p>
+          Your Review <span>*</span>
+        </p>
+        <TextArea
+          placeholder="Enter your review"
+          id="review"
+          {...register("review", {
+            required: "Review is required",
+          })}
+        />
+        {errors?.review?.message && (
+          <p style={{ color: "var(--red-600)" }}>{errors.review.message}</p>
+        )}
+        <Btn variation="primary" size="large" shape="pill" type="submit">
+          Submit
+        </Btn>
+      </Form>
+    </StyledAddReview>
   );
 });
 

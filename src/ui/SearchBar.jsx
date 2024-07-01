@@ -57,6 +57,11 @@ const StyledSearchBtnContainer = styled.div`
   position: absolute;
   top: 0;
   right: 0;
+  > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const SearchBar = memo(() => {

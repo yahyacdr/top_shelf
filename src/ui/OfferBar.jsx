@@ -32,7 +32,7 @@ const StyledBar = styled.div`
 `;
 
 const StyledText = styled.p`
-  color: var(--light-900);
+  color: var(--light-600);
   font-size: 14px;
   font-weight: 300;
   display: inline-block;

@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import { memo, useEffect, useRef } from "react";
+import { memo, useContext, useEffect, useRef } from "react";
 import Menu from "./Menu";
 import Card from "./Card";
 import Divider from "./Divider";
@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { formatDate } from "../utils/helper";
 import useFetchReviews from "../hooks/useFetchReviews";
 import ContentLoadingAnimation from "./ContentLoadingAnimation";
+import { StarReviewContext } from "../utils/context";
 
 const StyledReviewsCardHeader = styled.div`
   display: flex;
@@ -64,9 +65,9 @@ const StyledDesc = styled.div`
   }
 `;
 
-const ReviewsCard = memo((currentCard) => {
-  currentCard = currentCard.currentCard;
+const ReviewsCard = memo(() => {
   const { reviews, isLoading: isLoadingReviews } = useFetchReviews();
+  const { currentCard, reviewsNum } = useContext(StarReviewContext);
   let currentReviews = useRef([]);
 
   useEffect(() => {
@@ -77,29 +78,31 @@ const ReviewsCard = memo((currentCard) => {
 
   if (isLoadingReviews) return <ContentLoadingAnimation />;
 
-  return currentReviews.current.map((review) => (
-    <Menu.CardContainer
-      key={review.id}
-      distribution="flex"
-      width="100%"
-      className="card-container"
-    >
-      <StyledReviewsCardHeader>
-        <div>
-          <ImgCardContainer>
-            <Card.Img img={`https://robohash.org/${review.id}`} />
-          </ImgCardContainer>
-          <Card.Name color="--dark-900">{review.name}</Card.Name>
-        </div>
-        <Divider polarity="horizonal" color="var(--light-600)" width="100%" />
-      </StyledReviewsCardHeader>
-      <StyledDesc>
-        <Card.RateStars numStars={review.rate} />
-        <Card.Desc color="--dark-600">{review.review}</Card.Desc>
-      </StyledDesc>
-      <Card.Date>{formatDate(new Date(review.created_at))}</Card.Date>
-    </Menu.CardContainer>
-  ));
+  return currentReviews.current
+    .slice(0, reviewsNum || currentReviews.current.length - 1)
+    .map((review) => (
+      <Menu.CardContainer
+        key={review.id}
+        distribution="flex"
+        width="100%"
+        className="card-container"
+      >
+        <StyledReviewsCardHeader>
+          <div>
+            <ImgCardContainer>
+              <Card.Img img={`https://robohash.org/${review.id}`} />
+            </ImgCardContainer>
+            <Card.Name color="--dark-900">{review.name}</Card.Name>
+          </div>
+          <Divider polarity="horizonal" color="var(--light-600)" width="100%" />
+        </StyledReviewsCardHeader>
+        <StyledDesc>
+          <Card.RateStars numStars={review.rate} />
+          <Card.Desc color="--dark-600">{review.review}</Card.Desc>
+        </StyledDesc>
+        <Card.Date>{formatDate(new Date(review.created_at))}</Card.Date>
+      </Menu.CardContainer>
+    ));
 });
 
 export default ReviewsCard;

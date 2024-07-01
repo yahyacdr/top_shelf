@@ -102,7 +102,7 @@ const Btn = styled.button`
         border: 1px solid var(--green-900);
       }
     `}
-    ${(props) =>
+  ${(props) =>
     css`
       ${props.custom}
     `}

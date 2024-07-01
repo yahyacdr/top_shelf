@@ -3,12 +3,17 @@ import { memo } from "react";
 import Heading from "../../ui/Heading";
 import styled from "styled-components";
 import Card from "../../ui/Card";
-import Btn from "../../ui/Btn";
 import { Form } from "react-router-dom";
 import Divider from "../../ui/Divider";
 import { FaWhatsapp } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa6";
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+} from "react-share";
 
 const StyledReferAFriend = styled.div`
   display: flex;
@@ -28,18 +33,24 @@ const StyledReferAFriend = styled.div`
   }
 
   > button {
-    font-size: var(--font-size-small-100);
-    font-weight: 400;
+    font-size: var(--font-size-small-100) !important;
+    font-weight: 400 !important;
     text-transform: capitalize;
-    line-height: 150%;
+    line-height: 150% !important;
     letter-spacing: 0;
-    color: var(--dark-600);
+    color: var(--dark-600) !important;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 12px;
+    padding: 12px !important;
     width: 100%;
     column-gap: 12px;
+
+    color: var();
+    transition: 0.25s;
+    border: 1px solid var(--light-600) !important;
+    flex-grow: 1;
+    border-radius: 3px;
 
     svg {
       width: 14px;
@@ -59,11 +70,17 @@ const StyledReferAFriend = styled.div`
   > form {
     > button {
       margin-top: 20px;
-      font-size: var(--font-size-medium-66);
-      font-weight: 500;
+      font-size: var(--font-size-medium-33) !important;
+      font-weight: 500 !important;
       text-transform: capitalize;
-      line-height: 150%;
+      line-height: 150% !important;
       letter-spacing: 0;
+
+      border: none !important;
+      transition: 0.25s;
+      background-color: var(--green-200) !important;
+      padding: 16px 28px !important;
+      border-radius: 36px;
     }
   }
 `;
@@ -187,6 +204,16 @@ const Input = styled.input`
 `;
 
 const ReferAFriend = memo(() => {
+  const quote = `🌿 Just got an awesome promo code from Top shelf! 🌿
+
+                Use my code PROMO420 to get 20% off your next purchase! 🤑
+
+                Check out their amazing selection and enjoy some great savings. 🎉
+
+                topshelfbc.com
+
+                #CannabisDeals #PromoCode #CannabisCommunity #420Friendly`;
+
   return (
     <StyledReferAFriend>
       <Heading as="h3">referral program</Heading>
@@ -206,7 +233,7 @@ const ReferAFriend = memo(() => {
         <Text>
           Referral code is available only to users with at least one order.
         </Text>
-        <ImgContainer>
+        <ImgContainer onClick={navigator.clipboard.writeText("PROMO420")}>
           <svg
             width="18"
             height="19"
@@ -240,7 +267,7 @@ const ReferAFriend = memo(() => {
         <Text>
           Referral code is available only to users with at least one order.
         </Text>
-        <ImgContainer>
+        <ImgContainer onClick={navigator.clipboard.writeText("PROMO420")}>
           <svg
             width="18"
             height="19"
@@ -268,24 +295,26 @@ const ReferAFriend = memo(() => {
 
       <Divider width="100%" color="var(--light-600)" />
 
-      <Btn size="large" variation="secondary" shape="button">
+      <FacebookShareButton url={window.location.hostname}>
         <SvgContainer className="fb-svg">
           <FaFacebookF className="fb-icon" />
         </SvgContainer>
         share via facebook
-      </Btn>
-      <Btn size="large" variation="secondary" shape="button">
+      </FacebookShareButton>
+
+      <TwitterShareButton url={window.location.hostname} title={quote}>
         <SvgContainer className="twitter-svg">
           <FaTwitter className="twitter-icon" />
         </SvgContainer>
         share via twitter
-      </Btn>
-      <Btn size="large" variation="secondary" shape="button">
+      </TwitterShareButton>
+
+      <WhatsappShareButton url={window.location.hostname} title={quote}>
         <SvgContainer className="whatsapp-svg">
           <FaWhatsapp className="whatsapp-icon" />
         </SvgContainer>
         share via whatsapp
-      </Btn>
+      </WhatsappShareButton>
 
       <DividerText>Or share via email</DividerText>
 
@@ -298,15 +327,13 @@ const ReferAFriend = memo(() => {
         />
         <Label for="name-input">Name</Label>
         <Input type="text" placeholder="Enter your name" id="name-input" />
-        <Btn
-          size="large"
-          variation="primary"
-          shape="pill"
+        <EmailShareButton
+          subject="Check out TopShelfBC"
+          body={quote}
           type="submit"
-          onSubmit={(e) => e.preventDefault()}
         >
           send emails
-        </Btn>
+        </EmailShareButton>
       </Form>
     </StyledReferAFriend>
   );

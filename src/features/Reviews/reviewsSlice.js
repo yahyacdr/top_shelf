@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getReviews } from "../../services/apiReviews";
+import { addReview, getReviews } from "../../services/apiReviews";
 
 const initialState = {
   reviews: [],
@@ -22,6 +22,15 @@ const reviewSlice = createSlice({
       })
       .addCase(fetchReviews.rejected, (state) => {
         state.err = true;
+      })
+      .addCase(uploadReviews.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(uploadReviews.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(uploadReviews.rejected, (state) => {
+        state.err = true;
       });
   },
 });
@@ -29,5 +38,12 @@ const reviewSlice = createSlice({
 export const fetchReviews = createAsyncThunk("fetchReviews", async () => {
   return getReviews();
 });
+
+export const uploadReviews = createAsyncThunk(
+  "uploadReviews",
+  async (data, thunkAPI) => {
+    return addReview(data.name, data.review, data.rating, data.productId);
+  }
+);
 
 export default reviewSlice.reducer;

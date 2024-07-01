@@ -19,7 +19,6 @@ const ItemCards = styled.div`
       flex-wrap: wrap;
       align-items: flex-start;
       gap: 32px 24px;
-      /* min-height: 1136px; */
     `}
   @media (max-width: 920px) {
     flex-wrap: wrap;
@@ -133,7 +132,7 @@ const Menu = memo(({ children }) => {
 });
 
 Menu.propTypes = {
-  children: PropTypes.array,
+  children: PropTypes.node,
 };
 
 Menu.ItemCards = ItemCards;

@@ -3,7 +3,6 @@ import { memo, useRef } from "react";
 import styled, { css } from "styled-components";
 import Carousel from "../../ui/Carousel";
 import { SwiperSlide } from "swiper/react";
-import { buyCards } from "../../data/Static/StaticData";
 import useFetchProducts from "../../hooks/useFetchProducts";
 import ContentLoadingAnimation from "../../ui/ContentLoadingAnimation";
 
@@ -37,13 +36,14 @@ const StyledImgPreview = styled.div`
           border: 1px solid var(--green-200);
         }
       }
-      ${buyCards.map(
-        (bc, i) => css`
-          span:nth-child(${i + 1}) {
-            background-image: url(${bc.img});
-          }
-        `
-      )}
+      ${(props) =>
+        props.products.map(
+          (bc, i) => css`
+            span:nth-child(${i + 1}) {
+              background-image: url(${bc.imgUrl});
+            }
+          `
+        )}
     }
   }
   button {
@@ -102,7 +102,7 @@ const ImagePreview = memo(() => {
   if (isLoading) return <ContentLoadingAnimation />;
 
   return (
-    <StyledImgPreview>
+    <StyledImgPreview products={items}>
       <Carousel
         nextBtnClass="btn-next"
         refEl={carouselEl}

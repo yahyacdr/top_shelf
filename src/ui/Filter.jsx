@@ -269,7 +269,7 @@ Filter.propTypes = {
 };
 
 Pill.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   content: PropTypes.string,
   active: PropTypes.bool,
   handleFilterClick: PropTypes.func,

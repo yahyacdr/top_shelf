@@ -1,7 +1,8 @@
 /* eslint-disable react/display-name */
-import { memo } from "react";
+import { memo, useContext } from "react";
 import styled from "styled-components";
 import Divider from "../../ui/Divider";
+import { CounterContext } from "../../utils/context";
 
 const StyledCounter = styled.div`
   display: flex;
@@ -57,19 +58,27 @@ const Counter = memo(() => {
 });
 
 const PlusBtn = memo(() => {
-  return <StyledBtn>+</StyledBtn>;
+  const { setCounter } = useContext(CounterContext);
+  return <StyledBtn onClick={() => setCounter((c) => c + 1)}>+</StyledBtn>;
 });
 
 const NumBtn = memo(() => {
+  const { counter } = useContext(CounterContext);
   return (
     <StyledBtn className="num" disabled={true}>
-      0
+      {counter}
     </StyledBtn>
   );
 });
 
 const MinusBtn = memo(() => {
-  return <StyledBtn>-</StyledBtn>;
+  const { setCounter } = useContext(CounterContext);
+
+  return (
+    <StyledBtn onClick={() => setCounter((c) => (c > 1 ? c - 1 : 1))}>
+      -
+    </StyledBtn>
+  );
 });
 
 export default Counter;

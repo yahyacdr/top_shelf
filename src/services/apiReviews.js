@@ -10,3 +10,16 @@ export async function getReviews() {
 
   return data;
 }
+
+export async function addReview(name, review, rate, productId) {
+  const { data, error } = await supabase
+    .from("Reviews")
+    .insert([{ name, review, rate, product: productId }])
+    .select();
+  if (error) {
+    console.error(error);
+    throw new Error("Reviews could not be added");
+  }
+
+  return data;
+}

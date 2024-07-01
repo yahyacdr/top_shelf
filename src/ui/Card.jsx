@@ -270,6 +270,7 @@ function returnStars(num = 1) {
       />
     </svg>
   );
+
   const emptyStars = Array(5 - num).fill(
     <svg
       width="14"
