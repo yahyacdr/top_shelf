@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import { formatCurrency } from "../utils/helper";
 import Btn from "./Btn";
 import { memo } from "react";
+import { useCart } from "../features/cart/cartContext";
 
 const StyledImg = styled.img`
   /* width: 50%; */
@@ -206,7 +207,9 @@ Price.propTypes = {
   currentPrice: PropTypes.number,
 };
 
-const WeightOptions = memo(({ revert }) => {
+const WeightOptions = memo(({ revert = false }) => {
+  const { weight, dispatch } = useCart();
+
   return (
     <StyledWeightOptions revert={revert} className="card-weights">
       <div>
@@ -215,6 +218,14 @@ const WeightOptions = memo(({ revert }) => {
           variation="secondary"
           shape="button"
           color="--dark-900"
+          className={weight.label === "28g" ? "active" : ""}
+          onClick={() => {
+            dispatch({
+              type: "setWeight",
+              payload: { label: "28g", price: 28 },
+            });
+            dispatch({ type: "setPrice" });
+          }}
         >
           28g
         </Btn>
@@ -223,16 +234,32 @@ const WeightOptions = memo(({ revert }) => {
           variation="secondary"
           shape="button"
           color="--dark-900"
+          className={weight.label === "1/4lb" ? "active" : ""}
+          onClick={() => {
+            dispatch({
+              type: "setWeight",
+              payload: { label: "1/4lb", price: 113.39809 },
+            });
+            dispatch({ type: "setPrice" });
+          }}
         >
-          1/2lb
+          1/4lb
         </Btn>
         <Btn
           size="small"
           variation="secondary"
           shape="button"
           color="--dark-900"
+          className={weight.label === "1/2lb" ? "active" : ""}
+          onClick={() => {
+            dispatch({
+              type: "setWeight",
+              payload: { label: "1/2lb", price: 226.79618 },
+            });
+            dispatch({ type: "setPrice" });
+          }}
         >
-          1/4lb
+          1/2lb
         </Btn>
       </div>
     </StyledWeightOptions>
@@ -241,6 +268,8 @@ const WeightOptions = memo(({ revert }) => {
 
 WeightOptions.propTypes = {
   revert: PropTypes.bool,
+  weight: PropTypes.string,
+  setWeight: PropTypes.func,
 };
 
 const RateStars = memo(({ numStars }) => {

@@ -24,7 +24,7 @@ const cartSlice = createSlice({
     decrease(state, action) {
       state.items.map((item) => {
         if (item.id === action.payload)
-          item.quantity > 0 ? item.quantity-- : item;
+          item.quantity > 1 ? item.quantity-- : item;
       });
     },
     setWeight(state, action) {

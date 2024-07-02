@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import { memo, useContext, useEffect, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 import Menu from "./Menu";
 import Card from "./Card";
 import Divider from "./Divider";
@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { formatDate } from "../utils/helper";
 import useFetchReviews from "../hooks/useFetchReviews";
 import ContentLoadingAnimation from "./ContentLoadingAnimation";
-import { StarReviewContext } from "../utils/context";
+import PropTypes from "prop-types";
 
 const StyledReviewsCardHeader = styled.div`
   display: flex;
@@ -65,10 +65,10 @@ const StyledDesc = styled.div`
   }
 `;
 
-const ReviewsCard = memo(() => {
+const ReviewsCard = memo(({ reviewsNum = 0 }) => {
   const { reviews, isLoading: isLoadingReviews } = useFetchReviews();
-  const { currentCard, reviewsNum } = useContext(StarReviewContext);
   let currentReviews = useRef([]);
+  const currentCard = Number(location.hash[location.hash.length - 1]) - 1 || 0;
 
   useEffect(() => {
     currentReviews.current = reviews.filter(
@@ -104,5 +104,10 @@ const ReviewsCard = memo(() => {
       </Menu.CardContainer>
     ));
 });
+
+ReviewsCard.propTypes = {
+  currentCard: PropTypes.number,
+  reviewsNum: PropTypes.number,
+};
 
 export default ReviewsCard;

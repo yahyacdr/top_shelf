@@ -1,8 +1,8 @@
 /* eslint-disable react/display-name */
-import { memo, useContext } from "react";
+import { memo } from "react";
 import styled from "styled-components";
 import Divider from "../../ui/Divider";
-import { CounterContext } from "../../utils/context";
+import { useCart } from "../../features/cart/cartContext";
 
 const StyledCounter = styled.div`
   display: flex;
@@ -58,24 +58,36 @@ const Counter = memo(() => {
 });
 
 const PlusBtn = memo(() => {
-  const { setCounter } = useContext(CounterContext);
-  return <StyledBtn onClick={() => setCounter((c) => c + 1)}>+</StyledBtn>;
+  const { dispatch } = useCart();
+  return (
+    <StyledBtn
+      onClick={() => {
+        dispatch({ type: "inc" });
+      }}
+    >
+      +
+    </StyledBtn>
+  );
 });
 
 const NumBtn = memo(() => {
-  const { counter } = useContext(CounterContext);
+  const { quantity } = useCart();
   return (
     <StyledBtn className="num" disabled={true}>
-      {counter}
+      {quantity}
     </StyledBtn>
   );
 });
 
 const MinusBtn = memo(() => {
-  const { setCounter } = useContext(CounterContext);
+  const { dispatch } = useCart();
 
   return (
-    <StyledBtn onClick={() => setCounter((c) => (c > 1 ? c - 1 : 1))}>
+    <StyledBtn
+      onClick={() => {
+        dispatch({ type: "dec" });
+      }}
+    >
       -
     </StyledBtn>
   );

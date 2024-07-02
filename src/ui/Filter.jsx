@@ -6,7 +6,7 @@ import Btn from "./Btn";
 import Divider from "./Divider";
 import { memo, useContext } from "react";
 import MultiRangeSlider from "multi-range-slider-react";
-import { PostContext } from "../utils/context";
+import { CardFilterContext, PostContext } from "../utils/context";
 import checkMark from "../data/images/check-mark.png";
 
 const StyledFilter = styled.div`
@@ -174,16 +174,17 @@ const Checkbox = styled.div`
   column-gap: 12px;
 `;
 
-const Pill = memo(({ children, content, active, handleFilterClick }) => {
+const Pill = memo(({ children, content }) => {
+  const { currentFilter, setCurrentFilter } = useContext(CardFilterContext);
   return (
     <Btn
       size="medium"
       variation="secondary"
       shape="pill"
-      color={`${active ? "--green-900" : "--dark-300"}`}
-      active={`${active ? "active" : ""}`}
+      color={`${currentFilter === content ? "--green-900" : "--dark-300"}`}
+      active={`${currentFilter === content ? "active" : ""}`}
       custom={{ "max-width": "280px" }}
-      onClick={() => handleFilterClick(content)}
+      onClick={() => setCurrentFilter(content)}
     >
       {content || children}
     </Btn>
@@ -241,10 +242,16 @@ const MultiRange = memo(() => {
   );
 });
 
-const Check = memo(({ id, name, handleChange, label }) => {
+const Check = memo(({ id, name, handleChange, label, checked = false }) => {
   return (
     <Checkbox>
-      <CheckInput type="checkbox" id={id} name={name} onChange={handleChange} />
+      <CheckInput
+        type="checkbox"
+        id={id}
+        name={name}
+        onChange={(e) => handleChange(e)}
+        checked={checked}
+      />
       <label htmlFor={id}>{label}</label>
     </Checkbox>
   );
@@ -301,6 +308,7 @@ Check.propTypes = {
   handleChange: PropTypes.func,
   starsNum: PropTypes.number,
   label: PropTypes.any,
+  checked: PropTypes.bool,
 };
 
 function returnStars(num = 1) {

@@ -183,8 +183,8 @@ export default function BuyCard({ bc, bgRevert, handleClick }) {
       </div>
       <Card.Price
         hasDiscount={!!bc.discount}
-        price={bc.price}
-        currentPrice={bc.price - bc.discount}
+        price={bc.price * 28}
+        currentPrice={bc.price * 28 - bc.discount}
       />
       <Card.WeightOptions />
       <div>
