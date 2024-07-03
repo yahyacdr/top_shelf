@@ -38,15 +38,24 @@ const Add = styled.div`
 const AddIntegra = memo(() => {
   const { dispatch, additions } = useCart();
   function handleIntegra(e) {
+    console.log(Array.isArray(additions.label), additions.label.includes("4"));
     if (e.target.checked) {
       dispatch({
         type: "ADD_INTEGRA",
-        payload: { price: Number(e.target.name), label: Number(e.target.id) },
+        payload: {
+          price: Number(e.target.name),
+          labelWeight: Number(e.target.id),
+          label: e.target.id,
+        },
       });
     } else {
       dispatch({
         type: "REMOVE_INTEGRA",
-        payload: { price: Number(e.target.name), label: Number(e.target.id) },
+        payload: {
+          price: Number(e.target.name),
+          labelWeight: Number(e.target.id),
+          label: e.target.id,
+        },
       });
     }
   }
@@ -59,14 +68,14 @@ const AddIntegra = memo(() => {
         id="4"
         name="2"
         handleChange={(e) => handleIntegra(e)}
-        checked={additions.label >= 4}
+        checked={additions.label.includes("4")}
       />
       <Filter.Check
         label="8g (+$3.00)"
         id="8"
         name="3"
         handleChange={(e) => handleIntegra(e)}
-        checked={additions.label >= 8}
+        checked={additions.label.includes("8")}
       />
     </Add>
   );

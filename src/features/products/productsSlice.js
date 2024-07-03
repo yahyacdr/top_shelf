@@ -29,6 +29,4 @@ export const fetchProducts = createAsyncThunk("fetchProducts", async () => {
   return getProducts();
 });
 
-export const { increase, decrease, setWeight } = productSlice.actions;
-
 export default productSlice.reducer;

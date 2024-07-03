@@ -3,9 +3,11 @@ import { memo } from "react";
 import styled from "styled-components";
 import Counter from "./Counter";
 import Btn from "../../ui/Btn";
-import { useCart } from "../../features/cart/cartContext";
+import { useCart } from "../cart/cartContext";
 import PropTypes from "prop-types";
 import { formatCurrency } from "../../utils/helper";
+import { ADD } from "../cart/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const StyledPurchaseBox = styled.div`
   display: flex;
@@ -91,7 +93,12 @@ const PurchaseServiceDetails = styled.div`
   }
 `;
 const PurchaseBox = memo(({ item }) => {
-  const { weight, quantity, additions, price } = useCart();
+  const { weight, quantity, additions, price, id, totalPrice, basePrice } =
+    useCart();
+  const items = useSelector((state) => state.cart.items);
+  console.log(items, "cartSlice", totalPrice, price, basePrice);
+
+  const dispatch = useDispatch();
 
   return (
     <StyledPurchaseBox>
@@ -100,19 +107,25 @@ const PurchaseBox = memo(({ item }) => {
           {item.name} {weight.label}
           <span>{quantity}x</span>
         </p>
-        <p>{formatCurrency(price * quantity)}</p>
+        <p>{formatCurrency(price)}</p>
         {!!additions.price && (
           <>
-            <p>Add Integra Pack - {additions.label}g</p>
+            <p>Add Integra Pack - {additions.labelWeight}g</p>
             <p>{formatCurrency(additions.price)}</p>
           </>
         )}
       </PurchasedItem>
       <AddToCart>
         <Counter />
-        <Btn shape="pill" variation="primary" size="medium">
-          <p>Add to Cart</p>|
-          <span>{formatCurrency(price * quantity + additions.price)}</span>
+        <Btn
+          shape="pill"
+          variation="primary"
+          size="medium"
+          onClick={() =>
+            dispatch(ADD(id, quantity, price, weight, additions, totalPrice))
+          }
+        >
+          <p>Add to Cart</p>|<span>{formatCurrency(totalPrice)}</span>
         </Btn>
       </AddToCart>
       <PurchaseServiceDetails>

@@ -60,6 +60,7 @@ const Carousel = memo(
     refEl,
     slides_per_view = false,
     hasDots = false,
+    onSwipe,
   }) => {
     useWindowSize(0);
     return (
@@ -111,6 +112,7 @@ const Carousel = memo(
           watchState: hasDots,
         }}
         modules={hasDots && [Pagination, Navigation, HashNavigation]}
+        onSlideChange={onSwipe}
       >
         {children}
         <CarouselBtnNext carouselEl={refEl}>
@@ -132,6 +134,7 @@ Carousel.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element),
   nextBtnClass: PropTypes.string,
   prevBtnClass: PropTypes.string,
+  onSwipe: PropTypes.func,
 };
 
 const CarouselCard = memo(({ children }) => {

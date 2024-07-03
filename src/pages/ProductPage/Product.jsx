@@ -4,10 +4,9 @@ import { memo } from "react";
 import Main from "../../ui/Main";
 import ImagePreview from "./ImagePreview";
 import styled from "styled-components";
-import CardDetails from "./CardDetails";
+import CardDetails from "../../features/Description/CardDetails";
 import BuyCardsGrid from "../../ui/BuyCardsGrid";
 import Heading from "../../ui/Heading";
-import CartProvider from "../../features/cart/cartContext";
 
 const ProductContainer = styled.section`
   display: flex;
@@ -36,16 +35,14 @@ const ItemsCardsGrid = styled.div`
 const Product = memo(() => {
   return (
     <Main className="prod-main">
-      <CartProvider>
-        <ProductContainer>
-          <ImagePreview />
-          <CardDetails />
-          <ItemsCardsGrid>
-            <Heading as="h2">Featured Product</Heading>
-            <BuyCardsGrid />
-          </ItemsCardsGrid>
-        </ProductContainer>
-      </CartProvider>
+      <ProductContainer>
+        <ImagePreview />
+        <CardDetails />
+        <ItemsCardsGrid>
+          <Heading as="h2">Featured Product</Heading>
+          <BuyCardsGrid />
+        </ItemsCardsGrid>
+      </ProductContainer>
     </Main>
   );
 });

@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { memo } from "react";
 import styled, { css } from "styled-components";
 import "swiper/css";
-import screens from "../utils/screens";
 
 const ItemCards = styled.div`
   display: flex;
@@ -92,24 +91,17 @@ const CardContainer = styled(StyledCardContainer)`
         `
       : css`
           display: grid;
-          grid-template-columns: 1fr;
-          grid-template-rows: 30% repeat(5, auto) 10% auto;
-          @media (max-width: 540px) {
-            grid-template-rows: 30% 10% 16% 8% 8% 8% 8% 11%;
-          }
+          grid-template-columns: 100%;
+          grid-template-rows: 30% 10% 15% 8% 10% 8% 8% 11%;
+          grid-template-areas: "img" "type" "title" "review" "label" "price" "weights" "btn";
         `}
   min-width: 159px;
-  /* margin-left: 15px; */
   border-radius: 8px;
-  width: ${(props) => props.width};
-  min-height: 525px;
+  height: 525px;
+  width: calc(100% / 2 - 24px);
   & > h3 {
     margin-bottom: 0;
     margin-top: 0px;
-  }
-  & > p {
-    text-transform: uppercase;
-    margin-top: 20px;
   }
   & button.label {
     color: var(--green-900);
@@ -117,13 +109,10 @@ const CardContainer = styled(StyledCardContainer)`
     font-weight: 400;
     padding: 5px 8px;
   }
-  & > div:last-child {
+  & > div {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  @media (min-width: ${screens.mobile.s}) {
-    width: calc(100% / 2 - 24px);
   }
 `;
 

@@ -18,9 +18,11 @@ const Title = styled(Heading).attrs(() => ({ as: "h3" }))`
 `;
 
 const TitleItem = styled(Heading).attrs(() => ({ as: "h4" }))`
+  grid-area: title;
   text-transform: ${(props) => props.case};
   color: var(${(props) => props.color});
   margin-bottom: 0;
+  height: 100%;
 `;
 
 const Name = styled(Heading).attrs(() => ({ as: "h4" }))`
@@ -64,7 +66,6 @@ const Tag = styled.span`
 const ItemType = styled.p`
   color: var(--light-900);
   text-transform: uppercase;
-  margin-top: 20px;
   font-size: var(--font-size-small-100);
   @media (max-width: 540px) {
     font-size: var(--font-size-small-50);
@@ -72,10 +73,11 @@ const ItemType = styled.p`
 `;
 
 const StyledReview = styled.div`
+  grid-area: review;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 8px;
+  height: 100%;
   color: var(--dark-900);
   & svg {
     margin-right: 10px;
@@ -96,10 +98,11 @@ const StyledReview = styled.div`
 `;
 
 const StyledPrice = styled.div`
-  margin-bottom: 10px;
+  grid-area: price;
   width: 100%;
   text-align: center;
   align-self: flex-end;
+  height: 100%;
   & p.discount {
     color: var(--light-900);
     display: inline-block;
@@ -121,10 +124,12 @@ const StyledPrice = styled.div`
 `;
 
 const StyledWeightOptions = styled.div`
+  grid-area: weights;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
+  height: 100%;
   & button {
     padding: 5px 10px;
     &:not(:last-child) {
@@ -141,6 +146,11 @@ const StyledWeightOptions = styled.div`
         border: 1px solid rgba(255, 255, 255, 0.2);
         font-size: var(--font-size-small-50);
       `}
+    &.active {
+      border: 1px solid var(--green-900);
+      background-color: var(--light-400);
+      color: var(--green-900);
+    }
   }
 `;
 
@@ -210,6 +220,15 @@ Price.propTypes = {
 const WeightOptions = memo(({ revert = false }) => {
   const { weight, dispatch } = useCart();
 
+  function handleClick(label, price) {
+    dispatch({
+      type: "SET_WEIGHT",
+      payload: { label: label, price: price },
+    });
+    dispatch({ type: "SET_PRICE" });
+    dispatch({ type: "SET_TOTAL_PRICE" });
+  }
+
   return (
     <StyledWeightOptions revert={revert} className="card-weights">
       <div>
@@ -219,13 +238,7 @@ const WeightOptions = memo(({ revert = false }) => {
           shape="button"
           color="--dark-900"
           className={weight.label === "28g" ? "active" : ""}
-          onClick={() => {
-            dispatch({
-              type: "setWeight",
-              payload: { label: "28g", price: 28 },
-            });
-            dispatch({ type: "setPrice" });
-          }}
+          onClick={() => handleClick("28g", 28)}
         >
           28g
         </Btn>
@@ -235,13 +248,7 @@ const WeightOptions = memo(({ revert = false }) => {
           shape="button"
           color="--dark-900"
           className={weight.label === "1/4lb" ? "active" : ""}
-          onClick={() => {
-            dispatch({
-              type: "setWeight",
-              payload: { label: "1/4lb", price: 113.39809 },
-            });
-            dispatch({ type: "setPrice" });
-          }}
+          onClick={() => handleClick("1/4lb", 113.39809)}
         >
           1/4lb
         </Btn>
@@ -251,13 +258,7 @@ const WeightOptions = memo(({ revert = false }) => {
           shape="button"
           color="--dark-900"
           className={weight.label === "1/2lb" ? "active" : ""}
-          onClick={() => {
-            dispatch({
-              type: "setWeight",
-              payload: { label: "1/2lb", price: 226.79618 },
-            });
-            dispatch({ type: "setPrice" });
-          }}
+          onClick={() => handleClick("1/2lb", 226.79618)}
         >
           1/2lb
         </Btn>
@@ -269,7 +270,7 @@ const WeightOptions = memo(({ revert = false }) => {
 WeightOptions.propTypes = {
   revert: PropTypes.bool,
   weight: PropTypes.string,
-  setWeight: PropTypes.func,
+  SET_WEIGHT: PropTypes.func,
 };
 
 const RateStars = memo(({ numStars }) => {

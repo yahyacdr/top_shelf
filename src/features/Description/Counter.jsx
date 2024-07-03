@@ -62,7 +62,9 @@ const PlusBtn = memo(() => {
   return (
     <StyledBtn
       onClick={() => {
-        dispatch({ type: "inc" });
+        dispatch({ type: "INC" });
+        dispatch({ type: "SET_PRICE" });
+        dispatch({ type: "SET_TOTAL_PRICE" });
       }}
     >
       +
@@ -85,7 +87,9 @@ const MinusBtn = memo(() => {
   return (
     <StyledBtn
       onClick={() => {
-        dispatch({ type: "dec" });
+        dispatch({ type: "DEC" });
+        dispatch({ type: "SET_PRICE" });
+        dispatch({ type: "SET_TOTAL_PRICE" });
       }}
     >
       -

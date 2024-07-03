@@ -99,6 +99,10 @@ const ImagePreview = memo(() => {
   const carouselEl = useRef();
   const { items, isLoading } = useFetchProducts();
 
+  function handleSlideChange() {
+    console.log("slide changed");
+  }
+
   if (isLoading) return <ContentLoadingAnimation />;
 
   return (
@@ -116,6 +120,7 @@ const ImagePreview = memo(() => {
           1366: 1,
           1440: 1,
         }}
+        onSwipe={handleSlideChange}
       >
         {items.map((product, i) => (
           <SwiperSlide key={product.id} data-hash={`slide${i + 1}`}>

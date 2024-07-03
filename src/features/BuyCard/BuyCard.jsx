@@ -3,6 +3,9 @@ import Btn from "../../ui/Btn";
 import Card from "../../ui/Card";
 import PropTypes from "prop-types";
 import screens from "../../utils/screens";
+import CartProvider from "../cart/cartContext";
+import BuyCardBtn from "./BuyCardBtn";
+import Price from "./Price";
 
 const ImgContainer = styled.div`
   position: relative;
@@ -10,13 +13,14 @@ const ImgContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
   img {
     position: relative;
     z-index: 2;
   }
 `;
 const ImgCardContainer = styled(ImgContainer)`
-  margin-bottom: 24px;
+  grid-area: img;
   ${(props) =>
     props.type === "item"
       ? css`
@@ -142,9 +146,22 @@ const BtnPrice = styled.div`
   }
 `;
 
-export default function BuyCard({ bc, bgRevert, handleClick }) {
+const LabelContainer = styled.div`
+  grid-area: label;
+  height: 100%;
+`;
+
+const TypeContainer = styled.div`
+  grid-area: type;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export default function BuyCard({ bc, bgRevert }) {
   return (
-    <>
+    <CartProvider>
       <ImgCardContainer
         type="item"
         className="img-container"
@@ -165,10 +182,13 @@ export default function BuyCard({ bc, bgRevert, handleClick }) {
         {bgRevert && <Oval />}
         <Card.Img img={bc.imgUrl} />
       </ImgCardContainer>
-      <Card.ItemType>{bc.type}</Card.ItemType>
+      <TypeContainer>
+        <Card.ItemType>{bc.type}</Card.ItemType>
+      </TypeContainer>
+      <Price bc={bc} />
       <Card.TitleItem color="--dark-900">{bc.name}</Card.TitleItem>
       <Card.Review rate={bc.rate} numRate={135} />
-      <div className="label-container">
+      <LabelContainer className="label-container">
         {bc.label && (
           <Btn
             size="small"
@@ -180,26 +200,11 @@ export default function BuyCard({ bc, bgRevert, handleClick }) {
             {bc.label}
           </Btn>
         )}
-      </div>
-      <Card.Price
-        hasDiscount={!!bc.discount}
-        price={bc.price * 28}
-        currentPrice={bc.price * 28 - bc.discount}
-      />
+      </LabelContainer>
+
       <Card.WeightOptions />
-      <div>
-        <Btn
-          size="medium"
-          variation="primary"
-          shape="pill"
-          color="--light-300"
-          disabled={!bc.quantity}
-          onClick={handleClick}
-        >
-          Add to Cart
-        </Btn>
-      </div>
-    </>
+      <BuyCardBtn bc={bc} />
+    </CartProvider>
   );
 }
 
