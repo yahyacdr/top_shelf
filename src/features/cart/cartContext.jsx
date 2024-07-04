@@ -6,7 +6,7 @@ const CartContext = createContext();
 const initialState = {
   id: 0,
   quantity: 1,
-  price: 102,
+  price: Math.round(7.14285 * 28),
   weight: { weight: 28, label: "28g" },
   additions: { price: 0, labelWeight: 0, label: [] },
   totalPrice: 102,
@@ -59,9 +59,10 @@ function reducer(state, action) {
     case "SET_PRICE":
       return {
         ...state,
-        price:
-          state.basePrice * state.weight.weight * state.quantity -
-          state.discount,
+        price: Math.round(
+          (state.basePrice * state.weight.weight - state.discount) *
+            state.quantity
+        ),
       };
     case "SET_DISCOUNT":
       return {

@@ -36,6 +36,10 @@ const PriceReview = memo(({ items }) => {
     if (items[currentCard]) {
       dispatch({ type: "RESET" });
       dispatch({
+        type: "SET_BASE_PRICE",
+        payload: items[currentCard].price,
+      });
+      dispatch({
         type: "SET_DISCOUNT",
         payload: items[currentCard].discount,
       });
@@ -45,10 +49,6 @@ const PriceReview = memo(({ items }) => {
       dispatch({
         type: "SET_ID",
         payload: items[currentCard].id,
-      });
-      dispatch({
-        type: "SET_BASE_PRICE",
-        payload: items[currentCard].price,
       });
       dispatch({
         type: "SET_TOTAL_PRICE",

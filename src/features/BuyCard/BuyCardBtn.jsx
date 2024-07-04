@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import { memo } from "react";
 import Btn from "../../ui/Btn";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useCart } from "../cart/cartContext";
 import styled from "styled-components";
 import { ADD } from "../cart/cartSlice";
@@ -13,8 +13,6 @@ const BtnContainer = styled.div`
 `;
 const BuyCardBtn = memo(({ bc }) => {
   const { id, quantity, price, weight, additions, totalPrice } = useCart();
-  const items = useSelector((state) => state.cart.items);
-  console.log(items);
 
   const dispatch = useDispatch();
 

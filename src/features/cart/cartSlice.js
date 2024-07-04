@@ -26,8 +26,6 @@ const cartSlice = createSlice({
           (item) => item.id === action.payload.id
         );
 
-        console.log(sameProductDiffPrice, sameProduct);
-
         if (sameProductDiffPrice) {
           state.items = state.items.map((item) =>
             item.id === action.payload.id ? action.payload : item

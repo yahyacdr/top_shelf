@@ -59,6 +59,7 @@ const Counter = memo(() => {
 
 const PlusBtn = memo(() => {
   const { dispatch } = useCart();
+
   return (
     <StyledBtn
       onClick={() => {

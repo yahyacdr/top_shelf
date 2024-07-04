@@ -38,7 +38,6 @@ const Add = styled.div`
 const AddIntegra = memo(() => {
   const { dispatch, additions } = useCart();
   function handleIntegra(e) {
-    console.log(Array.isArray(additions.label), additions.label.includes("4"));
     if (e.target.checked) {
       dispatch({
         type: "ADD_INTEGRA",
@@ -48,6 +47,9 @@ const AddIntegra = memo(() => {
           label: e.target.id,
         },
       });
+      dispatch({
+        type: "SET_TOTAL_PRICE",
+      });
     } else {
       dispatch({
         type: "REMOVE_INTEGRA",
@@ -56,6 +58,9 @@ const AddIntegra = memo(() => {
           labelWeight: Number(e.target.id),
           label: e.target.id,
         },
+      });
+      dispatch({
+        type: "SET_TOTAL_PRICE",
       });
     }
   }

@@ -7,7 +7,7 @@ import { useCart } from "../cart/cartContext";
 import PropTypes from "prop-types";
 import { formatCurrency } from "../../utils/helper";
 import { ADD } from "../cart/cartSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const StyledPurchaseBox = styled.div`
   display: flex;
@@ -93,10 +93,7 @@ const PurchaseServiceDetails = styled.div`
   }
 `;
 const PurchaseBox = memo(({ item }) => {
-  const { weight, quantity, additions, price, id, totalPrice, basePrice } =
-    useCart();
-  const items = useSelector((state) => state.cart.items);
-  console.log(items, "cartSlice", totalPrice, price, basePrice);
+  const { weight, quantity, additions, price, id, totalPrice } = useCart();
 
   const dispatch = useDispatch();
 
