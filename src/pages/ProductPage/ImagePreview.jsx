@@ -1,11 +1,91 @@
 /* eslint-disable react/display-name */
-import { memo, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import Carousel from "../../ui/Carousel";
 import { SwiperSlide } from "swiper/react";
 import useFetchProducts from "../../hooks/useFetchProducts";
 import ContentLoadingAnimation from "../../ui/ContentLoadingAnimation";
 import PropTypes from "prop-types";
+
+const StyledImgPreview = styled.div`
+  width: 100%;
+  margin-top: 24px;
+  height: 60%;
+  transition: 0.3s ease-in-out;
+
+  .swiper {
+    height: 100%;
+    overflow: visible;
+    transition: 0.3s ease-in-out;
+    .swiper-wrapper {
+      .swiper-slide {
+        transition: 0.3s ease-in-out;
+
+        height: auto;
+        aspect-ratio: 1/1;
+        > div {
+          transition: 0.3s;
+        }
+      }
+    }
+    .swiper-pagination {
+      top: 110%;
+      bottom: 0;
+      span {
+        width: 56px;
+        height: unset;
+        aspect-ratio: 1/1;
+        border-radius: 8px;
+        background-color: var(--light-600);
+        background-position: center;
+        background-size: 40px 40px;
+        background-repeat: no-repeat;
+        &.swiper-pagination-bullet-active {
+          border: 1px solid var(--green-200);
+        }
+      }
+      ${(props) =>
+        props.items.map(
+          (bc, i) => css`
+            span:nth-child(${i + 1}) {
+              background-image: url(${bc.imgUrl});
+            }
+          `
+        )}
+    }
+  }
+  button {
+    display: none;
+  }
+
+  &.open {
+    height: 100vh;
+    z-index: 9999;
+    position: absolute;
+    top: 0;
+    background-color: rgba(1, 16, 11, 0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-inline: 24px;
+    overflow-x: hidden;
+
+    .swiper {
+      height: auto;
+      .swiper-wrapper {
+        margin-bottom: 24px;
+        height: 486px;
+        .swiper-slide {
+          aspect-ratio: 1 / 1.2105263;
+        }
+      }
+      .swiper-pagination {
+        position: static;
+      }
+    }
+  }
+`;
 
 const ImgCard = styled.div`
   background-color: var(--light-400);
@@ -73,90 +153,17 @@ const ImagePreview = memo(() => {
     console.log("slide changed");
   }
 
+  useEffect(() => {
+    document.body.style.overflow = isImagePreviewOpen ? "hidden" : "auto";
+  }, [isImagePreviewOpen]);
+
   if (isLoading) return <ContentLoadingAnimation />;
 
-  const StyledImgPreview = styled.div`
-    width: 100%;
-    margin-top: 24px;
-    height: 60%;
-    transition: 0.3s ease-in-out;
-
-    .swiper {
-      height: 100%;
-      overflow: visible;
-      transition: 0.3s ease-in-out;
-      .swiper-wrapper {
-        .swiper-slide {
-          transition: 0.3s ease-in-out;
-
-          height: auto;
-          aspect-ratio: 1/1;
-          > div {
-            transition: 0.3s;
-          }
-        }
-      }
-      .swiper-pagination {
-        top: 110%;
-        bottom: 0;
-        span {
-          width: 56px;
-          height: unset;
-          aspect-ratio: 1/1;
-          border-radius: 8px;
-          background-color: var(--light-600);
-          background-position: center;
-          background-size: 40px 40px;
-          background-repeat: no-repeat;
-          &.swiper-pagination-bullet-active {
-            border: 1px solid var(--green-200);
-          }
-        }
-        ${() =>
-          items.map(
-            (bc, i) => css`
-              span:nth-child(${i + 1}) {
-                background-image: url(${bc.imgUrl});
-              }
-            `
-          )}
-      }
-    }
-    button {
-      display: none;
-    }
-
-    ${() =>
-      isImagePreviewOpen &&
-      css`
-        height: 100vh;
-        z-index: 9999;
-        position: absolute;
-        top: 0;
-        background-color: rgba(1, 16, 11, 0.4);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding-inline: 24px;
-        .swiper {
-          height: auto;
-          .swiper-wrapper {
-            margin-bottom: 24px;
-            height: 486px;
-            .swiper-slide {
-              aspect-ratio: 1 / 1.2105263;
-            }
-          }
-          .swiper-pagination {
-            position: static;
-          }
-        }
-      `}
-  `;
-
   return (
-    <StyledImgPreview>
+    <StyledImgPreview
+      items={items}
+      className={`${isImagePreviewOpen ? "open" : ""}`}
+    >
       <Carousel
         nextBtnClass="btn-next"
         refEl={carouselEl}
