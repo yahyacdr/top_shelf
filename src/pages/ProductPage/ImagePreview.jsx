@@ -6,8 +6,10 @@ import { SwiperSlide } from "swiper/react";
 import useFetchProducts from "../../hooks/useFetchProducts";
 import ContentLoadingAnimation from "../../ui/ContentLoadingAnimation";
 import PropTypes from "prop-types";
+import screens from "../../utils/screens";
 
 const StyledImgPreview = styled.div`
+  grid-area: image;
   width: 100%;
   margin-top: 24px;
   height: 60%;
@@ -21,7 +23,7 @@ const StyledImgPreview = styled.div`
       .swiper-slide {
         transition: 0.3s ease-in-out;
 
-        height: auto;
+        height: 100%;
         aspect-ratio: 1/1;
         > div {
           transition: 0.3s;
@@ -69,8 +71,9 @@ const StyledImgPreview = styled.div`
     justify-content: center;
     align-items: center;
     padding-inline: 24px;
-    overflow-x: hidden;
-
+    overflow: hidden;
+    margin-top: 0;
+    left: 0;
     .swiper {
       height: auto;
       .swiper-wrapper {
@@ -79,10 +82,57 @@ const StyledImgPreview = styled.div`
         .swiper-slide {
           aspect-ratio: 1 / 1.2105263;
         }
+
+        @media (min-width: ${screens.mobile.xl}) {
+          margin-bottom: 48px;
+        }
+        @media (min-width: ${screens.mobile.xxl}) {
+          margin-bottom: 64px;
+        }
+        @media (min-width: 560px) {
+          margin-bottom: 24px;
+        }
       }
       .swiper-pagination {
         position: static;
       }
+    }
+
+    @media (min-width: ${screens.tablet.xxm}) {
+      padding: 46px 220px;
+    }
+
+    @media (min-width: ${screens.tablet.xxxl}) {
+      padding: 46px 300px;
+    }
+  }
+
+  @media (max-width: ${screens.mobile.m}) {
+    margin-bottom: 50px;
+  }
+  @media (min-width: ${screens.tablet.xxm}) {
+    padding: 0 64px 0 40px;
+    margin-top: 0;
+
+    .swiper {
+      overflow-x: hidden;
+      height: 40%;
+      .swiper-wrapper {
+        height: 70%;
+      }
+      .swiper-pagination {
+        top: auto;
+      }
+    }
+  }
+  @media (min-width: ${screens.tablet.xl}) {
+    .swiper {
+      height: 60%;
+    }
+  }
+  @media (min-width: ${screens.desktop.xxs}) {
+    .swiper {
+      height: 70%;
     }
   }
 `;
@@ -98,6 +148,13 @@ const ImgCard = styled.div`
   height: 100%;
   > img {
     width: 70%;
+    @media (min-width: ${screens.mobile.xxm}) {
+      width: 50%;
+    }
+
+    @media (min-width: ${screens.mobile.xxl}) {
+      width: 40%;
+    }
   }
 `;
 
@@ -155,6 +212,9 @@ const ImagePreview = memo(() => {
 
   useEffect(() => {
     document.body.style.overflow = isImagePreviewOpen ? "hidden" : "auto";
+    if (isImagePreviewOpen) {
+      window.scrollTo(0, 0);
+    }
   }, [isImagePreviewOpen]);
 
   if (isLoading) return <ContentLoadingAnimation />;

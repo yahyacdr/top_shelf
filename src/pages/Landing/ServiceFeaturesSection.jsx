@@ -29,9 +29,6 @@ const StyledServiceFeaturesSection = styled.section`
       align-items: flex-start;
       border: 1px solid rgba(206, 207, 213, 0.5);
       padding: 32px;
-      img {
-        margin-bottom: 32px;
-      }
       p {
         text-transform: none;
         font-size: var(--font-size-small-100);
@@ -62,7 +59,7 @@ const ServiceFeaturesSection = memo(() => {
       </p>
       <Menu.ItemCards distribution="grid">
         {featureCards2.map((fc2) => (
-          <Menu.CardContainer
+          <Menu.ReviewCardContainer
             className="card-container"
             distribution="flex"
             key={fc2.id}
@@ -75,7 +72,7 @@ const ServiceFeaturesSection = memo(() => {
             <Card.Desc color="--dark-300" opacity="1" maxwidth="300px">
               {fc2.desc}
             </Card.Desc>
-          </Menu.CardContainer>
+          </Menu.ReviewCardContainer>
         ))}
       </Menu.ItemCards>
     </StyledServiceFeaturesSection>

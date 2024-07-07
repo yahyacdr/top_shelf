@@ -12,6 +12,7 @@ const StyleMain = styled.main`
   justify-content: space-between;
   width: 100%;
   overflow: hidden;
+  row-gap: 64px;
 
   &.prod-main {
     > section:last-child {
@@ -37,14 +38,9 @@ const StyleMain = styled.main`
     }
   }
 
-  &.main-landing > section {
+  &.main-landing > section:not(.how-to-section) {
     width: 100%;
-    &:not(:first-child) {
-      @media (max-width: 540px) {
-        padding: 64px 24px 0 24px;
-      }
-      padding: 120px 60px 0 120px;
-    }
+    padding: 24px;
   }
 `;
 

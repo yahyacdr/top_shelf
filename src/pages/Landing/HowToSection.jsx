@@ -10,6 +10,7 @@ import refer_a_friend_img from "../../data/images/refer-a-friend-bg.svg";
 import FloatingPanel from "../../ui/FloatingPanel";
 import PropTypes from "prop-types";
 import { memo } from "react";
+import Color from "color";
 
 const StyledHowToSection = styled.section`
   margin-top: 240px;
@@ -18,27 +19,13 @@ const StyledHowToSection = styled.section`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding-right: 120px !important;
-  padding-bottom: 120px !important;
-  padding-top: 280px !important;
   position: relative;
-  row-gap: 32px;
-  & h1 {
-    text-align: center;
-    max-width: 950px;
-  }
+  row-gap: 40px;
+  padding: 280px 24px 64px;
+
   & > p {
-    max-width: 800px;
-    font-size: var(--font-size-medium-33);
-    line-height: 150%;
-    font-weight: 300;
-    letter-spacing: 0;
-    text-align: center;
-    color: var(--light-900);
   }
   & > div:not(:first-child) {
-    margin-top: 73px;
-    margin-bottom: 80px;
     & > div {
       & > p {
         flex-grow: 1;
@@ -48,6 +35,9 @@ const StyledHowToSection = styled.section`
   }
   & > p + div {
     justify-content: center;
+  }
+  & > button {
+    text-transform: capitalize;
   }
 
   .refer-a-friend {
@@ -98,18 +88,11 @@ const StyledHowToSection = styled.section`
     }
   }
 
-  .card-items {
-    @media (max-width: 540px) {
-      column-gap: 32px;
-    }
-  }
-
   .card-container {
-    width: 100%;
-    max-width: 548px;
-    @media (max-width: 540px) {
-      width: 44%;
-    }
+    border: none;
+    width: calc(100% / 2 - 12px);
+    align-items: center;
+    padding: 0;
   }
 
   .card-desc {
@@ -126,10 +109,6 @@ const StyledHowToSection = styled.section`
     left: 0;
     color: var(--green-900);
   }
-
-  @media (max-width: 540px) {
-    padding: 280px 24px 120px !important;
-  }
 `;
 
 const ImgCardContainer = styled.div`
@@ -138,37 +117,49 @@ const ImgCardContainer = styled.div`
   justify-content: center;
   position: relative;
   z-index: 1;
-  margin-bottom: 24px;
   height: fit-content;
-  width: 50%;
-  @media (max-width: 540px) {
-    width: 70%;
-  }
+  width: 100%;
   & img {
-    width: 144px;
-    aspect-ratio: 1;
-    @media (max-width: 540px) {
-      width: 64px;
-    }
+    width: 64px;
+    aspect-ratio: 1 / 1;
+  }
+`;
+
+const Text = styled.div`
+  & h1 {
+    text-align: center;
+    max-width: 950px;
+    margin-bottom: 16px;
+  }
+  & > p {
+    max-width: 800px;
+    font-size: var(--font-size-small-100);
+    line-height: 150%;
+    font-weight: 300;
+    letter-spacing: 0;
+    text-align: center;
+    color: ${Color("#9D9EA2").alpha(0.42).toString()};
   }
 `;
 
 const HowToSection = memo(() => {
   return (
-    <StyledHowToSection>
+    <StyledHowToSection className="how-to-section">
       <ReferAFriend className="refer-a-friend" />
-      <Heading as="h1">
-        how to order weed online from top shelf bc - mail order marijuana
-      </Heading>
-      <p>
-        Ordering weed online from Top Shelf BC is easy. We are proud to have
-        made the process accessible across multiple platforms and simple to
-        understand, meaning that more people can come to us to buy their
-        cannabis products online.
-      </p>
+      <Text>
+        <Heading as="h1">
+          how to order weed online from top shelf bc - mail order marijuana
+        </Heading>
+        <p>
+          Ordering weed online from Top Shelf BC is easy. We are proud to have
+          made the process accessible across multiple platforms and simple to
+          understand, meaning that more people can come to us to buy their
+          cannabis products online.
+        </p>
+      </Text>
       <Menu.ItemCards distribution="grid" className="card-items">
         {howToCards.map((htc) => (
-          <Menu.CardContainer
+          <Menu.ReviewCardContainer
             className="card-container"
             distribution="flex"
             key={htc.id}
@@ -185,11 +176,11 @@ const HowToSection = memo(() => {
             <Card.Desc color="--light-900" opacity="1" className="card-desc">
               {htc.desc}
             </Card.Desc>
-          </Menu.CardContainer>
+          </Menu.ReviewCardContainer>
         ))}
       </Menu.ItemCards>
       <Btn variation="primary" size="large" shape="pill" color="--light-300">
-        Choose your Weed
+        Refer here
       </Btn>
     </StyledHowToSection>
   );

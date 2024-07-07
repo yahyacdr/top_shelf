@@ -8,6 +8,7 @@ import { formatDate } from "../utils/helper";
 import useFetchReviews from "../hooks/useFetchReviews";
 import ContentLoadingAnimation from "./ContentLoadingAnimation";
 import PropTypes from "prop-types";
+import { SwiperSlide } from "swiper/react";
 
 const StyledReviewsCardHeader = styled.div`
   display: flex;
@@ -65,7 +66,7 @@ const StyledDesc = styled.div`
   }
 `;
 
-const ReviewsCard = memo(({ reviewsNum = 0 }) => {
+const ReviewsCard = memo(({ reviewsNum = 0, carousel = false }) => {
   const { reviews, isLoading: isLoadingReviews } = useFetchReviews();
   let currentReviews = useRef([]);
   const currentCard = Number(location.hash[location.hash.length - 1]) - 1 || 0;
@@ -77,6 +78,36 @@ const ReviewsCard = memo(({ reviewsNum = 0 }) => {
   }, [reviews, currentCard, currentReviews]);
 
   if (isLoadingReviews) return <ContentLoadingAnimation />;
+
+  if (carousel)
+    return reviews.map((review) => (
+      <SwiperSlide key={review.id}>
+        <Menu.CardContainer
+          distribution="flex"
+          width="100%"
+          className="card-container"
+        >
+          <StyledReviewsCardHeader>
+            <div>
+              <ImgCardContainer>
+                <Card.Img img={`https://robohash.org/${review.id}`} />
+              </ImgCardContainer>
+              <Card.Name color="--dark-900">{review.name}</Card.Name>
+            </div>
+            <Divider
+              polarity="horizonal"
+              color="var(--light-600)"
+              width="100%"
+            />
+          </StyledReviewsCardHeader>
+          <StyledDesc>
+            <Card.RateStars numStars={review.rate} />
+            <Card.Desc color="--dark-600">{review.review}</Card.Desc>
+          </StyledDesc>
+          <Card.Date>{formatDate(new Date(review.created_at))}</Card.Date>
+        </Menu.CardContainer>
+      </SwiperSlide>
+    ));
 
   return currentReviews.current
     .slice(0, reviewsNum || currentReviews.current.length - 1)
@@ -106,7 +137,7 @@ const ReviewsCard = memo(({ reviewsNum = 0 }) => {
 });
 
 ReviewsCard.propTypes = {
-  currentCard: PropTypes.number,
+  carousel: PropTypes.bool,
   reviewsNum: PropTypes.number,
 };
 

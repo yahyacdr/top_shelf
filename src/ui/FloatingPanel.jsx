@@ -1,11 +1,12 @@
 import { memo } from "react";
 import styled, { css } from "styled-components";
+import screens from "../utils/screens";
 
 const FloatingPanel = styled.div`
   width: 89%;
   max-width: 1200px;
   display: flex;
-  padding: 84px 120px;
+  padding: 64px 0px;
   border-radius: 24px;
   ${(props) =>
     props.img &&
@@ -19,18 +20,14 @@ const FloatingPanel = styled.div`
   top: 0%;
   left: 50%;
   transform: translate(-50%, -50%);
-  @media (max-width: 920px) {
-    width: 80%;
+  @media (min-width: ${screens.tablet.xxm}) {
     padding: 84px 50px;
   }
-  @media (max-width: 540px) {
+  @media (min-width: ${screens.mobile.l}) {
     padding: 84px 50px;
   }
-  @media (max-width: 460px) {
+  @media (min-width: ${screens.mobile.xm}) {
     padding: 64px 32px;
-  }
-  @media (max-width: 390px) {
-    padding: 64px 0px;
   }
 `;
 

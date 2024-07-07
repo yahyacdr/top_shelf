@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { memo } from "react";
 import styled, { css } from "styled-components";
 import "swiper/css";
+import screens from "../utils/screens";
 
 const ItemCards = styled.div`
   display: flex;
@@ -19,9 +20,7 @@ const ItemCards = styled.div`
       align-items: flex-start;
       gap: 32px 24px;
     `}
-  @media (max-width: 920px) {
-    flex-wrap: wrap;
-  }
+  flex-wrap: wrap;
 `;
 
 const StyledCardContainer = styled.div`
@@ -32,9 +31,8 @@ const StyledCardContainer = styled.div`
 const CoverCard = styled(StyledCardContainer)`
   display: flex;
   justify-content: flex-start;
-  margin-right: 32px;
   border-radius: 16px;
-  min-width: 300px;
+  min-width: 232px;
 
   ${(props) =>
     props.side === "start"
@@ -55,20 +53,7 @@ const CoverCard = styled(StyledCardContainer)`
   background-color: var(--green-900);
   position: relative;
   overflow-x: hidden;
-  width: 379px;
-  padding: 40px 40px 0;
-  & > p {
-    margin-bottom: 20px;
-  }
-  & > img {
-    position: absolute;
-    width: 261.68px;
-    height: 371px;
-    transform: rotate(5deg) translate(-80%, 50%);
-    left: 100%;
-    top: -50%;
-    z-index: 0;
-  }
+  width: calc(100vw - 48px);
   & > h3 {
     margin-bottom: 8px;
   }
@@ -92,13 +77,19 @@ const CardContainer = styled(StyledCardContainer)`
       : css`
           display: grid;
           grid-template-columns: 100%;
-          grid-template-rows: 30% 10% 15% 8% 10% 8% 8% 11%;
+          grid-template-rows: 30% 9% 18% 8% 8% 8% 8% 11%;
           grid-template-areas: "img" "type" "title" "review" "label" "price" "weights" "btn";
+          @media (max-width: ${screens.mobile.m}) {
+            grid-template-rows: 35% 8% 15% 7% 8% 8% 8% 11%;
+          }
+          @media (min-width: ${screens.tablet.xxm}) {
+            grid-template-rows: 38% 9% 11% 7% 8% 8% 8% 11%;
+          }
         `}
   min-width: 159px;
   border-radius: 8px;
   height: 525px;
-  width: calc(100% / 2 - 24px);
+  width: calc(100% / 2 - 12px);
   & > h3 {
     margin-bottom: 0;
     margin-top: 0px;
@@ -114,6 +105,42 @@ const CardContainer = styled(StyledCardContainer)`
     align-items: center;
     justify-content: center;
   }
+  @media (min-width: ${screens.tablet.s}) {
+    width: calc(100% / 3 - 16px);
+  }
+
+  @media (min-width: ${screens.desktop.xs}) {
+    width: calc(100% / 4 - 18px);
+  }
+`;
+
+const ReviewCardContainer = styled(StyledCardContainer)`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  border-radius: 8px;
+  height: 100%;
+  row-gap: 20px;
+  position: relative;
+  border: 2px solid #f4f4f4;
+  border-radius: 16px;
+  padding: 24px;
+  height: 347px;
+  .date {
+    height: 10%;
+  }
+  & > h3 {
+    margin-bottom: 0;
+    margin-top: 0px;
+  }
+  & button.label {
+    color: var(--green-900);
+    font-size: var(--font-size-small-50);
+    font-weight: 400;
+    padding: 5px 8px;
+  }
 `;
 
 const Menu = memo(({ children }) => {
@@ -127,5 +154,6 @@ Menu.propTypes = {
 Menu.ItemCards = ItemCards;
 Menu.CoverCard = CoverCard;
 Menu.CardContainer = CardContainer;
+Menu.ReviewCardContainer = ReviewCardContainer;
 
 export default Menu;

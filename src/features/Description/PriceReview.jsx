@@ -9,7 +9,10 @@ const StyledPriceReview = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  row-gap: 8px;
   width: 100%;
+
   > div {
     width: fit-content;
     align-self: center;

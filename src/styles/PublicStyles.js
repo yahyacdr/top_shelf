@@ -64,7 +64,6 @@ const PublicStyles = createGlobalStyle`
     }
 
     body {
-        width: 100vw;
         min-height: 100vh;
         overflow-x: hidden;
         background-color: var(--light-300);
@@ -91,14 +90,6 @@ const PublicStyles = createGlobalStyle`
         margin: 15px 0;
         &:hover {
             color: var(--green-300);
-        }
-    }
-
-    main {
-        section:nth-child(5) {
-            & > div {
-                gap: 64px 57px;
-            }
         }
     }
 

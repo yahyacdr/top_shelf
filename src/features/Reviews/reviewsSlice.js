@@ -39,11 +39,8 @@ export const fetchReviews = createAsyncThunk("fetchReviews", async () => {
   return getReviews();
 });
 
-export const uploadReviews = createAsyncThunk(
-  "uploadReviews",
-  async (data, thunkAPI) => {
-    return addReview(data.name, data.review, data.rating, data.productId);
-  }
-);
+export const uploadReviews = createAsyncThunk("uploadReviews", async (data) => {
+  return addReview(data.name, data.review, data.rating, data.productId);
+});
 
 export default reviewSlice.reducer;

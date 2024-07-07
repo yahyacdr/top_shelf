@@ -20,8 +20,10 @@ import AddIntegra from "./AddIntegra";
 import PurchaseBox from "./PurchaseBox";
 import CartProvider from "../cart/cartContext";
 import PriceReview from "./PriceReview";
+import screens from "../../utils/screens";
 
 const StyledCardDetails = styled.div`
+  grid-area: details;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -50,12 +52,17 @@ const StyledCardDetails = styled.div`
       padding: 7px 10px;
     }
   }
+
+  @media (min-width: ${screens.tablet.xxm}) {
+    margin-top: 0;
+  }
 `;
 
 const Labels = styled.div`
   display: flex;
   justify-content: flex-start;
   column-gap: 8px;
+  height: 31px;
 `;
 
 const Qualities = styled.div`
@@ -154,8 +161,14 @@ const OfferPill = styled.p`
   padding: 8px 14px;
   border-radius: 100px;
   margin: 16px auto 20px;
+  text-align: center;
   > span {
     color: var(--red-600);
+  }
+
+  @media (min-width: ${screens.mobile.xxl}) {
+    padding: 10px 28px;
+    font-size: var(--font-size-medium-33);
   }
 `;
 
@@ -214,6 +227,10 @@ const FilterContent = styled.div`
     border: 1px solid var(--light-600);
     border-radius: 16px;
     padding: 20px;
+    max-height: 350px;
+    > div {
+      align-items: flex-start;
+    }
   }
   > button {
     font-size: var(--font-size-small-100);

@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import { formatCurrency } from "../../utils/helper";
 import { ADD } from "../cart/cartSlice";
 import { useDispatch } from "react-redux";
+import screens from "../../utils/screens";
 
 const StyledPurchaseBox = styled.div`
   display: flex;
@@ -34,10 +35,15 @@ const PurchasedItem = styled.div`
   width: 100%;
   > p:nth-child(even) {
     text-align: right;
+    max-width: 90%;
   }
   span {
     margin-left: 16px;
     color: var(--light-900);
+  }
+
+  @media (min-width: ${screens.mobile.xxl}) {
+    font-size: var(--font-size-medium-33);
   }
 `;
 

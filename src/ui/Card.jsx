@@ -7,6 +7,7 @@ import { formatCurrency } from "../utils/helper";
 import Btn from "./Btn";
 import { memo } from "react";
 import { useCart } from "../features/cart/cartContext";
+import screens from "../utils/screens";
 
 const StyledImg = styled.img`
   /* width: 50%; */
@@ -22,7 +23,7 @@ const TitleItem = styled(Heading).attrs(() => ({ as: "h4" }))`
   text-transform: ${(props) => props.case};
   color: var(${(props) => props.color});
   margin-bottom: 0;
-  height: 100%;
+  /* height: 100%; */
 `;
 
 const Name = styled(Heading).attrs(() => ({ as: "h4" }))`
@@ -31,15 +32,15 @@ const Name = styled(Heading).attrs(() => ({ as: "h4" }))`
 `;
 
 const Desc = styled.p`
-  font-size: var(--font-size-medium-33);
+  font-size: var(--font-size-small-100);
   font-weight: 300;
   letter-spacing: 0;
   line-height: 150%;
   color: var(${(props) => props.color});
   opacity: ${(props) => props.opacity};
   max-width: ${(props) => props.maxwidth};
-  @media (max-width: 640px) {
-    font-size: var(--font-size-small-100);
+  @media (min-width: ${screens.mobile.xl}) {
+    font-size: var(--font-size-medium-33);
   }
 `;
 
@@ -66,9 +67,9 @@ const Tag = styled.span`
 const ItemType = styled.p`
   color: var(--light-900);
   text-transform: uppercase;
-  font-size: var(--font-size-small-100);
-  @media (max-width: 540px) {
-    font-size: var(--font-size-small-50);
+  font-size: var(--font-size-small-50);
+  @media (min-width: ${screens.mobile.xxl}) {
+    font-size: var(--font-size-small-100);
   }
 `;
 
@@ -79,6 +80,8 @@ const StyledReview = styled.div`
   align-items: center;
   height: 100%;
   color: var(--dark-900);
+  font-size: var(--font-size-small-50);
+
   & svg {
     margin-right: 10px;
     @media (max-width: 540px) {
@@ -92,8 +95,8 @@ const StyledReview = styled.div`
       margin-inline: 5px;
     }
   }
-  @media (max-width: 540px) {
-    font-size: var(--font-size-small-50);
+  @media (min-width: ${screens.mobile.xxl}) {
+    font-size: var(--font-size-small-100);
   }
 `;
 
@@ -133,10 +136,7 @@ const StyledWeightOptions = styled.div`
   & button {
     padding: 5px 10px;
     &:not(:last-child) {
-      margin-right: 15px;
-      @media (max-width: 540px) {
-        margin-right: 5px;
-      }
+      margin-right: 5px;
     }
     ${(props) =>
       props.revert &&
@@ -150,6 +150,11 @@ const StyledWeightOptions = styled.div`
       border: 1px solid var(--green-900);
       background-color: var(--light-400);
       color: var(--green-900);
+    }
+
+    @media (min-width: ${screens.mobile.xxm}) {
+      font-size: var(--font-size-small-50);
+      margin-bottom: 5px;
     }
   }
 `;

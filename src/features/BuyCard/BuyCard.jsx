@@ -30,9 +30,21 @@ const ImgCardContainer = styled(ImgContainer)`
           align-items: center;
           height: 100%;
           & img {
-            width: 164px;
-            @media (max-width: 540px) {
-              width: 120px;
+            width: 70%;
+            @media (min-width: ${screens.mobile.l}) {
+              width: 60%;
+            }
+            @media (min-width: ${screens.mobile.xxl}) {
+              width: 50%;
+            }
+            @media (min-width: ${screens.tablet.xs}) {
+              width: 40%;
+            }
+            @media (min-width: ${screens.tablet.s}) {
+              width: 50%;
+            }
+            @media (min-width: ${screens.tablet.xxl}) {
+              width: 40%;
             }
           }
         `
@@ -76,8 +88,8 @@ const ImgPanelCardContainer = styled(ImgContainer)`
 const OutOfStockBadge = styled.div`
   border-radius: 50px;
   background-color: rgba(5, 66, 44, 0.3);
-  width: 152px;
-  height: 64px;
+  width: 136px;
+  height: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -93,10 +105,6 @@ const OutOfStockBadge = styled.div`
     color: var(--light-300);
   }
   backdrop-filter: blur(5px);
-  @media (max-width: 540px) {
-    width: 136px;
-    height: 48px;
-  }
 `;
 
 const Offer = styled.div`
