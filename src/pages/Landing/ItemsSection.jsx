@@ -16,6 +16,10 @@ import screens from "../../utils/screens";
 
 const FilterContent = ["Best seller", "Bundles & Promotions", "On Sale"];
 
+const slidesPerView = {
+  640: 2,
+};
+
 const StyledMenuSection = styled.section`
   display: flex;
   flex-direction: column;
@@ -26,11 +30,11 @@ const StyledMenuSection = styled.section`
   row-gap: 25px;
   .back-img {
     position: absolute;
-    width: 261.68px;
-    height: 371px;
-    transform: rotate(5deg) translate(-65%, 50%);
-    left: 100%;
-    top: -67%;
+    width: 68.3%;
+    aspect-ratio: 2.6168 / 3.71;
+    transform: rotate(5deg) translate(100%, -100%);
+    right: 65%;
+    top: 65%;
     z-index: 0;
   }
   .items-cards {
@@ -38,14 +42,14 @@ const StyledMenuSection = styled.section`
     row-gap: 32px;
   }
   .cover-card {
-    height: 395px;
-    padding: 8px 40px 0;
+    /* height: 395px; */
+    padding: 28px 40px;
     > :not(.back-img) {
       position: relative;
       z-index: 1;
     }
     @media (max-width: ${screens.mobile.s}) {
-      padding: 8px 24px 0;
+      padding: 8px 24px;
     }
   }
   .swiper-slide {
@@ -77,6 +81,13 @@ const ImgCardContainer = styled.div`
   align-items: flex-end;
   & img {
     width: 57.7%;
+    aspect-ratio: 1 / 1;
+    @media (min-width: ${screens.mobile.xxm}) {
+      width: 45%;
+    }
+    @media (min-width: ${screens.tablet.xs}) {
+      width: 35%;
+    }
   }
 `;
 
@@ -90,7 +101,7 @@ const ItemsSection = memo(() => {
           </Heading>
         </StyledHeaderContainer>
         <FilterSection contents={FilterContent} />
-        <BuyCardsCarousel>
+        <BuyCardsCarousel slides_per_view={slidesPerView}>
           <Menu.CoverCard side="center" className="cover-card">
             <img src={vector} alt="" className="back-img" />
             <ImgCardContainer type="cover">

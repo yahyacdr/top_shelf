@@ -9,17 +9,11 @@ const Heading = styled.h1`
   ${(props) =>
     props.as === "h1" &&
     css`
-      font-size: var(--font-size-large-100);
       font-weight: 700;
       text-transform: uppercase;
       line-height: 110%;
       letter-spacing: -4px;
-      @media (max-width: 1366px) {
-        letter-spacing: -2px;
-      }
-      @media (max-width: 640px) {
-        font-size: var(--font-size-large-66);
-      }
+      font-size: var(--font-size-large-66);
     `}
   ${(props) =>
     props.as === "h2" &&

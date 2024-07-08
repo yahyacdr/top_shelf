@@ -140,6 +140,9 @@ const Text = styled.div`
     text-align: center;
     max-width: 950px;
     margin-bottom: 16px;
+    @media (min-width: ${screens.tablet.xs}) {
+      /* font-size: var(--font-size-large-100); */
+    }
   }
   & > p {
     max-width: 800px;

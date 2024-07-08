@@ -82,6 +82,9 @@ const CardContainer = styled(StyledCardContainer)`
           @media (max-width: ${screens.mobile.m}) {
             grid-template-rows: 35% 8% 15% 7% 8% 8% 8% 11%;
           }
+          @media (min-width: ${screens.mobile.xxl}) {
+            grid-template-rows: 37% 9% 11% 8% 8% 8% 8% 11%;
+          }
           @media (min-width: ${screens.tablet.xxm}) {
             grid-template-rows: 38% 9% 11% 7% 8% 8% 8% 11%;
           }

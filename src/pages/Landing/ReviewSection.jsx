@@ -68,6 +68,7 @@ const StyledReview = styled.div`
   margin-bottom: 8px;
   color: var(--light-300);
   width: 100%;
+  max-width: 300px;
   & > p:first-child {
     grid-area: excellence;
   }

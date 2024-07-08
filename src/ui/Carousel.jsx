@@ -71,14 +71,16 @@ const Carousel = memo(
         breakpoints={{
           0: {
             spaceBetween: 24,
-            slidesPerView: slides_per_view ? slides_per_view["0"] : 1.4,
+            slidesPerView: slides_per_view["0"] ? slides_per_view["0"] : 1.4,
             centeredSlides: true,
             centerInsufficientSlides: true,
             centeredSlidesBounds: true,
           },
           640: {
             spaceBetween: 24,
-            slidesPerView: slides_per_view ? slides_per_view["640"] : 1.5,
+            slidesPerView: slides_per_view["640"]
+              ? slides_per_view["640"]
+              : 1.5,
           },
           720: {
             spaceBetween: 24,
@@ -86,23 +88,31 @@ const Carousel = memo(
           },
           920: {
             spaceBetween: 24,
-            slidesPerView: slides_per_view ? slides_per_view["920"] : 1,
+            slidesPerView: slides_per_view["920"] ? slides_per_view["920"] : 1,
           },
           1080: {
             spaceBetween: 32,
-            slidesPerView: slides_per_view ? slides_per_view["1080"] : 1.8,
+            slidesPerView: slides_per_view["1080"]
+              ? slides_per_view["1080"]
+              : 1.8,
           },
           1200: {
             spaceBetween: 32,
-            slidesPerView: slides_per_view ? slides_per_view["1200"] : 2,
+            slidesPerView: slides_per_view["1200"]
+              ? slides_per_view["1200"]
+              : 2,
           },
           1366: {
             spaceBetween: 32,
-            slidesPerView: slides_per_view ? slides_per_view["1366"] : 2.5,
+            slidesPerView: slides_per_view["1366"]
+              ? slides_per_view["1366"]
+              : 2.5,
           },
           1440: {
             spaceBetween: 32,
-            slidesPerView: slides_per_view ? slides_per_view["1440"] : 2.8,
+            slidesPerView: slides_per_view["1440"]
+              ? slides_per_view["1440"]
+              : 2.8,
           },
         }}
         pagination={{

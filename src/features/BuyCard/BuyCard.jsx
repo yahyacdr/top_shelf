@@ -40,15 +40,12 @@ const ImgCardContainer = styled(ImgContainer)`
               width: 40%;
             }
             @media (min-width: ${screens.mobile.xxl}) {
-              width: 50%;
-            }
-            @media (min-width: ${screens.tablet.xs}) {
               width: 40%;
             }
-            @media (min-width: ${screens.tablet.s}) {
-              width: 50%;
+            @media (min-width: ${screens.tablet.xxs}) {
+              width: 35%;
             }
-            @media (min-width: ${screens.tablet.xxl}) {
+            @media (min-width: ${screens.tablet.xs}) {
               width: 40%;
             }
           }

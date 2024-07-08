@@ -6,6 +6,7 @@ import { weedTypes } from "../../data/Static/StaticData";
 import Card from "../../ui/Card";
 import { Link } from "react-router-dom";
 import { memo } from "react";
+import screens from "../../utils/screens";
 
 const StyledWeedTypesSection = styled.section`
   .card-items {
@@ -34,6 +35,13 @@ const ImgCardContainer = styled.div`
   & img {
     aspect-ratio: 0.9/1;
     width: 47.37%;
+    @media (min-width: ${screens.tablet.xxs}) {
+      width: 32%;
+    }
+
+    @media (min-width: ${screens.tablet.s}) {
+      width: 28%;
+    }
   }
 `;
 
