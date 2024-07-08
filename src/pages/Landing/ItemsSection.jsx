@@ -18,6 +18,7 @@ const FilterContent = ["Best seller", "Bundles & Promotions", "On Sale"];
 
 const slidesPerView = {
   640: 2,
+  920: 2,
 };
 
 const StyledMenuSection = styled.section`
@@ -28,6 +29,9 @@ const StyledMenuSection = styled.section`
   width: 100%;
   overflow: hidden;
   row-gap: 25px;
+  @media (min-width: ${screens.tablet.xxm}) {
+    row-gap: 64px;
+  }
   .back-img {
     position: absolute;
     width: 68.3%;
@@ -38,11 +42,20 @@ const StyledMenuSection = styled.section`
     z-index: 0;
   }
   .items-cards {
-    /* height: calc((568px * 2) + 100px); */
     row-gap: 32px;
+    column-gap: 32px;
+    @media (min-width: ${screens.tablet.xxm}) {
+      height: 568px;
+      width: calc(100% + 120px);
+      flex-wrap: nowrap;
+      .swiper {
+        height: 100%;
+        width: auto;
+      }
+    }
   }
   .cover-card {
-    /* height: 395px; */
+    height: 395px;
     padding: 28px 40px;
     > :not(.back-img) {
       position: relative;
@@ -50,6 +63,18 @@ const StyledMenuSection = styled.section`
     }
     @media (max-width: ${screens.mobile.s}) {
       padding: 8px 24px;
+    }
+    @media (min-width: ${screens.tablet.xxm}) {
+      height: 100%;
+      width: auto;
+    }
+  }
+
+  .cards-container {
+    @media (min-width: ${screens.tablet.xxm}) {
+      > div {
+        height: 100%;
+      }
     }
   }
   .swiper-slide {
@@ -67,6 +92,9 @@ const StyledHeaderContainer = styled.div`
   & > h1 {
     max-width: 600px;
     margin-bottom: 0;
+    @media (min-width: ${screens.tablet.xxm}) {
+      max-width: 948px;
+    }
   }
 `;
 
@@ -88,19 +116,22 @@ const ImgCardContainer = styled.div`
     @media (min-width: ${screens.tablet.xs}) {
       width: 35%;
     }
+    @media (min-width: ${screens.tablet.xxm}) {
+      width: 80%;
+    }
   }
 `;
 
 const ItemsSection = memo(() => {
   return (
     <CartProvider>
-      <StyledMenuSection>
+      <StyledMenuSection className="menu-section">
         <StyledHeaderContainer>
           <Heading as="h1">
             best dispensary to buy weed online in canada
           </Heading>
         </StyledHeaderContainer>
-        <FilterSection contents={FilterContent} />
+        <FilterSection contents={FilterContent} hasTitle={false} />
         <BuyCardsCarousel slides_per_view={slidesPerView}>
           <Menu.CoverCard side="center" className="cover-card">
             <img src={vector} alt="" className="back-img" />

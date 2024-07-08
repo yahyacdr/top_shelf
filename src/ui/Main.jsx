@@ -42,6 +42,9 @@ const StyleMain = styled.main`
     width: 100%;
     padding: 24px;
   }
+  &.main-landing > section.menu-section {
+    padding: 24px 120px;
+  }
 `;
 
 const Main = memo(({ children, className }) => {

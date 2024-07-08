@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import screens from "../utils/screens";
 
 const Heading = styled.h1`
   margin-bottom: 25px;
@@ -14,6 +15,9 @@ const Heading = styled.h1`
       line-height: 110%;
       letter-spacing: -4px;
       font-size: var(--font-size-large-66);
+      @media (min-width: ${screens.tablet.xxm}) {
+        font-size: var(--font-size-large-100);
+      }
     `}
   ${(props) =>
     props.as === "h2" &&

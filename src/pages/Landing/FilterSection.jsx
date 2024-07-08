@@ -15,6 +15,7 @@ const StyledFilterSection = styled.div`
   max-width: 960px;
   flex-wrap: wrap;
   row-gap: 15px;
+  column-gap: 30px;
   & h3 {
     color: var(--dark-800);
     font-weight: 400;
@@ -26,15 +27,16 @@ const StyledFilterSection = styled.div`
 
   .filter {
     column-gap: 10px;
+    flex-grow: 1;
   }
 `;
 
-const FilterSection = memo(({ contents }) => {
+const FilterSection = memo(({ contents, hasTitle = true }) => {
   const [currentFilter, setCurrentFilter] = useState(contents[0]);
 
   return (
     <StyledFilterSection>
-      <Heading as="h3">Filter by Interest</Heading>
+      {hasTitle && <Heading as="h3">Filter by Interest</Heading>}
       <CardFilterContext.Provider value={{ currentFilter, setCurrentFilter }}>
         <Filter className="filter">
           {contents.map((content, i) => (
@@ -50,6 +52,7 @@ const FilterSection = memo(({ contents }) => {
 
 FilterSection.propTypes = {
   contents: PropTypes.array,
+  hasTitle: PropTypes.bool,
 };
 
 export default FilterSection;
