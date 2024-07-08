@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import { memo, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 import useFetchReviews from "../../hooks/useFetchReviews";
 import ContentLoadingAnimation from "../../ui/ContentLoadingAnimation";
 import { SwiperSlide } from "swiper/react";
@@ -10,6 +10,7 @@ import Divider from "../../ui/Divider";
 import { formatDate } from "../../utils/helper";
 import Carousel from "../../ui/Carousel";
 import { createPortal } from "react-dom";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const StyledReviewsCardHeader = styled.div`
   display: flex;
@@ -77,17 +78,58 @@ const ToolTip = styled.p`
   z-index: 999;
   font-size: var(--font-size-small-50);
   background-color: var(--light-300);
-  opacity: 1;
+  opacity: 0;
   transition: opacity 0.1s ease-in-out;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   max-width: 222px;
   text-align: center;
+  display: none;
 `;
 
 const ReviewCardsCarousel = memo(() => {
   const { reviews, isLoading: isLoadingReviews } = useFetchReviews();
   const carouselEl = useRef();
   const toolTip = useRef();
+  const reviewCard = useRef();
+  const isTablet = useWindowSize(962, "smaller");
+
+  useEffect(() => {
+    const card = reviewCard.current;
+    window.addEventListener("scroll", () => {
+      if (card) {
+        if (
+          getPosition(card).y.bottom < window.innerHeight &&
+          getPosition(card).y.top > 0
+        ) {
+          if (isTablet) {
+            toolTip.current.style.display = "block";
+            setTimeout(() => (toolTip.current.style.opacity = 1), 100);
+          }
+        } else {
+          toolTip.current.style.opacity = 0;
+          setTimeout(() => (toolTip.current.style.display = "none"), 100);
+        }
+      }
+    });
+    return () => {
+      window.removeEventListener("scroll", () => {
+        if (card) {
+          if (
+            getPosition(card).y.bottom < window.innerHeight &&
+            getPosition(card).y.top > 0
+          ) {
+            if (isTablet) console.log("Card is in view");
+          }
+        }
+      });
+    };
+  });
+
+  function getPosition(e) {
+    const item = e.getBoundingClientRect();
+
+    return { x: item.left, y: { top: item.top, bottom: item.bottom } };
+  }
 
   if (isLoadingReviews) return <ContentLoadingAnimation />;
 
@@ -100,11 +142,14 @@ const ReviewCardsCarousel = memo(() => {
             width="100%"
             className="card-container"
             onMouseEnter={() => {
-              toolTip.current.style.opacity = 1;
+              toolTip.current.style.display = "block";
+              setTimeout(() => (toolTip.current.style.opacity = 1), 100);
             }}
             onMouseLeave={() => {
               toolTip.current.style.opacity = 0;
+              setTimeout(() => (toolTip.current.style.display = "none"), 100);
             }}
+            ref={reviewCard}
           >
             <StyledReviewsCardHeader>
               <div>

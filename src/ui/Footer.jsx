@@ -11,7 +11,7 @@ import visa from "../data/images/visa.svg";
 import bitcoin from "../data/images/bitcoin.svg";
 import interac from "../data/images/interac.svg";
 import screens from "../utils/screens";
-import { memo, useEffect, useState } from "react";
+import { memo } from "react";
 
 const StyledFooter = styled.footer`
   background: linear-gradient(0deg, var(--dark-900) 0%, #01100b 100%);
@@ -279,13 +279,6 @@ const Footer = memo(() => {
 });
 
 const OfferFloatingPanel = memo(() => {
-  const [isSizeXS, setIsSizeXS] = useState(window.innerWidth <= 360);
-
-  useEffect(() => {
-    window.addEventListener("resize", () =>
-      setIsSizeXS(window.innerWidth <= 280)
-    );
-  }, [isSizeXS]);
   return (
     <FloatingPanel className="offer-floating-panel">
       <div>
@@ -300,7 +293,7 @@ const OfferFloatingPanel = memo(() => {
           <Input type="email" placeholder="Email Address" />
           <Btn
             variation="primary"
-            size={isSizeXS ? "medium" : "large"}
+            size={"large"}
             shape="pill"
             color="--light-300"
           >

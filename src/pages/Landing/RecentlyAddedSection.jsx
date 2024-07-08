@@ -1,13 +1,12 @@
 /* eslint-disable react/display-name */
 
 import styled from "styled-components";
-import Heading from "./Heading";
+import Heading from "../../ui/Heading";
 import { memo } from "react";
-import Menu from "./Menu";
-import { buyCards } from "../data/Static/StaticData";
-import BuyCard from "../features/BuyCard/BuyCard";
-import CartProvider from "../features/cart/cartContext";
-import FilterSection from "../pages/Landing/FilterSection";
+import CartProvider from "../../features/cart/cartContext";
+import FilterSection from "./FilterSection";
+import BuyCardsGrid from "../../ui/BuyCardsGrid";
+import screens from "../../utils/screens";
 
 const FilterContent = ["flowers", "concentrates", "edibles", "topicals"];
 
@@ -35,10 +34,12 @@ const StyledRecentlyAddedSection = styled.section`
     /* width: 66px; */
   }
   .card-container {
-    @media (max-width: 480px) {
-      /* width: 100%; */
-      h4 {
-        font-size: var(--font-size-medium-66);
+    @media (max-width: ${screens.mobile.m}) {
+      width: 100%;
+      .img-container {
+        img {
+          width: 50%;
+        }
       }
     }
   }
@@ -48,19 +49,10 @@ const RecentlyAddedSection = memo(() => {
   return (
     <CartProvider>
       <StyledRecentlyAddedSection>
-        <Heading as="h1">recently added</Heading>
-        <FilterSection contents={FilterContent} />
-        <Menu.ItemCards distribution="grid">
-          {buyCards.slice(4).map((bc) => (
-            <Menu.CardContainer
-              key={bc.id}
-              width="291px"
-              className="card-container"
-            >
-              <BuyCard bc={bc} />
-            </Menu.CardContainer>
-          ))}
-        </Menu.ItemCards>
+        <BuyCardsGrid>
+          <Heading as="h1">recently added</Heading>
+          <FilterSection contents={FilterContent} />
+        </BuyCardsGrid>
       </StyledRecentlyAddedSection>
     </CartProvider>
   );

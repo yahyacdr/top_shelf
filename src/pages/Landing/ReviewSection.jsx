@@ -40,7 +40,6 @@ const StyledMenuSection = styled.section`
       height: 32px;
     }
     @media (min-width: ${screens.mobile.xxs}) {
-      padding: 24px 12px;
       h3 {
         font-size: var(--font-size-large-33);
       }

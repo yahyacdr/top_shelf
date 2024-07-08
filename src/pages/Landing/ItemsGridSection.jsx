@@ -35,9 +35,32 @@ const StyledItemsGridSection = styled.section`
   .card-container {
     @media (max-width: ${screens.mobile.m}) {
       width: 100%;
-      .img-container {
-        img {
+    }
+    .img-container {
+      img {
+        @media (min-width: ${screens.mobile.xxs}) {
           width: 50%;
+        }
+        @media (min-width: ${screens.mobile.xm}) {
+          width: 70%;
+        }
+        @media (min-width: ${screens.mobile.l}) {
+          width: 60%;
+        }
+        @media (min-width: ${screens.mobile.xxl}) {
+          width: 50%;
+        }
+        @media (min-width: ${screens.tablet.xxs}) {
+          width: 40%;
+        }
+        @media (min-width: ${screens.tablet.xs}) {
+          width: 40%;
+        }
+        @media (min-width: ${screens.tablet.s}) {
+          width: 50%;
+        }
+        @media (min-width: ${screens.tablet.xxl}) {
+          width: 40%;
         }
       }
     }

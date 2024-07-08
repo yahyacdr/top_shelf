@@ -54,11 +54,6 @@ const StyledMenuSection = styled.section`
       width: 100%;
     }
   }
-  .img-container {
-    > img {
-      width: 50%;
-    }
-  }
 `;
 
 const StyledHeaderContainer = styled.div`

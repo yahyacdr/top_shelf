@@ -9,7 +9,7 @@ import ReviewSection from "./ReviewSection.jsx";
 import ItemsGridSection from "./ItemsGridSection.jsx";
 import HowToSection from "./HowToSection.jsx";
 import ServiceFeaturesSection from "./ServiceFeaturesSection.jsx";
-import RecentlyAddedSection from "../../ui/RecentlyAddedSection.jsx";
+import RecentlyAddedSection from "./RecentlyAddedSection.jsx";
 import WeedTypesSection from "./WeedTypesSection.jsx";
 import WeedEduSection from "./WeedEduSection.jsx";
 import screens from "../../utils/screens.js";

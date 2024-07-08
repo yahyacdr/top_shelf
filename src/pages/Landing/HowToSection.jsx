@@ -11,6 +11,7 @@ import FloatingPanel from "../../ui/FloatingPanel";
 import PropTypes from "prop-types";
 import { memo } from "react";
 import Color from "color";
+import screens from "../../utils/screens";
 
 const StyledHowToSection = styled.section`
   margin-top: 240px;
@@ -88,11 +89,20 @@ const StyledHowToSection = styled.section`
     }
   }
 
+  .card-items {
+    @media (max-width: ${screens.mobile.m}) {
+      justify-content: center;
+    }
+  }
+
   .card-container {
     border: none;
     width: calc(100% / 2 - 12px);
     align-items: center;
     padding: 0;
+    @media (max-width: ${screens.mobile.m}) {
+      width: 65%;
+    }
   }
 
   .card-desc {

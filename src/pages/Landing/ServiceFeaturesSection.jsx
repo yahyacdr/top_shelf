@@ -36,6 +36,7 @@ const StyledServiceFeaturesSection = styled.section`
     }
   }
   .card-container {
+    height: auto;
     @media (max-width: 920px) {
       width: 352px;
     }

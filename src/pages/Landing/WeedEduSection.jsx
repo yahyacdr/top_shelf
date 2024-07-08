@@ -19,6 +19,8 @@ const StyledWeedEduSection = styled.section`
     row-gap: 8px;
     align-items: flex-start;
     border-radius: 8px;
+    height: auto;
+    padding: 0;
     & h3 {
       text-align: left;
     }
@@ -28,12 +30,6 @@ const StyledWeedEduSection = styled.section`
     }
     & a {
       font-size: var(--font-size-medium-33);
-    }
-    @media (max-width: 920px) {
-      width: 352px;
-    }
-    @media (max-width: 640px) {
-      width: 100%;
     }
   }
 `;
@@ -72,7 +68,7 @@ const WeedEduSection = memo(() => {
       </Header>
       <Menu.ItemCards distribution="grid" className="cards-container">
         {eduCards.map((ec) => (
-          <Menu.CardContainer
+          <Menu.ReviewCardContainer
             key={ec.id}
             distribution="flex"
             width="379px"
@@ -85,7 +81,7 @@ const WeedEduSection = memo(() => {
             <Card.Title color="--dark-900">{ec.title}</Card.Title>
             <Card.Desc color="--dark-900">{ec.desc}</Card.Desc>
             <Link to="/">Read More</Link>
-          </Menu.CardContainer>
+          </Menu.ReviewCardContainer>
         ))}
       </Menu.ItemCards>
     </StyledWeedEduSection>

@@ -30,9 +30,14 @@ const ImgCardContainer = styled(ImgContainer)`
           align-items: center;
           height: 100%;
           & img {
-            width: 70%;
+            @media (min-width: ${screens.mobile.xxs}) {
+              width: 70%;
+            }
+            @media (min-width: ${screens.mobile.xm}) {
+              width: 50%;
+            }
             @media (min-width: ${screens.mobile.l}) {
-              width: 60%;
+              width: 40%;
             }
             @media (min-width: ${screens.mobile.xxl}) {
               width: 50%;
