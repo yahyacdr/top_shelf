@@ -7,6 +7,7 @@ import Menu from "../../ui/Menu";
 import { eduCards } from "../../data/Static/StaticData";
 import Card from "../../ui/Card";
 import { memo } from "react";
+import screens from "../../utils/screens";
 
 const StyledWeedEduSection = styled.section`
   background-color: var(--light-600);
@@ -14,6 +15,9 @@ const StyledWeedEduSection = styled.section`
 
   .cards-container {
     justify-content: space-between;
+    @media (min-width: ${screens.desktop.xm}) {
+      column-gap: 64px;
+    }
   }
   .card-container {
     row-gap: 8px;
@@ -30,6 +34,15 @@ const StyledWeedEduSection = styled.section`
     }
     & a {
       font-size: var(--font-size-medium-33);
+    }
+    @media (min-width: ${screens.tablet.xxm}) {
+      width: calc(100% / 2 - 12px);
+    }
+    @media (min-width: ${screens.tablet.xxxl}) {
+      width: calc(100% / 3 - 16px);
+    }
+    @media (min-width: ${screens.desktop.xm}) {
+      width: calc(100% / 3 - 43px);
     }
   }
 `;

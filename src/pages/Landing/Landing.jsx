@@ -18,7 +18,7 @@ import { memo } from "react";
 const CardsContainer = styled.section`
   background-color: var(--light-400);
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
   row-gap: 40px;
@@ -26,6 +26,9 @@ const CardsContainer = styled.section`
   width: 100%;
   @media (max-width: ${screens.mobile.xm}) {
     padding: 60px 32px;
+  }
+  @media (min-width: ${screens.tablet.xxm}) {
+    column-gap: 32px;
   }
 `;
 
@@ -53,7 +56,7 @@ const Landing = memo(() => {
   return (
     <>
       <Main className="main-landing">
-        <CardsContainer>
+        <CardsContainer className="cards-section">
           {featureCards.map((fc) => (
             <StyledCard key={fc.id}>
               <StyledImgContainer>

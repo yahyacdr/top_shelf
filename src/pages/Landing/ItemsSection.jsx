@@ -19,6 +19,7 @@ const FilterContent = ["Best seller", "Bundles & Promotions", "On Sale"];
 const slidesPerView = {
   640: 2,
   920: 2,
+  1920: 4,
 };
 
 const StyledMenuSection = styled.section`
@@ -118,6 +119,9 @@ const ImgCardContainer = styled.div`
     }
     @media (min-width: ${screens.tablet.xxm}) {
       width: 80%;
+    }
+    @media (min-width: ${screens.desktop.m}) {
+      width: 65%;
     }
   }
 `;

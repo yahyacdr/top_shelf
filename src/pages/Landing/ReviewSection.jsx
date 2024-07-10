@@ -12,7 +12,13 @@ import CartProvider from "../../features/cart/cartContext";
 import ReviewCardsCarousel from "./ReviewCardsCarousel";
 import screens from "../../utils/screens";
 
-const StyledMenuSection = styled.section`
+const slidesPerView = {
+  640: 2,
+  920: 2,
+  1520: 3,
+};
+
+const StyledReviewSection = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -30,18 +36,39 @@ const StyledMenuSection = styled.section`
   }
   .items-cards {
     row-gap: 32px;
+    column-gap: 32px;
+    @media (min-width: ${screens.tablet.xxm}) {
+      /* height: 568px; */
+      width: calc(100% + 120px);
+      flex-wrap: nowrap;
+      .swiper {
+        height: 100%;
+      }
+    }
   }
   .cover-card {
-    height: 348px;
     padding: 24px;
     row-gap: 32px;
-    svg {
+    > svg {
+      aspect-ratio: 1.01 / 0.32;
       width: 101px;
       height: 32px;
     }
     @media (min-width: ${screens.mobile.xxs}) {
       h3 {
         font-size: var(--font-size-large-33);
+      }
+    }
+    @media (min-width: ${screens.tablet.xxm}) {
+      row-gap: 24px;
+      padding-bottom: 16px;
+    }
+    @media (min-width: ${screens.tablet.xxm}) {
+      width: 28.75%;
+    }
+    @media (min-width: ${screens.desktop.xs}) {
+      & h3 {
+        font-size: var(--font-size-large-66);
       }
     }
   }
@@ -90,12 +117,34 @@ const StyledReview = styled.div`
     grid-area: stars;
     margin-bottom: 0px;
   }
+
+  @media (min-width: ${screens.tablet.xxm}) {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, calc(100% / 3));
+    grid-template-areas: "excellence" "stars" "reviews";
+    row-gap: 8px;
+    & > span {
+      grid-area: reviews;
+    }
+    & > svg {
+      width: 90px;
+    }
+  }
+  @media (min-width: ${screens.desktop.xs}) {
+    grid-template-columns: 45% 5% 50%;
+    grid-template-rows: 50% 50%;
+    grid-template-areas: "excellence  . ." "stars divider reviews";
+    row-gap: 16px;
+    & > span {
+      grid-area: divider;
+    }
+  }
 `;
 
-const ItemsSection = memo(() => {
+const ReviewSection = memo(() => {
   return (
     <CartProvider>
-      <StyledMenuSection>
+      <StyledReviewSection className="review-section">
         <StyledHeaderContainer>
           <Heading as="h1">customer testimonials</Heading>
         </StyledHeaderContainer>
@@ -215,11 +264,11 @@ const ItemsSection = memo(() => {
               </p>
             </StyledReview>
           </Menu.CoverCard>
-          <ReviewCardsCarousel />
+          <ReviewCardsCarousel slides_per_view={slidesPerView} />
         </Menu.ItemCards>
-      </StyledMenuSection>
+      </StyledReviewSection>
     </CartProvider>
   );
 });
 
-export default ItemsSection;
+export default ReviewSection;

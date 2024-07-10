@@ -18,11 +18,12 @@ const StyledHowToSection = styled.section`
   background-color: var(--dark-900);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   position: relative;
   row-gap: 40px;
   padding: 280px 24px 64px;
+  width: 100%;
 
   & > p {
   }
@@ -93,6 +94,9 @@ const StyledHowToSection = styled.section`
     @media (max-width: ${screens.mobile.m}) {
       justify-content: center;
     }
+    @media (min-width: ${screens.tablet.xxm}) {
+      gap: 64px 24px;
+    }
   }
 
   .card-container {
@@ -119,6 +123,11 @@ const StyledHowToSection = styled.section`
     left: 0;
     color: var(--green-900);
   }
+
+  @media (min-width: ${screens.tablet.xxm}) {
+    padding: 280px 80px 64px;
+    row-gap: 80px;
+  }
 `;
 
 const ImgCardContainer = styled.div`
@@ -132,17 +141,29 @@ const ImgCardContainer = styled.div`
   & img {
     width: 64px;
     aspect-ratio: 1 / 1;
+    @media (min-width: ${screens.tablet.xxm}) {
+      width: 96px;
+    }
+    @media (min-width: ${screens.desktop.xs}) {
+      width: 144px;
+    }
+  }
+
+  @media (min-width: ${screens.tablet.xxm}) {
+    width: 50%;
   }
 `;
 
 const Text = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 16px;
   & h1 {
     text-align: center;
-    max-width: 950px;
+    max-width: 750px;
     margin-bottom: 16px;
-    @media (min-width: ${screens.tablet.xs}) {
-      /* font-size: var(--font-size-large-100); */
-    }
   }
   & > p {
     max-width: 800px;
@@ -152,6 +173,13 @@ const Text = styled.div`
     letter-spacing: 0;
     text-align: center;
     color: ${Color("#9D9EA2").alpha(0.42).toString()};
+    width: 100%;
+    @media (min-width: ${screens.tablet.xxm}) {
+      font-size: var(--font-size-medium-33);
+    }
+  }
+  @media (min-width: ${screens.tablet.xxm}) {
+    row-gap: 24 px;
   }
 `;
 

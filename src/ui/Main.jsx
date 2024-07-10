@@ -38,12 +38,15 @@ const StyleMain = styled.main`
     }
   }
 
-  &.main-landing > section:not(.how-to-section) {
+  &.main-landing > section:not(.how-to-section, .cards-section) {
     width: 100%;
     padding: 24px;
+    @media (min-width: ${screens.tablet.xxm}) {
+      padding: 24px 120px;
+    }
   }
-  &.main-landing > section.menu-section {
-    padding: 24px 120px;
+  &.main-landing > section.menu-section,
+  &.main-landing > section.review-section {
   }
 `;
 

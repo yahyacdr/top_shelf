@@ -6,6 +6,7 @@ import Menu from "../../ui/Menu";
 import Card from "../../ui/Card";
 import { featureCards2 } from "../../data/Static/StaticData";
 import { memo } from "react";
+import screens from "../../utils/screens";
 
 const StyledServiceFeaturesSection = styled.section`
   h1 {
@@ -37,11 +38,9 @@ const StyledServiceFeaturesSection = styled.section`
   }
   .card-container {
     height: auto;
-    @media (max-width: 920px) {
-      width: 352px;
-    }
-    @media (max-width: 640px) {
-      width: 100%;
+    width: 100%;
+    @media (min-width: ${screens.tablet.xxm}) {
+      width: auto;
     }
   }
 `;

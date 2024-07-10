@@ -91,23 +91,39 @@ const Carousel = memo(
             slidesPerView: slides_per_view["920"] ? slides_per_view["920"] : 1,
           },
           1080: {
+            spaceBetween: 32,
             slidesPerView: slides_per_view["1080"]
               ? slides_per_view["1080"]
               : 1.8,
           },
           1200: {
+            spaceBetween: 32,
             slidesPerView: slides_per_view["1200"]
               ? slides_per_view["1200"]
               : 2,
           },
           1366: {
+            spaceBetween: 32,
             slidesPerView: slides_per_view["1366"]
               ? slides_per_view["1366"]
               : 2.5,
           },
           1440: {
+            spaceBetween: 32,
             slidesPerView: slides_per_view["1440"]
               ? slides_per_view["1440"]
+              : 2.8,
+          },
+          1520: {
+            spaceBetween: 32,
+            slidesPerView: slides_per_view["1520"]
+              ? slides_per_view["1520"]
+              : 2.8,
+          },
+          1920: {
+            spaceBetween: 32,
+            slidesPerView: slides_per_view["1920"]
+              ? slides_per_view["1920"]
               : 2.8,
           },
         }}

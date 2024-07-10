@@ -13,11 +13,23 @@ const StyledWeedTypesSection = styled.section`
     row-gap: 24px;
     border-top: 1px solid var(--dark-300);
     padding-top: 64px;
+    @media (min-width: ${screens.desktop.xm}) {
+      column-gap: 64px;
+    }
   }
   .card-container {
     height: auto;
     > p {
       text-align: left;
+    }
+    @media (min-width: ${screens.tablet.xxm}) {
+      width: calc(100% / 2 - 12px);
+    }
+    @media (min-width: ${screens.tablet.xxxl}) {
+      width: calc(100% / 3 - 16px);
+    }
+    @media (min-width: ${screens.desktop.xm}) {
+      width: calc(100% / 3 - 43px);
     }
   }
 `;

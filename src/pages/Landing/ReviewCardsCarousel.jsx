@@ -11,6 +11,7 @@ import { formatDate } from "../../utils/helper";
 import Carousel from "../../ui/Carousel";
 import { createPortal } from "react-dom";
 import useWindowSize from "../../hooks/useWindowSize";
+import PropTypes from "prop-types";
 
 const StyledReviewsCardHeader = styled.div`
   display: flex;
@@ -86,7 +87,7 @@ const ToolTip = styled.p`
   display: none;
 `;
 
-const ReviewCardsCarousel = memo(() => {
+const ReviewCardsCarousel = memo(({ slides_per_view }) => {
   const { reviews, isLoading: isLoadingReviews } = useFetchReviews();
   const carouselEl = useRef();
   const toolTip = useRef();
@@ -134,7 +135,7 @@ const ReviewCardsCarousel = memo(() => {
   if (isLoadingReviews) return <ContentLoadingAnimation />;
 
   return (
-    <Carousel refEl={carouselEl}>
+    <Carousel refEl={carouselEl} slides_per_view={slides_per_view}>
       {reviews.map((review) => (
         <SwiperSlide key={review.id}>
           <Menu.ReviewCardContainer
@@ -184,5 +185,9 @@ const ReviewCardsCarousel = memo(() => {
     </Carousel>
   );
 });
+
+ReviewCardsCarousel.propTypes = {
+  slides_per_view: PropTypes.bool,
+};
 
 export default ReviewCardsCarousel;

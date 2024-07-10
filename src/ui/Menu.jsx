@@ -115,6 +115,10 @@ const CardContainer = styled(StyledCardContainer)`
   @media (min-width: ${screens.desktop.xs}) {
     width: calc(100% / 4 - 18px);
   }
+
+  @media (min-width: ${screens.desktop.xm}) {
+    width: calc(100% / 5 - 20px);
+  }
 `;
 
 const ReviewCardContainer = styled(StyledCardContainer)`

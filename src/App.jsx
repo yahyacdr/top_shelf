@@ -8,22 +8,28 @@ import Product from "./pages/ProductPage/Product";
 
 import store from "./store";
 import { Provider } from "react-redux";
+import PageNotFoundAnimation from "./ui/PageNotFoundAnimation";
+import ErrorAnimation from "./ui/ErrorAnimation";
 
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
+    errorElement: <PageNotFoundAnimation />,
     children: [
       {
         path: "/",
         element: <Landing />,
+        errorElement: <ErrorAnimation />,
       },
       {
         path: "/category",
         element: <Categories />,
+        errorElement: <ErrorAnimation />,
       },
       {
         path: "/product",
         element: <Product />,
+        errorElement: <ErrorAnimation />,
       },
     ],
   },
