@@ -12,7 +12,7 @@ import ContentLoadingAnimation from "./ContentLoadingAnimation";
 const BuyCardsCarousel = memo(({ children, bgRevert, slides_per_view }) => {
   const carouselEl = useRef();
   const { items, isLoading } = useFetchProducts();
-
+  console.log(items, isLoading);
   if (isLoading) return <ContentLoadingAnimation />;
 
   return (

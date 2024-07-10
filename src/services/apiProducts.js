@@ -8,5 +8,7 @@ export async function getProducts() {
     throw new Error("Products could not get loaded");
   }
 
+  console.log(data);
+
   return data;
 }
