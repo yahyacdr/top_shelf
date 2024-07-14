@@ -74,10 +74,10 @@ const PlusBtn = memo(() => {
 });
 
 const NumBtn = memo(() => {
-  const { quantity } = useCart();
+  const { quantity_buy } = useCart();
   return (
     <StyledBtn className="num" disabled={true}>
-      {quantity}
+      {quantity_buy}
     </StyledBtn>
   );
 });

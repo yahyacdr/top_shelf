@@ -155,6 +155,13 @@ const ImgCard = styled.div`
     @media (min-width: ${screens.mobile.xxl}) {
       width: 40%;
     }
+
+    @media (min-width: ${screens.desktop.xs}) {
+      width: 30%;
+    }
+  }
+  @media (min-width: ${screens.tablet.xxm}) {
+    aspect-ratio: 5.73 / 5.2;
   }
 `;
 
@@ -231,11 +238,14 @@ const ImagePreview = memo(() => {
         slides_per_view={{
           0: 1,
           640: 1,
+          720: 1,
           920: 1,
           1080: 1,
           1200: 1,
           1366: 1,
           1440: 1,
+          1520: 1,
+          1920: 1,
         }}
         onSwipe={handleSlideChange}
       >

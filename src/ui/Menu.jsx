@@ -92,7 +92,6 @@ const CardContainer = styled(StyledCardContainer)`
   min-width: 159px;
   border-radius: 8px;
   height: 525px;
-  width: calc(100% / 2 - 12px);
   & > h3 {
     margin-bottom: 0;
     margin-top: 0px;
@@ -104,20 +103,24 @@ const CardContainer = styled(StyledCardContainer)`
     padding: 5px 8px;
   }
   & > div {
-    display: flex;
+    /* display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
   }
-  @media (min-width: ${screens.tablet.s}) {
-    width: calc(100% / 3 - 16px);
-  }
+  &:not(.card-carousel) {
+    width: calc(100% / 2 - 12px);
 
-  @media (min-width: ${screens.desktop.xs}) {
-    width: calc(100% / 4 - 18px);
-  }
+    @media (min-width: ${screens.tablet.s}) {
+      width: calc(100% / 3 - 16px);
+    }
 
-  @media (min-width: ${screens.desktop.xm}) {
-    width: calc(100% / 5 - 20px);
+    @media (min-width: ${screens.desktop.xs}) {
+      width: calc(100% / 4 - 18px);
+    }
+
+    @media (min-width: ${screens.desktop.xm}) {
+      width: calc(100% / 5 - 20px);
+    }
   }
 `;
 
@@ -155,7 +158,7 @@ const Menu = memo(({ children }) => {
 });
 
 Menu.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
 
 Menu.ItemCards = ItemCards;

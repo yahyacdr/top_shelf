@@ -376,6 +376,7 @@ export default function Categories() {
             1366: 3,
             1440: 3,
           }}
+          className="card-carousel"
         />
       </TopSellingSection>
       <ItemsGridSection className="grid-section1">

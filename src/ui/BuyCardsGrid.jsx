@@ -4,6 +4,7 @@ import Menu from "./Menu";
 import { memo } from "react";
 import ContentLoadingAnimation from "./ContentLoadingAnimation";
 import useFetchProducts from "../hooks/useFetchProducts";
+import CartProvider from "../features/cart/cartContext";
 
 // eslint-disable-next-line react/display-name
 const BuyCardsGrid = memo(({ children }) => {
@@ -21,7 +22,9 @@ const BuyCardsGrid = memo(({ children }) => {
             width="291px"
             className="card-container"
           >
-            <BuyCard bc={bc} />
+            <CartProvider>
+              <BuyCard bc={bc} />
+            </CartProvider>
           </Menu.CardContainer>
         ))}
       </Menu.ItemCards>

@@ -1,14 +1,19 @@
 /* eslint-disable react/display-name */
 
 import { SwiperSlide } from "swiper/react";
-import { buyCards } from "../../data/Static/StaticData";
 import Carousel from "../../ui/Carousel";
 import Menu from "../../ui/Menu";
 import { PanelBuyCard } from "../../features/BuyCard/BuyCard";
 import { memo, useRef } from "react";
+import CartProvider from "../../features/cart/cartContext";
+import useFetchProducts from "../../hooks/useFetchProducts";
+import ContentLoadingAnimation from "../../ui/ContentLoadingAnimation";
 
 const PanelBuyCardCarousel = memo(() => {
   const carouselEl = useRef();
+  const { items, isLoading } = useFetchProducts();
+
+  if (isLoading) return <ContentLoadingAnimation />;
 
   return (
     <Menu.ItemCards width="100%" height="610" className="items-cards">
@@ -24,12 +29,16 @@ const PanelBuyCardCarousel = memo(() => {
           1200: 1,
           1366: 1,
           1440: 1,
+          1520: 1,
+          1920: 1,
         }}
       >
-        {buyCards.map((bc, i) => (
+        {items.map((bc, i) => (
           <SwiperSlide key={bc.id} data-hash={`slide${i + 1}`}>
             <Menu.CardContainer width="100%" className="cards-container">
-              <PanelBuyCard bc={bc} />
+              <CartProvider>
+                <PanelBuyCard bc={bc} />
+              </CartProvider>
             </Menu.CardContainer>
           </SwiperSlide>
         ))}

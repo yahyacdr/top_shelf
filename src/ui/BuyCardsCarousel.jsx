@@ -7,38 +7,44 @@ import PropTypes from "prop-types";
 import { memo } from "react";
 import useFetchProducts from "../hooks/useFetchProducts";
 import ContentLoadingAnimation from "./ContentLoadingAnimation";
+import CartProvider from "../features/cart/cartContext";
 
 // eslint-disable-next-line react/display-name
-const BuyCardsCarousel = memo(({ children, bgRevert, slides_per_view }) => {
-  const carouselEl = useRef();
-  const { items, isLoading } = useFetchProducts();
-  console.log(items, isLoading);
-  if (isLoading) return <ContentLoadingAnimation />;
+const BuyCardsCarousel = memo(
+  ({ children, bgRevert, slides_per_view, className = "" }) => {
+    const carouselEl = useRef();
+    const { items, isLoading } = useFetchProducts();
 
-  return (
-    <Menu.ItemCards width="100%" height="610" className="items-cards">
-      {children}
-      <Carousel
-        nextBtnClass="btn-next"
-        refEl={carouselEl}
-        slides_per_view={slides_per_view}
-      >
-        {items.map((bc) => (
-          <SwiperSlide key={bc.id} className="cards-container">
-            <Menu.CardContainer width="">
-              <BuyCard bc={bc} bgRevert={bgRevert} />
-            </Menu.CardContainer>
-          </SwiperSlide>
-        ))}
-      </Carousel>
-    </Menu.ItemCards>
-  );
-});
+    if (isLoading) return <ContentLoadingAnimation />;
+
+    return (
+      <Menu.ItemCards width="100%" height="610" className="items-cards">
+        {children}
+        <Carousel
+          nextBtnClass="btn-next"
+          refEl={carouselEl}
+          slides_per_view={slides_per_view}
+        >
+          {items.map((bc) => (
+            <SwiperSlide key={bc.id} className="cards-container">
+              <Menu.CardContainer width="" className={className}>
+                <CartProvider>
+                  <BuyCard bc={bc} bgRevert={bgRevert} />
+                </CartProvider>
+              </Menu.CardContainer>
+            </SwiperSlide>
+          ))}
+        </Carousel>
+      </Menu.ItemCards>
+    );
+  }
+);
 
 BuyCardsCarousel.propTypes = {
   children: PropTypes.element,
   bgRevert: PropTypes.bool,
   slides_per_view: PropTypes.object,
+  className: PropTypes.string,
 };
 
 export default BuyCardsCarousel;

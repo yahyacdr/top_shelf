@@ -11,8 +11,16 @@ const BtnContainer = styled.div`
   grid-area: btn;
   height: 100%;
 `;
-const BuyCardBtn = memo(({ bc }) => {
-  const { id, quantity, price, weight, additions, totalPrice } = useCart();
+const BuyCardBtn = memo(() => {
+  const {
+    id,
+    quantity_buy,
+    quantity_stock,
+    price,
+    weight,
+    additions,
+    totalPrice,
+  } = useCart();
 
   const dispatch = useDispatch();
 
@@ -23,9 +31,9 @@ const BuyCardBtn = memo(({ bc }) => {
         variation="primary"
         shape="pill"
         color="--light-300"
-        disabled={!bc.quantity}
+        disabled={!quantity_stock}
         onClick={() =>
-          dispatch(ADD(id, quantity, price, weight, additions, totalPrice))
+          dispatch(ADD(id, quantity_buy, price, weight, additions, totalPrice))
         }
       >
         Add to Cart

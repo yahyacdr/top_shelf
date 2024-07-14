@@ -8,6 +8,6 @@ export default function useFetchProducts() {
     dispatch(fetchProducts());
   }, [dispatch]);
   const data = useSelector((state) => state.products);
-  console.log(data);
+
   return data;
 }

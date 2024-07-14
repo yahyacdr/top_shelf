@@ -84,7 +84,7 @@ const Carousel = memo(
           },
           720: {
             spaceBetween: 24,
-            slidesPerView: 2,
+            slidesPerView: slides_per_view["720"] ? slides_per_view["720"] : 2,
           },
           920: {
             spaceBetween: 32,

@@ -4,14 +4,23 @@ import { createContext, useContext, useReducer } from "react";
 const CartContext = createContext();
 
 const initialState = {
-  id: 0,
-  quantity: 1,
-  price: Math.round(7.14285 * 28),
+  id: 1,
+  name: "Mix And Match Shatter/Budder",
+  label: "indica 70%",
+  type: "concentrates",
+  rate: 4.6,
+  img: "https://xldhfboiiqpwwfsdjbfu.supabase.co/storage/v1/object/public/cannabis-imgs/image_8_prev_ui_2.png",
+  offer: null,
   weight: { weight: 28, label: "28g" },
+  quantity_buy: 1,
+  quantity_stock: 0,
+  price: Math.round(7.14285 * 28),
   additions: { price: 0, labelWeight: 0, label: [] },
   totalPrice: 102,
   discount: 0,
   basePrice: 7.145986,
+  description: `Discover the ultimate relaxation with our Relaxation Blend Indica. This strain is perfect for unwinding after a long day, offering deep, soothing effects that melt away stress and tension. With its earthy aroma and hints of sweet berry, the Relaxation Blend promises a calming experience that promotes restful sleep and peace of mind.
+                Cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo. Sem integer vitae justo eget magna fermentum iaculis. Faucibus pulvinar elementum integer enim neque volutpat ac tincidunt. Tincidunt nunc pulvinar sapien et ligula ullamcorper. Dictum fusce ut placerat orci. Accumsan sit amet nulla facilisi. Eleifend donec pretium vulputate sapien. Velit scelerisque in dictum non consectetur. Nulla facilisi etiam dignissim diam quis. Molestie a iaculis at erat pellentesque adipiscing commodo. Dictum varius duis at consectetur lorem donec massa sapien. Nulla at volutpat diam ut venenatis tellus. Nisl vel pretium lectus quam id leo. Interdum varius sit amet mattis vulputate enim. Tortor posuere ac ut consequat semper viverra. Lobortis elementum nibh tellus molestie nunc. Suspendisse ultrices gravida dictum fusce.`,
 };
 
 function reducer(state, action) {
@@ -21,6 +30,48 @@ function reducer(state, action) {
         ...state,
         id: action.payload,
       };
+    case "SET_NAME": {
+      return {
+        ...state,
+        name: action.payload,
+      };
+    }
+    case "SET_LABEL": {
+      return {
+        ...state,
+        label: action.payload,
+      };
+    }
+    case "SET_TYPE": {
+      return {
+        ...state,
+        type: action.payload,
+      };
+    }
+    case "SET_RATE": {
+      return {
+        ...state,
+        rate: action.payload,
+      };
+    }
+    case "SET_IMG": {
+      return {
+        ...state,
+        img: action.payload,
+      };
+    }
+    case "SET_OFFER": {
+      return {
+        ...state,
+        offer: action.payload,
+      };
+    }
+    case "SET_QUANTITY_STOCK": {
+      return {
+        ...state,
+        quantity_stock: action.payload,
+      };
+    }
     case "SET_WEIGHT":
       return {
         ...state,
@@ -61,7 +112,7 @@ function reducer(state, action) {
         ...state,
         price: Math.round(
           (state.basePrice * state.weight.weight - state.discount) *
-            state.quantity
+            state.quantity_buy
         ),
       };
     case "SET_DISCOUNT":
@@ -80,6 +131,12 @@ function reducer(state, action) {
         totalPrice: state.price + state.additions.price,
       };
     }
+    case "SET_DESCRIPTION": {
+      return {
+        ...state,
+        description: action.payload,
+      };
+    }
     case "RESET":
       return {
         ...initialState,
@@ -91,15 +148,38 @@ function reducer(state, action) {
 
 export default function CartProvider({ children }) {
   const [
-    { id, price, quantity, weight, additions, totalPrice, discount, basePrice },
+    {
+      id,
+      name,
+      label,
+      type,
+      rate,
+      img,
+      offer,
+      price,
+      quantity_buy,
+      quantity_stock,
+      weight,
+      additions,
+      totalPrice,
+      discount,
+      basePrice,
+    },
     dispatch,
   ] = useReducer(reducer, initialState);
   return (
     <CartContext.Provider
       value={{
         id,
+        name,
+        label,
+        type,
+        rate,
+        img,
+        offer,
         price,
-        quantity,
+        quantity_buy,
+        quantity_stock,
         weight,
         additions,
         totalPrice,

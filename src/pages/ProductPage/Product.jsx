@@ -19,7 +19,7 @@ const ProductContainer = styled.section`
   padding: 0 24px;
   @media (min-width: ${screens.tablet.xxm}) {
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 56% 44%;
     grid-template-rows: auto;
     grid-template-areas: "image details";
     align-items: flex-start;

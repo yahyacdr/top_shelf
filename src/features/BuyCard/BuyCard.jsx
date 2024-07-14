@@ -3,9 +3,10 @@ import Btn from "../../ui/Btn";
 import Card from "../../ui/Card";
 import PropTypes from "prop-types";
 import screens from "../../utils/screens";
-import CartProvider from "../cart/cartContext";
 import BuyCardBtn from "./BuyCardBtn";
 import Price from "./Price";
+import useSetCart from "../../hooks/useSetCart";
+import { useCart } from "../cart/cartContext";
 
 const ImgContainer = styled.div`
   position: relative;
@@ -170,8 +171,11 @@ const TypeContainer = styled.div`
 `;
 
 export default function BuyCard({ bc, bgRevert }) {
+  useSetCart(bc);
+  const { name, img, label, type, rate, quantity_stock, offer } = useCart();
+
   return (
-    <CartProvider>
+    <>
       <ImgCardContainer
         type="item"
         className="img-container"
@@ -179,27 +183,27 @@ export default function BuyCard({ bc, bgRevert }) {
           backgroundColor: bgRevert && "var(--light-300)",
         }}
       >
-        {!bc.quantity && (
+        {!quantity_stock && (
           <OutOfStockBadge>
             <span>out of stock</span>
           </OutOfStockBadge>
         )}
-        {bc.offer && (
+        {offer && (
           <Offer>
-            <span>{bc.offer}</span>
+            <span>{offer}</span>
           </Offer>
         )}
         {bgRevert && <Oval />}
-        <Card.Img img={bc.imgUrl} />
+        <Card.Img img={img} />
       </ImgCardContainer>
       <TypeContainer>
-        <Card.ItemType>{bc.type}</Card.ItemType>
+        <Card.ItemType>{type}</Card.ItemType>
       </TypeContainer>
       <Price bc={bc} />
-      <Card.TitleItem color="--dark-900">{bc.name}</Card.TitleItem>
-      <Card.Review rate={bc.rate} numRate={135} />
+      <Card.TitleItem color="--dark-900">{name}</Card.TitleItem>
+      <Card.Review rate={rate} numRate={135} />
       <LabelContainer className="label-container">
-        {bc.label && (
+        {label && (
           <Btn
             size="small"
             variation="label"
@@ -207,23 +211,27 @@ export default function BuyCard({ bc, bgRevert }) {
             disabled={true}
             className="label"
           >
-            {bc.label}
+            {label}
           </Btn>
         )}
       </LabelContainer>
 
       <Card.WeightOptions />
       <BuyCardBtn bc={bc} />
-    </CartProvider>
+    </>
   );
 }
 
 export function PanelBuyCard({ bc, handleClick }) {
+  useSetCart(bc);
+  const { name, img, type, rate, price, discount, quantity_stock, offer } =
+    useCart();
+
   return (
     <>
-      <Card.ItemType className="card-item-type">{bc.type}</Card.ItemType>
-      <Card.TitleItem color="--light-300">{bc.title}</Card.TitleItem>
-      <Card.Review rate={bc.rate} numRate={bc.numRate} />
+      <Card.ItemType className="card-item-type">{type}</Card.ItemType>
+      <Card.TitleItem color="--light-300">{name}</Card.TitleItem>
+      <Card.Review rate={rate} numRate={135} />
       <Card.WeightOptions revert={true} />
       <BtnPrice>
         <Btn
@@ -231,29 +239,29 @@ export function PanelBuyCard({ bc, handleClick }) {
           variation="primary"
           shape="pill"
           color="--light-300"
-          disabled={!bc.quantity}
+          disabled={!quantity_stock}
           onClick={handleClick}
         >
           Add to Cart
         </Btn>
         <Card.Price
-          hasDiscount={!!bc.discount}
-          price={bc.price}
-          currentPrice={bc.currentPrice}
+          hasDiscount={!!discount}
+          price={price + discount}
+          currentPrice={price}
         />
       </BtnPrice>
       <ImgPanelCardContainer className="card-img-container">
-        {!bc.quantity && (
+        {!quantity_stock && (
           <OutOfStockBadge>
             <span>out of stock</span>
           </OutOfStockBadge>
         )}
-        {bc.offer && (
+        {offer && (
           <Offer>
-            <span>{bc.offer}</span>
+            <span>{offer}</span>
           </Offer>
         )}
-        <Card.Img img={bc.img} />
+        <Card.Img img={img} />
       </ImgPanelCardContainer>
     </>
   );

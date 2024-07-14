@@ -15,7 +15,6 @@ const StyledReviewsCardHeader = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  height: 20%;
   width: 100%;
   margin-bottom: 15px;
   & > div {
@@ -50,9 +49,9 @@ const ImgCardContainer = styled.div`
 const StyledDesc = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
-  height: 58%;
+
   row-gap: 10px;
   & p {
     font-weight: 500;
@@ -66,23 +65,58 @@ const StyledDesc = styled.div`
   }
 `;
 
-const ReviewsCard = memo(({ reviewsNum = 0, carousel = false }) => {
-  const { reviews, isLoading: isLoadingReviews } = useFetchReviews();
-  let currentReviews = useRef([]);
-  const currentCard = Number(location.hash[location.hash.length - 1]) - 1 || 0;
+const ReviewsCard = memo(
+  ({ reviewsNum = 0, carousel = false, className = "" }) => {
+    const { reviews, isLoading: isLoadingReviews } = useFetchReviews();
+    let currentReviews = useRef([]);
+    const currentCard =
+      Number(location.hash[location.hash.length - 1]) - 1 || 0;
 
-  useEffect(() => {
-    currentReviews.current = reviews.filter(
-      (review) => review.product === currentCard + 1
-    );
-  }, [reviews, currentCard, currentReviews]);
+    useEffect(() => {
+      currentReviews.current = reviews.filter(
+        (review) => review.product === currentCard + 1
+      );
+    }, [reviews, currentCard, currentReviews]);
 
-  if (isLoadingReviews) return <ContentLoadingAnimation />;
+    if (isLoadingReviews) return <ContentLoadingAnimation />;
 
-  if (carousel)
-    return reviews.map((review) => (
-      <SwiperSlide key={review.id}>
+    if (carousel) return;
+    <Menu.ItemCards distribution="grid" className="cards-container">
+      {reviews.map((review) => (
+        <SwiperSlide key={review.id}>
+          <Menu.ReviewCardContainer
+            distribution="flex"
+            width="100%"
+            className={className}
+          >
+            <StyledReviewsCardHeader>
+              <div>
+                <ImgCardContainer>
+                  <Card.Img img={`https://robohash.org/${review.id}`} />
+                </ImgCardContainer>
+                <Card.Name color="--dark-900">{review.name}</Card.Name>
+              </div>
+              <Divider
+                polarity="horizonal"
+                color="var(--light-600)"
+                width="100%"
+              />
+            </StyledReviewsCardHeader>
+            <StyledDesc>
+              <Card.RateStars numStars={review.rate} />
+              <Card.Desc color="--dark-600">{review.review}</Card.Desc>
+            </StyledDesc>
+            <Card.Date>{formatDate(new Date(review.created_at))}</Card.Date>
+          </Menu.ReviewCardContainer>
+        </SwiperSlide>
+      ))}
+    </Menu.ItemCards>;
+
+    return currentReviews.current
+      .slice(0, reviewsNum || currentReviews.current.length - 1)
+      .map((review) => (
         <Menu.CardContainer
+          key={review.id}
           distribution="flex"
           width="100%"
           className="card-container"
@@ -106,39 +140,14 @@ const ReviewsCard = memo(({ reviewsNum = 0, carousel = false }) => {
           </StyledDesc>
           <Card.Date>{formatDate(new Date(review.created_at))}</Card.Date>
         </Menu.CardContainer>
-      </SwiperSlide>
-    ));
-
-  return currentReviews.current
-    .slice(0, reviewsNum || currentReviews.current.length - 1)
-    .map((review) => (
-      <Menu.CardContainer
-        key={review.id}
-        distribution="flex"
-        width="100%"
-        className="card-container"
-      >
-        <StyledReviewsCardHeader>
-          <div>
-            <ImgCardContainer>
-              <Card.Img img={`https://robohash.org/${review.id}`} />
-            </ImgCardContainer>
-            <Card.Name color="--dark-900">{review.name}</Card.Name>
-          </div>
-          <Divider polarity="horizonal" color="var(--light-600)" width="100%" />
-        </StyledReviewsCardHeader>
-        <StyledDesc>
-          <Card.RateStars numStars={review.rate} />
-          <Card.Desc color="--dark-600">{review.review}</Card.Desc>
-        </StyledDesc>
-        <Card.Date>{formatDate(new Date(review.created_at))}</Card.Date>
-      </Menu.CardContainer>
-    ));
-});
+      ));
+  }
+);
 
 ReviewsCard.propTypes = {
   carousel: PropTypes.bool,
   reviewsNum: PropTypes.number,
+  className: PropTypes.string,
 };
 
 export default ReviewsCard;

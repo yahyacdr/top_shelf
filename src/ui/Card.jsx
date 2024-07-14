@@ -105,7 +105,7 @@ const StyledPrice = styled.div`
   width: 100%;
   text-align: center;
   align-self: flex-end;
-  height: 100%;
+  /* height: 100%; */
   & p.discount {
     color: var(--light-900);
     display: inline-block;
@@ -195,7 +195,7 @@ const Review = memo(({ rate, numRate }) => {
         />
       </svg>
       <p>
-        {rate} /5 <span>|</span> {numRate} <span>Reviews</span>
+        {rate} / 5 <span>|</span> {numRate} <span>Reviews</span>
       </p>
     </StyledReview>
   );

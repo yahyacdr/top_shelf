@@ -99,7 +99,7 @@ const PurchaseServiceDetails = styled.div`
   }
 `;
 const PurchaseBox = memo(({ item }) => {
-  const { weight, quantity, additions, price, id, totalPrice } = useCart();
+  const { weight, quantity_buy, additions, price, id, totalPrice } = useCart();
 
   const dispatch = useDispatch();
 
@@ -108,7 +108,7 @@ const PurchaseBox = memo(({ item }) => {
       <PurchasedItem>
         <p>
           {item.name} {weight.label}
-          <span>{quantity}x</span>
+          <span>{quantity_buy}x</span>
         </p>
         <p>{formatCurrency(price)}</p>
         {!!additions.price && (
@@ -125,7 +125,9 @@ const PurchaseBox = memo(({ item }) => {
           variation="primary"
           size="medium"
           onClick={() =>
-            dispatch(ADD(id, quantity, price, weight, additions, totalPrice))
+            dispatch(
+              ADD(id, quantity_buy, price, weight, additions, totalPrice)
+            )
           }
         >
           <p>Add to Cart</p>|<span>{formatCurrency(totalPrice)}</span>
