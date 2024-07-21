@@ -14,6 +14,7 @@ import conicBg from "../../data/images/conic-bg.png";
 import linearBg from "../../data/images/linear-bg-low-opacity.png";
 import SideFilterSection from "./SideFilterSection";
 import useWindowSize from "../../hooks/useWindowSize";
+import FilterProvider from "../../context/filterContext";
 
 const CardsContainer = styled.section`
   grid-area: section1;
@@ -361,33 +362,56 @@ export default function Categories() {
           </>
         ))}
       </CardsContainer>
-      <FilterSection />
+      <FilterProvider>
+        <FilterSection />
+      </FilterProvider>
       <DescSection />
       <TopSellingSection>
         <Heading as="h3">top selling</Heading>
-        <BuyCardsCarousel
-          bgRevert={true}
-          slides_per_view={{
-            0: 1,
-            640: 2,
-            920: 3,
-            1080: 2,
-            1200: 2.5,
-            1366: 3,
-            1440: 3,
+        <FilterProvider
+          defaultValue={{
+            name: "top selling",
+            filter: { column: "", value: "", method: "all" },
           }}
-          className="card-carousel"
-        />
+        >
+          <BuyCardsCarousel
+            bgRevert={true}
+            slides_per_view={{
+              0: 1,
+              640: 2,
+              920: 3,
+              1080: 2,
+              1200: 2.5,
+              1366: 3,
+              1440: 3,
+            }}
+            className="card-carousel"
+          />
+        </FilterProvider>
       </TopSellingSection>
       <ItemsGridSection className="grid-section1">
-        <BuyCardsGrid />
+        <FilterProvider
+          defaultValue={{
+            name: "top selling",
+            filter: { column: "", value: "", method: "all" },
+          }}
+        >
+          <BuyCardsGrid />
+        </FilterProvider>
       </ItemsGridSection>
       <PanelCardSection className="panel-section">
         <LinearBg></LinearBg>
         <PanelBuyCardCarousel />
       </PanelCardSection>
       <ItemsGridSection className="grid-section2">
-        <BuyCardsGrid />
+        <FilterProvider
+          defaultValue={{
+            name: "top selling",
+            filter: { column: "", value: "", method: "all" },
+          }}
+        >
+          <BuyCardsGrid />
+        </FilterProvider>
       </ItemsGridSection>
       {isDesktopView && <SideFilterSection />}
     </Main>

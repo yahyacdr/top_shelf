@@ -1,7 +1,7 @@
 import supabase from "../utils/supabase";
 
 export async function getReviews() {
-  const { data, error } = await supabase.from("Reviews").select("*");
+  const { data, error } = await supabase.from("reviews").select("*");
 
   if (error) {
     console.error(error);
@@ -13,7 +13,7 @@ export async function getReviews() {
 
 export async function addReview(name, review, rate, productId) {
   const { data, error } = await supabase
-    .from("Reviews")
+    .from("reviews")
     .insert([{ name, review, rate, product: productId }])
     .select();
   if (error) {

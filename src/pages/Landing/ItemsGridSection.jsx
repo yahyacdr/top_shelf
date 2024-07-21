@@ -7,13 +7,25 @@ import { memo } from "react";
 import CartProvider from "../../features/cart/cartContext";
 import FilterSection from "./FilterSection";
 import screens from "../../utils/screens";
+import FilterProvider from "../../context/filterContext";
 
 const FilterContent = [
-  "flowers",
-  "mushrooms",
-  "concentrate",
-  "edibles",
-  "shop all weed",
+  {
+    name: "flowers",
+    filter: { column: "type", value: "flower", method: "eq" },
+  },
+  {
+    name: "mushrooms",
+    filter: { column: "category", value: "mushrooms", method: "ilike" },
+  },
+  {
+    name: "edibles",
+    filter: { column: "type", value: "edible", method: "eq" },
+  },
+  {
+    name: "shop all weed",
+    filter: { column: "", value: "", method: "all" },
+  },
 ];
 
 const StyledItemsGridSection = styled.section`
@@ -76,10 +88,11 @@ const ItemsGridSection = memo(() => {
   return (
     <CartProvider>
       <StyledItemsGridSection>
-        <BuyCardsGrid>
-          <Heading as="h1">choose your weed</Heading>
+        <Heading as="h1">choose your weed</Heading>
+        <FilterProvider defaultValue={FilterContent[0]}>
           <FilterSection contents={FilterContent} />
-        </BuyCardsGrid>
+          <BuyCardsGrid />
+        </FilterProvider>
       </StyledItemsGridSection>
     </CartProvider>
   );

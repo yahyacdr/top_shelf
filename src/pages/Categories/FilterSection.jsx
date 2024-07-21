@@ -38,20 +38,26 @@ const StyledFilterContainer = styled.section`
 `;
 
 const FilterSection = memo(() => {
-  const isTabletView = useWindowSize(962);
+  const isDesktopView = useWindowSize(962);
 
   return (
     <StyledFilterContainer className="filter-section">
       <Heading as="h4">shop</Heading>
       <Filter className="filter-container">
-        {!isTabletView && (
-          <Filter.SelectBox id="canibs" shape="pill">
+        {!isDesktopView && (
+          <Filter.SelectBox
+            id="categories"
+            shape="pill"
+            onChange={(e) =>
+              console.log(e.target.value, e.target.selectedIndex)
+            }
+          >
             <Filter.Option value="filter" defaultValue>
               Filter
             </Filter.Option>
             {filters.map((filter, i) => (
-              <Filter.Option key={i} value={filter}>
-                {filter}
+              <Filter.Option key={i} value={filter.name} data-index={i}>
+                {filter.name}
               </Filter.Option>
             ))}
           </Filter.SelectBox>

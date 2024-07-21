@@ -23,4 +23,34 @@ function formatDate(date) {
   }).format(date);
 }
 
-export { formatCurrency, formatCurrencyWithCommas, formattPercent, formatDate };
+function getRandomNumberBetween(min, max, exclude = []) {
+  let randomNumber;
+  do {
+    randomNumber = Math.round(Math.random() * (max - min)) + min;
+  } while (exclude.includes(randomNumber));
+  return randomNumber;
+}
+
+function getRandomNumber(num = 1) {
+  return Math.floor(Math.random() * num);
+}
+
+function getRandomRate(min, max) {
+  return getFraction(Math.random() * (max - min) + min, 1);
+}
+
+function getFraction(num, max = Infinity) {
+  num = String(num);
+  return Number(num.split(".")[0] + "." + num.split(".")[1].slice(0, max));
+}
+
+export {
+  formatCurrency,
+  formatCurrencyWithCommas,
+  formattPercent,
+  formatDate,
+  getRandomNumberBetween,
+  getRandomNumber,
+  getRandomRate,
+  getFraction,
+};

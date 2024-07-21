@@ -13,8 +13,19 @@ import { memo } from "react";
 import CartProvider from "../../features/cart/cartContext";
 import FilterSection from "./FilterSection";
 import screens from "../../utils/screens";
+import FilterProvider from "../../context/filterContext";
 
-const FilterContent = ["Best seller", "Bundles & Promotions", "On Sale"];
+const FilterContent = [
+  {
+    name: "Best seller",
+    filter: { column: "sales", value: 10, method: "order" },
+  },
+  {
+    name: "Bundles & Promotions",
+    filter: { column: "category", value: "bundles", method: "eq" },
+  },
+  { name: "On Sale", filter: { column: "quantity", value: 0, method: "gt" } },
+];
 
 const slidesPerView = {
   640: 2,
@@ -135,21 +146,23 @@ const ItemsSection = memo(() => {
             best dispensary to buy weed online in canada
           </Heading>
         </StyledHeaderContainer>
-        <FilterSection contents={FilterContent} hasTitle={false} />
-        <BuyCardsCarousel slides_per_view={slidesPerView}>
-          <Menu.CoverCard side="center" className="cover-card">
-            <img src={vector} alt="" className="back-img" />
-            <ImgCardContainer type="cover">
-              <Card.Img img={weedImg1} />
-            </ImgCardContainer>
-            <Card.Title color="--light-300">Shop our Best Sellers</Card.Title>
-            <Card.Desc maxwidth="250px" color="--light-300" opacity="0.6">
-              Lorem ipsum dolor sit amet consectetur. Ullamcorper ipsum varius
-              lorem blandit lectus magnis feugiat.{" "}
-            </Card.Desc>
-            <Link to="/">View all</Link>
-          </Menu.CoverCard>
-        </BuyCardsCarousel>
+        <FilterProvider defaultValue={FilterContent[0]}>
+          <FilterSection contents={FilterContent} hasTitle={false} />
+          <BuyCardsCarousel slides_per_view={slidesPerView}>
+            <Menu.CoverCard side="center" className="cover-card">
+              <img src={vector} alt="" className="back-img" />
+              <ImgCardContainer type="cover">
+                <Card.Img img={weedImg1} />
+              </ImgCardContainer>
+              <Card.Title color="--light-300">Shop our Best Sellers</Card.Title>
+              <Card.Desc maxwidth="250px" color="--light-300" opacity="0.6">
+                Lorem ipsum dolor sit amet consectetur. Ullamcorper ipsum varius
+                lorem blandit lectus magnis feugiat.{" "}
+              </Card.Desc>
+              <Link to="/">View all</Link>
+            </Menu.CoverCard>
+          </BuyCardsCarousel>
+        </FilterProvider>
       </StyledMenuSection>
     </CartProvider>
   );

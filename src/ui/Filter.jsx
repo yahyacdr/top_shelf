@@ -6,8 +6,9 @@ import Btn from "./Btn";
 import Divider from "./Divider";
 import { memo, useContext } from "react";
 import MultiRangeSlider from "multi-range-slider-react";
-import { CardFilterContext, PostContext } from "../utils/context";
+import { PostContext } from "../utils/context";
 import checkMark from "../data/images/check-mark.png";
+import { useFilter } from "../context/filterContext";
 
 const StyledFilter = styled.div`
   display: flex;
@@ -175,18 +176,20 @@ const Checkbox = styled.div`
 `;
 
 const Pill = memo(({ children, content }) => {
-  const { currentFilter, setCurrentFilter } = useContext(CardFilterContext);
+  const { currentFilter, setCurrentFilter } = useFilter();
   return (
     <Btn
       size="medium"
       variation="secondary"
       shape="pill"
-      color={`${currentFilter === content ? "--green-900" : "--dark-300"}`}
-      active={`${currentFilter === content ? "active" : ""}`}
+      color={`${
+        currentFilter.name === content.name ? "--green-900" : "--dark-300"
+      }`}
+      active={`${currentFilter.name === content.name ? "active" : ""}`}
       custom={{ "max-width": "280px" }}
       onClick={() => setCurrentFilter(content)}
     >
-      {content || children}
+      {content?.name || children}
     </Btn>
   );
 });

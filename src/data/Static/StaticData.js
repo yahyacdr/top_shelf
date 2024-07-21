@@ -359,16 +359,41 @@ export const eduCards = [
 ];
 
 export const filters = [
-  "Sales",
-  "Cannabis",
-  "Pre-rolls",
-  "Cbd oil",
-  "Magic mushrooms",
-  "Extracts",
-  "Edibles",
-  "Vape pens",
-  "Accessories",
-  "Bath & body",
-  "Bundles",
-  "Wholesale",
+  { name: "Sales", filter: { column: "sales", value: 10, method: "order" } },
+  {
+    name: "Cannabis",
+    filter: { column: "category", value: "cannab", method: "eq" },
+  },
+  {
+    name: "Cbd oil",
+    filter: { column: "category", value: "cbd oil", method: "eq" },
+  },
+  {
+    name: "Magic mushrooms",
+    filter: { column: "category", value: "magic mushrooms", method: "eq" },
+  },
+  {
+    name: "Extracts",
+    filter: { column: "category", value: "extracts", method: "eq" },
+  },
+  {
+    name: "Edibles",
+    filter: { column: "category", value: "edibles", method: "eq" },
+  },
+  {
+    name: "Vape pens",
+    filter: { column: "", value: "vape pens", method: "eq" },
+  },
+  {
+    name: "Accessories",
+    filter: { column: "category", value: "accessories", method: "eq" },
+  },
+  {
+    name: "Bath & body",
+    filter: { column: "category", value: "bath & body", method: "eq" },
+  },
+  {
+    name: "Bundles",
+    filter: { column: "category", value: "bundles", method: "eq" },
+  },
 ];

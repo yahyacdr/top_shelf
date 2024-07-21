@@ -5,10 +5,13 @@ import { memo } from "react";
 import ContentLoadingAnimation from "./ContentLoadingAnimation";
 import useFetchProducts from "../hooks/useFetchProducts";
 import CartProvider from "../features/cart/cartContext";
+import { useFilter } from "../context/filterContext";
+import Heading from "./Heading";
 
 // eslint-disable-next-line react/display-name
 const BuyCardsGrid = memo(({ children }) => {
-  const { items, isLoading } = useFetchProducts();
+  const { currentFilter } = useFilter();
+  const { items, isLoading } = useFetchProducts(currentFilter.filter, true);
 
   if (isLoading) return <ContentLoadingAnimation />;
 
@@ -16,17 +19,30 @@ const BuyCardsGrid = memo(({ children }) => {
     <>
       {children}
       <Menu.ItemCards distribution="grid" className="cards-container">
-        {items.map((bc) => (
-          <Menu.CardContainer
-            key={bc.id}
-            width="291px"
-            className="card-container"
+        {items.length ? (
+          items.map((bc) => (
+            <Menu.CardContainer
+              key={bc.id}
+              width="291px"
+              className="card-container"
+            >
+              <CartProvider>
+                <BuyCard bc={bc} />
+              </CartProvider>
+            </Menu.CardContainer>
+          ))
+        ) : (
+          <Heading
+            as="h2"
+            style={{
+              color: "var(--dark-900)",
+              textAlign: "center",
+              marginInline: "auto",
+            }}
           >
-            <CartProvider>
-              <BuyCard bc={bc} />
-            </CartProvider>
-          </Menu.CardContainer>
-        ))}
+            Unfortunately {currentFilter.name} are not available!
+          </Heading>
+        )}
       </Menu.ItemCards>
     </>
   );

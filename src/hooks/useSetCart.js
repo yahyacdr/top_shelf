@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useCart } from "../features/cart/cartContext";
+import { getRandomNumberBetween } from "../utils/helper";
 
 export default function useSetCart(item) {
   const { dispatch } = useCart();
@@ -28,7 +29,13 @@ export default function useSetCart(item) {
       });
       dispatch({
         type: "SET_IMG",
-        payload: item.imgUrl,
+        payload:
+          item.imgUrl ||
+          `https://pngimg.com/uploads/cannabis/small/cannabis_PNG${getRandomNumberBetween(
+            2,
+            75,
+            [31, 12, 58, 30, 18, 34, 48, 10, 37]
+          )}.png`,
       });
       dispatch({
         type: "SET_OFFER",

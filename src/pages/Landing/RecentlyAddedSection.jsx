@@ -7,8 +7,26 @@ import CartProvider from "../../features/cart/cartContext";
 import FilterSection from "./FilterSection";
 import BuyCardsGrid from "../../ui/BuyCardsGrid";
 import screens from "../../utils/screens";
+import FilterProvider from "../../context/filterContext";
 
-const FilterContent = ["flowers", "concentrates", "edibles", "topicals"];
+const FilterContent = [
+  {
+    name: "flowers",
+    filter: { column: "type", value: "flower", method: "eq" },
+  },
+  {
+    name: "concentrates",
+    filter: { column: "type", value: "concentrates", method: "eq" },
+  },
+  {
+    name: "edibles",
+    filter: { column: "type", value: "edible", method: "eq" },
+  },
+  {
+    name: "topicals",
+    filter: { column: "type", value: "topicals", method: "eq" },
+  },
+];
 
 const StyledRecentlyAddedSection = styled.section`
   & h1 {
@@ -49,10 +67,11 @@ const RecentlyAddedSection = memo(() => {
   return (
     <CartProvider>
       <StyledRecentlyAddedSection>
-        <BuyCardsGrid>
-          <Heading as="h1">recently added</Heading>
+        <Heading as="h1">recently added</Heading>
+        <FilterProvider defaultValue={FilterContent[0]}>
           <FilterSection contents={FilterContent} />
-        </BuyCardsGrid>
+          <BuyCardsGrid />
+        </FilterProvider>
       </StyledRecentlyAddedSection>
     </CartProvider>
   );

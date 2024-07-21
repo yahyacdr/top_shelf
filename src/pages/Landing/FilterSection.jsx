@@ -1,7 +1,6 @@
 /* eslint-disable react/display-name */
-import { memo, useState } from "react";
+import { memo } from "react";
 import Heading from "../../ui/Heading";
-import { CardFilterContext } from "../../utils/context";
 import Filter from "../../ui/Filter";
 import PropTypes from "prop-types";
 import styled from "styled-components";
@@ -32,20 +31,16 @@ const StyledFilterSection = styled.div`
 `;
 
 const FilterSection = memo(({ contents, hasTitle = true }) => {
-  const [currentFilter, setCurrentFilter] = useState(contents[0]);
-
   return (
     <StyledFilterSection>
       {hasTitle && <Heading as="h3">Filter by Interest</Heading>}
-      <CardFilterContext.Provider value={{ currentFilter, setCurrentFilter }}>
-        <Filter className="filter">
-          {contents.map((content, i) => (
-            <Filter.Pill key={i} content={content}>
-              {content}
-            </Filter.Pill>
-          ))}
-        </Filter>
-      </CardFilterContext.Provider>
+      <Filter className="filter">
+        {contents.map((content, i) => (
+          <Filter.Pill key={i} content={content}>
+            {content}
+          </Filter.Pill>
+        ))}
+      </Filter>
     </StyledFilterSection>
   );
 });
@@ -53,6 +48,7 @@ const FilterSection = memo(({ contents, hasTitle = true }) => {
 FilterSection.propTypes = {
   contents: PropTypes.array,
   hasTitle: PropTypes.bool,
+  defaultValue: PropTypes.object,
 };
 
 export default FilterSection;

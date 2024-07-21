@@ -8,12 +8,15 @@ import { memo } from "react";
 import useFetchProducts from "../hooks/useFetchProducts";
 import ContentLoadingAnimation from "./ContentLoadingAnimation";
 import CartProvider from "../features/cart/cartContext";
+import { useFilter } from "../context/filterContext";
+import Heading from "./Heading";
 
 // eslint-disable-next-line react/display-name
 const BuyCardsCarousel = memo(
   ({ children, bgRevert, slides_per_view, className = "" }) => {
     const carouselEl = useRef();
-    const { items, isLoading } = useFetchProducts();
+    const { currentFilter } = useFilter();
+    const { items, isLoading } = useFetchProducts(currentFilter.filter, true);
 
     if (isLoading) return <ContentLoadingAnimation />;
 
@@ -25,15 +28,24 @@ const BuyCardsCarousel = memo(
           refEl={carouselEl}
           slides_per_view={slides_per_view}
         >
-          {items.map((bc) => (
-            <SwiperSlide key={bc.id} className="cards-container">
-              <Menu.CardContainer width="" className={className}>
-                <CartProvider>
-                  <BuyCard bc={bc} bgRevert={bgRevert} />
-                </CartProvider>
-              </Menu.CardContainer>
-            </SwiperSlide>
-          ))}
+          {items.length ? (
+            items.map((bc) => (
+              <SwiperSlide key={bc.id} className="cards-container">
+                <Menu.CardContainer width="" className={className}>
+                  <CartProvider>
+                    <BuyCard bc={bc} bgRevert={bgRevert} />
+                  </CartProvider>
+                </Menu.CardContainer>
+              </SwiperSlide>
+            ))
+          ) : (
+            <Heading
+              as="h2"
+              style={{ color: "var(--dark-900)", marginInline: "auto" }}
+            >
+              Unfortunately {currentFilter.name} are not available!
+            </Heading>
+          )}
         </Carousel>
       </Menu.ItemCards>
     );
