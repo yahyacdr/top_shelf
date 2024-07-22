@@ -1,20 +1,35 @@
 import PropTypes from "prop-types";
 import BuyCard from "../features/BuyCard/BuyCard";
 import Menu from "./Menu";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import ContentLoadingAnimation from "./ContentLoadingAnimation";
-import useFetchProducts from "../hooks/useFetchProducts";
 import CartProvider from "../features/cart/cartContext";
-import { useFilter } from "../context/filterContext";
+import { fetchFilteredProducts, useFilter } from "../context/filterContext";
 import Heading from "./Heading";
 
 // eslint-disable-next-line react/display-name
-const BuyCardsGrid = memo(({ children }) => {
-  const { currentFilter } = useFilter();
-  const { items, isLoading } = useFetchProducts(currentFilter.filter, true);
+const BuyCardsGrid = memo(({ children, filterDefaultValue }) => {
+  const { items, isLoading, currentFilter, dispatch } = useFilter();
+  useEffect(() => {
+    dispatch({
+      type: "SET_FILTER",
+      payload: filterDefaultValue,
+    });
+  }, [dispatch, filterDefaultValue]);
+
+  useEffect(() => {
+    async function fetchData() {
+      if (currentFilter)
+        dispatch({
+          type: "SET_DATA",
+          payload: await fetchFilteredProducts(currentFilter, dispatch),
+        });
+    }
+    fetchData();
+  }, [currentFilter, dispatch]);
 
   if (isLoading) return <ContentLoadingAnimation />;
-
+  console.log(items);
   return (
     <>
       {children}
@@ -50,6 +65,7 @@ const BuyCardsGrid = memo(({ children }) => {
 
 BuyCardsGrid.propTypes = {
   children: PropTypes.array,
+  filterDefaultValue: PropTypes.object,
 };
 
 export default BuyCardsGrid;

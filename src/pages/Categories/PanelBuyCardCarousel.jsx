@@ -4,14 +4,34 @@ import { SwiperSlide } from "swiper/react";
 import Carousel from "../../ui/Carousel";
 import Menu from "../../ui/Menu";
 import { PanelBuyCard } from "../../features/BuyCard/BuyCard";
-import { memo, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 import CartProvider from "../../features/cart/cartContext";
-import useFetchProducts from "../../hooks/useFetchProducts";
 import ContentLoadingAnimation from "../../ui/ContentLoadingAnimation";
+import { fetchFilteredProducts, useFilter } from "../../context/filterContext";
 
 const PanelBuyCardCarousel = memo(() => {
   const carouselEl = useRef();
-  const { items, isLoading } = useFetchProducts();
+  const { items, isLoading, currentFilter, dispatch } = useFilter();
+  useEffect(() => {
+    dispatch({
+      type: "SET_FILTER",
+      payload: {
+        name: "top 30",
+        filter: { column: "sales", value: 30, method: "order" },
+      },
+    });
+  }, [dispatch]);
+
+  useEffect(() => {
+    async function fetchData() {
+      if (currentFilter)
+        dispatch({
+          type: "SET_DATA",
+          payload: await fetchFilteredProducts(currentFilter, dispatch),
+        });
+    }
+    fetchData();
+  }, [currentFilter, dispatch]);
 
   if (isLoading) return <ContentLoadingAnimation />;
 

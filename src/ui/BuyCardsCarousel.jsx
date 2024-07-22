@@ -1,22 +1,40 @@
 import Menu from "./Menu";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { SwiperSlide } from "swiper/react";
 import Carousel from "./Carousel";
 import BuyCard from "../features/BuyCard/BuyCard";
 import PropTypes from "prop-types";
 import { memo } from "react";
-import useFetchProducts from "../hooks/useFetchProducts";
 import ContentLoadingAnimation from "./ContentLoadingAnimation";
 import CartProvider from "../features/cart/cartContext";
-import { useFilter } from "../context/filterContext";
+import { fetchFilteredProducts, useFilter } from "../context/filterContext";
 import Heading from "./Heading";
 
 // eslint-disable-next-line react/display-name
 const BuyCardsCarousel = memo(
   ({ children, bgRevert, slides_per_view, className = "" }) => {
     const carouselEl = useRef();
-    const { currentFilter } = useFilter();
-    const { items, isLoading } = useFetchProducts(currentFilter.filter, true);
+    const { items, isLoading, currentFilter, dispatch } = useFilter();
+    useEffect(() => {
+      dispatch({
+        type: "SET_FILTER",
+        payload: {
+          name: "top 30",
+          filter: { column: "sales", value: 30, method: "order" },
+        },
+      });
+    }, [dispatch]);
+
+    useEffect(() => {
+      async function fetchData() {
+        if (currentFilter)
+          dispatch({
+            type: "SET_DATA",
+            payload: await fetchFilteredProducts(currentFilter, dispatch),
+          });
+      }
+      fetchData();
+    }, [currentFilter, dispatch]);
 
     if (isLoading) return <ContentLoadingAnimation />;
 

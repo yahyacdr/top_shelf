@@ -1,22 +1,50 @@
 import PropTypes from "prop-types";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useReducer } from "react";
+import { getProductWithFilter } from "../services/apiProducts";
 
 const FilterContext = createContext();
 
-export default function FilterProvider({
-  children,
-  defaultValue = {
-    name: "default",
-    filter: { column: "", value: "", method: "all" },
-  },
-}) {
-  const [currentFilter, setCurrentFilter] = useState(defaultValue);
+const initialState = {
+  items: [],
+  isLoading: true,
+  currentFilter: false,
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "SET_DATA":
+      return {
+        ...state,
+        items: action.payload,
+      };
+    case "SET_LOADING_STATE":
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
+    case "SET_FILTER":
+      return {
+        ...state,
+        currentFilter: { ...action.payload },
+      };
+    default:
+      return state;
+  }
+}
+
+export default function FilterProvider({ children }) {
+  const [{ items, isLoading, currentFilter }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
   return (
     <FilterContext.Provider
       value={{
+        items,
+        isLoading,
         currentFilter,
-        setCurrentFilter,
+        dispatch,
       }}
     >
       {children}
@@ -28,6 +56,18 @@ FilterProvider.propTypes = {
   children: PropTypes.node,
   defaultValue: PropTypes.object.isRequired,
 };
+
+export async function fetchFilteredProducts(filter, dispatch) {
+  try {
+    dispatch({ type: "SET_LOADING_STATE", payload: true });
+    const products = await getProductWithFilter(filter.filter);
+    dispatch({ type: "SET_LOADING_STATE", payload: false });
+    return products;
+  } catch (e) {
+    console.error(e);
+    throw new Error("Products could not be loaded");
+  }
+}
 
 function useFilter() {
   const context = useContext(FilterContext);

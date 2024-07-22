@@ -299,6 +299,12 @@ const PanelCardSection = styled.section`
   }
 
   .swiper-pagination {
+    flex-wrap: wrap;
+    width: 40%;
+    justify-content: center;
+    row-gap: 10px;
+    right: 0;
+    left: unset;
     > span {
       background-color: rgba(255, 255, 255, 0.2);
     }
@@ -368,12 +374,7 @@ export default function Categories() {
       <DescSection />
       <TopSellingSection>
         <Heading as="h3">top selling</Heading>
-        <FilterProvider
-          defaultValue={{
-            name: "top selling",
-            filter: { column: "", value: "", method: "all" },
-          }}
-        >
+        <FilterProvider>
           <BuyCardsCarousel
             bgRevert={true}
             slides_per_view={{
@@ -390,27 +391,34 @@ export default function Categories() {
         </FilterProvider>
       </TopSellingSection>
       <ItemsGridSection className="grid-section1">
-        <FilterProvider
-          defaultValue={{
-            name: "top selling",
-            filter: { column: "", value: "", method: "all" },
-          }}
-        >
-          <BuyCardsGrid />
+        <FilterProvider>
+          <BuyCardsGrid
+            filterDefaultValue={{
+              name: "random",
+              filter: { column: "", value: 6, method: "random" },
+            }}
+          />
         </FilterProvider>
       </ItemsGridSection>
       <PanelCardSection className="panel-section">
         <LinearBg></LinearBg>
-        <PanelBuyCardCarousel />
-      </PanelCardSection>
-      <ItemsGridSection className="grid-section2">
         <FilterProvider
           defaultValue={{
-            name: "top selling",
-            filter: { column: "", value: "", method: "all" },
+            name: "top 30",
+            filter: { column: "sales", value: 30, method: "order" },
           }}
         >
-          <BuyCardsGrid />
+          <PanelBuyCardCarousel />
+        </FilterProvider>
+      </PanelCardSection>
+      <ItemsGridSection className="grid-section2">
+        <FilterProvider>
+          <BuyCardsGrid
+            filterDefaultValue={{
+              name: "",
+              filter: { column: "", value: "", method: "all" },
+            }}
+          />
         </FilterProvider>
       </ItemsGridSection>
       {isDesktopView && <SideFilterSection />}

@@ -176,7 +176,7 @@ const Checkbox = styled.div`
 `;
 
 const Pill = memo(({ children, content }) => {
-  const { currentFilter, setCurrentFilter } = useFilter();
+  const { currentFilter, dispatch } = useFilter();
   return (
     <Btn
       size="medium"
@@ -187,7 +187,7 @@ const Pill = memo(({ children, content }) => {
       }`}
       active={`${currentFilter.name === content.name ? "active" : ""}`}
       custom={{ "max-width": "280px" }}
-      onClick={() => setCurrentFilter(content)}
+      onClick={() => dispatch({ type: "SET_FILTER", payload: content })}
     >
       {content?.name || children}
     </Btn>
