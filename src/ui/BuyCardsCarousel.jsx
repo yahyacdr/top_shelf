@@ -9,6 +9,7 @@ import ContentLoadingAnimation from "./ContentLoadingAnimation";
 import CartProvider from "../features/cart/cartContext";
 import { fetchFilteredProducts, useFilter } from "../context/filterContext";
 import Heading from "./Heading";
+import { containsArray } from "../utils/helper";
 
 // eslint-disable-next-line react/display-name
 const BuyCardsCarousel = memo(
@@ -47,15 +48,29 @@ const BuyCardsCarousel = memo(
           slides_per_view={slides_per_view}
         >
           {items.length ? (
-            items.map((bc) => (
-              <SwiperSlide key={bc.id} className="cards-container">
-                <Menu.CardContainer width="" className={className}>
-                  <CartProvider>
-                    <BuyCard bc={bc} bgRevert={bgRevert} />
-                  </CartProvider>
-                </Menu.CardContainer>
-              </SwiperSlide>
-            ))
+            containsArray(items) ? (
+              items.map((item) => {
+                item.map((bc) => (
+                  <SwiperSlide key={bc.id} className="cards-container">
+                    <Menu.CardContainer width="" className={className}>
+                      <CartProvider>
+                        <BuyCard bc={bc} bgRevert={bgRevert} />
+                      </CartProvider>
+                    </Menu.CardContainer>
+                  </SwiperSlide>
+                ));
+              })
+            ) : (
+              items.map((bc) => (
+                <SwiperSlide key={bc.id} className="cards-container">
+                  <Menu.CardContainer width="" className={className}>
+                    <CartProvider>
+                      <BuyCard bc={bc} bgRevert={bgRevert} />
+                    </CartProvider>
+                  </Menu.CardContainer>
+                </SwiperSlide>
+              ))
+            )
           ) : (
             <Heading
               as="h2"

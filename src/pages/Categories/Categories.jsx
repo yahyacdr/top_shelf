@@ -15,6 +15,7 @@ import linearBg from "../../data/images/linear-bg-low-opacity.png";
 import SideFilterSection from "./SideFilterSection";
 import useWindowSize from "../../hooks/useWindowSize";
 import FilterProvider from "../../context/filterContext";
+import PaginationProvider from "../../context/paginationContext";
 
 const CardsContainer = styled.section`
   grid-area: section1;
@@ -392,12 +393,14 @@ export default function Categories() {
       </TopSellingSection>
       <ItemsGridSection className="grid-section1">
         <FilterProvider>
-          <BuyCardsGrid
-            filterDefaultValue={{
-              name: "random",
-              filter: { column: "", value: 6, method: "random" },
-            }}
-          />
+          <PaginationProvider>
+            <BuyCardsGrid
+              filterDefaultValue={{
+                name: "random",
+                filter: { column: "", value: 6, method: "random" },
+              }}
+            />
+          </PaginationProvider>
         </FilterProvider>
       </ItemsGridSection>
       <PanelCardSection className="panel-section">
@@ -413,12 +416,14 @@ export default function Categories() {
       </PanelCardSection>
       <ItemsGridSection className="grid-section2">
         <FilterProvider>
-          <BuyCardsGrid
-            filterDefaultValue={{
-              name: "",
-              filter: { column: "", value: "", method: "all" },
-            }}
-          />
+          <PaginationProvider>
+            <BuyCardsGrid
+              filterDefaultValue={{
+                name: "",
+                filter: { column: "", value: "", method: "all" },
+              }}
+            />
+          </PaginationProvider>
         </FilterProvider>
       </ItemsGridSection>
       {isDesktopView && <SideFilterSection />}

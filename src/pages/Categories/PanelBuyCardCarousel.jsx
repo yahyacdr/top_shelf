@@ -8,6 +8,7 @@ import { memo, useEffect, useRef } from "react";
 import CartProvider from "../../features/cart/cartContext";
 import ContentLoadingAnimation from "../../ui/ContentLoadingAnimation";
 import { fetchFilteredProducts, useFilter } from "../../context/filterContext";
+import Heading from "../../ui/Heading";
 
 const PanelBuyCardCarousel = memo(() => {
   const carouselEl = useRef();
@@ -53,15 +54,28 @@ const PanelBuyCardCarousel = memo(() => {
           1920: 1,
         }}
       >
-        {items.map((bc, i) => (
-          <SwiperSlide key={bc.id} data-hash={`slide${i + 1}`}>
-            <Menu.CardContainer width="100%" className="cards-container">
-              <CartProvider>
-                <PanelBuyCard bc={bc} />
-              </CartProvider>
-            </Menu.CardContainer>
-          </SwiperSlide>
-        ))}
+        {items.length ? (
+          items.map((bc, i) => (
+            <SwiperSlide key={bc.id} data-hash={`slide${i + 1}`}>
+              <Menu.CardContainer width="100%" className="cards-container">
+                <CartProvider>
+                  <PanelBuyCard bc={bc} />
+                </CartProvider>
+              </Menu.CardContainer>
+            </SwiperSlide>
+          ))
+        ) : (
+          <Heading
+            as="h2"
+            style={{
+              color: "var(--dark-900)",
+              textAlign: "center",
+              marginInline: "auto",
+            }}
+          >
+            Unfortunately {currentFilter.name} are not available!
+          </Heading>
+        )}
       </Carousel>
     </Menu.ItemCards>
   );

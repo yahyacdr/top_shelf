@@ -1,3 +1,4 @@
+import { PAGE_LENGTH } from "../consts";
 import { getRandomNumberBetween } from "../utils/helper";
 import supabase from "../utils/supabase";
 
@@ -32,6 +33,8 @@ export async function addProducts(cannab) {
 }
 
 export async function getProductWithFilter(filter) {
+  const count = await getTableCount("products");
+
   let qry = supabase.from("products").select("*").range(0, 32);
 
   if (filter.method === "eq") qry = qry.eq(filter.column, filter.value);
@@ -51,24 +54,24 @@ export async function getProductWithFilter(filter) {
   }
 
   if (filter.method === "all") {
-    const count = await getTableCount("products");
-
-    const pagesIndexes = Array.from({ length: count / 33 }, (_, i) => {
-      const value = (i + 1) * 33;
+    const pagesIndexes = Array.from({ length: count / PAGE_LENGTH }, (_, i) => {
+      const value = (i + 1) * PAGE_LENGTH;
       return value;
     });
 
-    const pages = [];
+    const products = [];
 
     pagesIndexes.forEach(async (page) => {
-      pages.push(await getProducts(page - 33, page - 1));
+      products.push(await getProducts(page - PAGE_LENGTH, page - 1));
     });
 
-    pages.push(
+    products.push(
       await getProducts(pagesIndexes[pagesIndexes.length - 1] + 1, count)
     );
 
-    return pages;
+    products.sort((a, b) => a.length - b.length).reverse();
+
+    return { products, count };
   }
 
   const { data: products, error } = await qry;
@@ -78,7 +81,7 @@ export async function getProductWithFilter(filter) {
     throw new Error("Products could not be added");
   }
 
-  return [products];
+  return { products, count };
 }
 
 async function getTableCount(table) {

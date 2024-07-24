@@ -44,6 +44,10 @@ function getFraction(num, max = Infinity) {
   return Number(num.split(".")[0] + "." + num.split(".")[1].slice(0, max));
 }
 
+function containsArray(mainArray) {
+  return mainArray.some((arr) => Array.isArray(arr));
+}
+
 export {
   formatCurrency,
   formatCurrencyWithCommas,
@@ -53,4 +57,5 @@ export {
   getRandomNumber,
   getRandomRate,
   getFraction,
+  containsArray,
 };

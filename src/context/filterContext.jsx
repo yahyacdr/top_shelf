@@ -6,6 +6,7 @@ const FilterContext = createContext();
 
 const initialState = {
   items: [],
+  count: 0,
   isLoading: true,
   currentFilter: false,
 };
@@ -27,13 +28,18 @@ function reducer(state, action) {
         ...state,
         currentFilter: { ...action.payload },
       };
+    case "SET_COUNT":
+      return {
+        ...state,
+        count: action.payload,
+      };
     default:
       return state;
   }
 }
 
 export default function FilterProvider({ children }) {
-  const [{ items, isLoading, currentFilter }, dispatch] = useReducer(
+  const [{ items, isLoading, count, currentFilter }, dispatch] = useReducer(
     reducer,
     initialState
   );
@@ -44,6 +50,7 @@ export default function FilterProvider({ children }) {
         items,
         isLoading,
         currentFilter,
+        count,
         dispatch,
       }}
     >
@@ -60,7 +67,8 @@ FilterProvider.propTypes = {
 export async function fetchFilteredProducts(filter, dispatch) {
   try {
     dispatch({ type: "SET_LOADING_STATE", payload: true });
-    const products = await getProductWithFilter(filter.filter);
+    const { products, count } = await getProductWithFilter(filter.filter);
+    dispatch({ type: "SET_COUNT", payload: count });
     dispatch({ type: "SET_LOADING_STATE", payload: false });
     return products;
   } catch (e) {
