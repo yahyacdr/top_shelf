@@ -20,7 +20,7 @@ const BuyCardsCarousel = memo(
       dispatch({
         type: "SET_FILTER",
         payload: {
-          name: "top 30",
+          name: "Best seller",
           filter: { column: "sales", value: 30, method: "order" },
         },
       });
@@ -28,11 +28,10 @@ const BuyCardsCarousel = memo(
 
     useEffect(() => {
       async function fetchData() {
-        if (currentFilter)
-          dispatch({
-            type: "SET_DATA",
-            payload: await fetchFilteredProducts(currentFilter, dispatch),
-          });
+        dispatch({
+          type: "SET_DATA",
+          payload: await fetchFilteredProducts(currentFilter, dispatch),
+        });
       }
       fetchData();
     }, [currentFilter, dispatch]);
@@ -90,6 +89,7 @@ BuyCardsCarousel.propTypes = {
   bgRevert: PropTypes.bool,
   slides_per_view: PropTypes.object,
   className: PropTypes.string,
+  defaultFilter: PropTypes.object,
 };
 
 export default BuyCardsCarousel;

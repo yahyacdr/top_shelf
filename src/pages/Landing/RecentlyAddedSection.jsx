@@ -8,6 +8,7 @@ import FilterSection from "./FilterSection";
 import BuyCardsGrid from "../../ui/BuyCardsGrid";
 import screens from "../../utils/screens";
 import FilterProvider from "../../context/filterContext";
+import PaginationProvider from "../../context/paginationContext";
 
 const FilterContent = [
   {
@@ -68,9 +69,11 @@ const RecentlyAddedSection = memo(() => {
     <CartProvider>
       <StyledRecentlyAddedSection>
         <Heading as="h1">recently added</Heading>
-        <FilterProvider defaultValue={FilterContent[0]}>
+        <FilterProvider>
           <FilterSection contents={FilterContent} />
-          <BuyCardsGrid />
+          <PaginationProvider>
+            <BuyCardsGrid filterDefaultValue={FilterContent[0]} />
+          </PaginationProvider>
         </FilterProvider>
       </StyledRecentlyAddedSection>
     </CartProvider>

@@ -146,7 +146,7 @@ const ItemsSection = memo(() => {
             best dispensary to buy weed online in canada
           </Heading>
         </StyledHeaderContainer>
-        <FilterProvider defaultValue={FilterContent[0]}>
+        <FilterProvider>
           <FilterSection contents={FilterContent} hasTitle={false} />
           <BuyCardsCarousel slides_per_view={slidesPerView}>
             <Menu.CoverCard side="center" className="cover-card">

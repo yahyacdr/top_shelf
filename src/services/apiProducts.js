@@ -2,11 +2,8 @@ import { PAGE_LENGTH } from "../consts";
 import { getRandomNumberBetween } from "../utils/helper";
 import supabase from "../utils/supabase";
 
-export async function getProducts(min, max) {
-  const { data, error } = await supabase
-    .from("products")
-    .select("*")
-    .range(min, max);
+export async function getProducts() {
+  const { data, error } = await supabase.from("products").select("*");
 
   if (error) {
     console.error(error);

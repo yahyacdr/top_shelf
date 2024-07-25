@@ -106,8 +106,7 @@ const Input = styled.input`
 const AddReview = memo(() => {
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors } = formState;
-  const { currentCard: productId } = useContext(StarReviewContext);
-  const { rating } = useContext(StarReviewContext);
+  const { currentCard: productId, rating } = useContext(StarReviewContext);
   const dispatch = useDispatch();
 
   const state = useSelector((state) => state.reviews);

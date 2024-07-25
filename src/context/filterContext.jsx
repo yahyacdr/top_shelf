@@ -61,7 +61,6 @@ export default function FilterProvider({ children }) {
 
 FilterProvider.propTypes = {
   children: PropTypes.node,
-  defaultValue: PropTypes.object.isRequired,
 };
 
 export async function fetchFilteredProducts(filter, dispatch) {

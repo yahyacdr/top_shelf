@@ -8,6 +8,8 @@ import CardDetails from "../../features/Description/CardDetails";
 import BuyCardsGrid from "../../ui/BuyCardsGrid";
 import Heading from "../../ui/Heading";
 import screens from "../../utils/screens";
+import FilterProvider from "../../context/filterContext";
+import PaginationProvider from "../../context/paginationContext";
 
 const ProductContainer = styled.section`
   display: flex;
@@ -64,7 +66,16 @@ const Product = memo(() => {
       </ProductContainer>
       <ItemsCardsGrid>
         <Heading as="h2">Featured Product</Heading>
-        <BuyCardsGrid />
+        <FilterProvider>
+          <PaginationProvider>
+            <BuyCardsGrid
+              filterDefaultValue={{
+                name: "random",
+                filter: { column: "", value: 4, method: "random" },
+              }}
+            />
+          </PaginationProvider>
+        </FilterProvider>
       </ItemsCardsGrid>
     </Main>
   );

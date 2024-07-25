@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import Btn from "./Btn";
 import Divider from "./Divider";
-import { memo, useContext } from "react";
+import { memo } from "react";
 import MultiRangeSlider from "multi-range-slider-react";
-import { PostContext } from "../utils/context";
 import checkMark from "../data/images/check-mark.png";
 import { useFilter } from "../context/filterContext";
+import { usePost } from "../context/postContext";
 
 const StyledFilter = styled.div`
   display: flex;
@@ -177,6 +177,7 @@ const Checkbox = styled.div`
 
 const Pill = memo(({ children, content }) => {
   const { currentFilter, dispatch } = useFilter();
+
   return (
     <Btn
       size="medium"
@@ -216,8 +217,7 @@ const Radio = memo(({ content, id, name, handleChange, checked, quantity }) => {
 });
 
 const MultiRange = memo(() => {
-  const { minValue, maxValue, setMinValue, setMaxValue } =
-    useContext(PostContext);
+  const { minValue, maxValue, setMinValue, setMaxValue } = usePost();
 
   function handleInput(e) {
     setMinValue(e.minValue);

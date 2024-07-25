@@ -4,10 +4,10 @@ import styled from "styled-components";
 import Heading from "../../ui/Heading";
 import Divider from "../../ui/Divider";
 import Filter from "../../ui/Filter";
-import { PostContext } from "../../utils/context";
-import { memo, useContext, useState } from "react";
+import { memo, useState } from "react";
 import { formatCurrencyWithCommas } from "../../utils/helper";
 import Btn from "../../ui/Btn";
+import PostProvider, { usePost } from "../../context/postContext";
 
 const filters = [
   {
@@ -197,7 +197,7 @@ const SideFilterSection = memo(() => {
   const [maxValue, setMaxValue] = useState(50000);
 
   return (
-    <PostContext.Provider
+    <PostProvider
       value={{
         minValue,
         maxValue,
@@ -265,17 +265,17 @@ const SideFilterSection = memo(() => {
           Clear Filters
         </Btn>
       </StyledSection>
-    </PostContext.Provider>
+    </PostProvider>
   );
 });
 
 const MinValueLabel = memo(() => {
-  const { minValue } = useContext(PostContext);
+  const { minValue } = usePost();
   return <ValueLabel>{formatCurrencyWithCommas(minValue)}</ValueLabel>;
 });
 
 const MaxValueLabel = memo(() => {
-  const { maxValue } = useContext(PostContext);
+  const { maxValue } = usePost();
   return <ValueLabel>{formatCurrencyWithCommas(maxValue)}</ValueLabel>;
 });
 

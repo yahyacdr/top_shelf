@@ -8,6 +8,7 @@ import CartProvider from "../../features/cart/cartContext";
 import FilterSection from "./FilterSection";
 import screens from "../../utils/screens";
 import FilterProvider from "../../context/filterContext";
+import PaginationProvider from "../../context/paginationContext";
 
 const FilterContent = [
   {
@@ -36,11 +37,11 @@ const StyledItemsGridSection = styled.section`
     color: var(--dark-800);
     margin-bottom: 0;
   }
-  & > div:last-child {
+  /* & > div:last-child() {
     & > div {
       height: 568px;
     }
-  }
+  } */
 
   .cards-container {
   }
@@ -89,9 +90,11 @@ const ItemsGridSection = memo(() => {
     <CartProvider>
       <StyledItemsGridSection>
         <Heading as="h1">choose your weed</Heading>
-        <FilterProvider defaultValue={FilterContent[0]}>
+        <FilterProvider>
           <FilterSection contents={FilterContent} />
-          <BuyCardsGrid />
+          <PaginationProvider>
+            <BuyCardsGrid filterDefaultValue={FilterContent[0]} />
+          </PaginationProvider>
         </FilterProvider>
       </StyledItemsGridSection>
     </CartProvider>

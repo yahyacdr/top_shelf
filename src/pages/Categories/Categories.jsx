@@ -405,12 +405,7 @@ export default function Categories() {
       </ItemsGridSection>
       <PanelCardSection className="panel-section">
         <LinearBg></LinearBg>
-        <FilterProvider
-          defaultValue={{
-            name: "top 30",
-            filter: { column: "sales", value: 30, method: "order" },
-          }}
-        >
+        <FilterProvider>
           <PanelBuyCardCarousel />
         </FilterProvider>
       </PanelCardSection>

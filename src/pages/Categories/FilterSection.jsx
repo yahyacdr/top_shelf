@@ -8,7 +8,6 @@ import PropTypes from "prop-types";
 import screens from "../../utils/screens";
 import useWindowSize from "../../hooks/useWindowSize";
 import { memo } from "react";
-import { useFilter } from "../../context/filterContext";
 
 const StyledFilterContainer = styled.section`
   grid-area: section2;
@@ -40,23 +39,13 @@ const StyledFilterContainer = styled.section`
 
 const FilterSection = memo(() => {
   const isDesktopView = useWindowSize(962);
-  const { dispatch } = useFilter();
 
   return (
     <StyledFilterContainer className="filter-section">
       <Heading as="h4">shop</Heading>
       <Filter className="filter-container">
         {!isDesktopView && (
-          <Filter.SelectBox
-            id="categories"
-            shape="pill"
-            onChange={(e) =>
-              dispatch({
-                type: "SET_FILTER",
-                payload: filters[e.target.selectedIndex - 1],
-              })
-            }
-          >
+          <Filter.SelectBox id="categories" shape="pill">
             <Filter.Option value="filter" defaultValue>
               Filter
             </Filter.Option>
