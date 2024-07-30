@@ -21,8 +21,7 @@ const StyleMain = styled.main`
   }
 
   &.main-cat {
-    padding-right: 32px;
-    padding-left: 16px;
+    padding: 0 16px;
     @media (min-width: ${screens.tablet.xxm}) {
       display: grid;
       grid-template-columns: 30% 70%;
@@ -42,7 +41,7 @@ const StyleMain = styled.main`
     width: 100%;
     padding: 24px;
     @media (min-width: ${screens.tablet.xxm}) {
-      padding: 24px 120px;
+      padding: 24px 100px;
     }
   }
   &.main-landing > section.menu-section,

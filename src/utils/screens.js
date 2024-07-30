@@ -3,7 +3,7 @@ const screens = {
     xxs: "240px",
     xs: "280px",
     s: "320px",
-    m: "360px",
+    m: "375px",
     xm: "390px",
     xxm: "420px",
     l: "460px",

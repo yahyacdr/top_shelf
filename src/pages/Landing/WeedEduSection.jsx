@@ -35,7 +35,7 @@ const StyledWeedEduSection = styled.section`
     & a {
       font-size: var(--font-size-medium-33);
     }
-    @media (min-width: ${screens.tablet.xxm}) {
+    @media (min-width: ${screens.tablet.m}) {
       width: calc(100% / 2 - 12px);
     }
     @media (min-width: ${screens.tablet.xxxl}) {

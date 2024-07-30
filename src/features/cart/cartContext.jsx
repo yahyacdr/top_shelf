@@ -80,12 +80,12 @@ function reducer(state, action) {
     case "INC":
       return {
         ...state,
-        quantity: state.quantity + 1,
+        quantity_buy: state.quantity_buy + 1,
       };
     case "DEC":
       return {
         ...state,
-        quantity: state.quantity > 1 ? state.quantity - 1 : 1,
+        quantity_buy: state.quantity_buy > 1 ? state.quantity_buy - 1 : 1,
       };
     case "ADD_INTEGRA":
       return {
@@ -164,6 +164,7 @@ export default function CartProvider({ children }) {
       totalPrice,
       discount,
       basePrice,
+      description,
     },
     dispatch,
   ] = useReducer(reducer, initialState);
@@ -185,6 +186,7 @@ export default function CartProvider({ children }) {
         totalPrice,
         discount,
         basePrice,
+        description,
         dispatch,
       }}
     >

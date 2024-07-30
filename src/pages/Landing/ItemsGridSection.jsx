@@ -91,9 +91,12 @@ const ItemsGridSection = memo(() => {
       <StyledItemsGridSection>
         <Heading as="h1">choose your weed</Heading>
         <FilterProvider>
-          <FilterSection contents={FilterContent} />
+          <FilterSection
+            contents={FilterContent}
+            defaultFilter={FilterContent[0]}
+          />
           <PaginationProvider>
-            <BuyCardsGrid filterDefaultValue={FilterContent[0]} />
+            <BuyCardsGrid />
           </PaginationProvider>
         </FilterProvider>
       </StyledItemsGridSection>

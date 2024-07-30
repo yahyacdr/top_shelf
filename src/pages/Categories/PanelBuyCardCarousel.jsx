@@ -18,7 +18,7 @@ const PanelBuyCardCarousel = memo(() => {
       type: "SET_FILTER",
       payload: {
         name: "top 30",
-        filter: { column: "sales", value: 30, method: "order" },
+        filter: { column: "sales", value: 15, method: "order" },
       },
     });
   }, [dispatch]);

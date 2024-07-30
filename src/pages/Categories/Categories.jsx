@@ -26,8 +26,8 @@ const CardsContainer = styled.section`
   flex-wrap: wrap;
   row-gap: 40px;
   padding: 16px;
-  width: 100vw;
   margin-left: -16px;
+  width: 100vw;
   @media (min-width: ${screens.mobile.xxs}) {
     h3 {
       font-size: var(--font-size-small-100);
@@ -107,6 +107,9 @@ const TopSellingSection = styled.section`
   background-color: var(--light-400);
   padding-inline: 24px;
   border-radius: 16px;
+  width: 100vw !important;
+  margin-left: -16px;
+
   h3 {
     text-transform: capitalize;
     display: flex;
@@ -156,6 +159,10 @@ const TopSellingSection = styled.section`
       background-color: var(--light-300);
     }
   }
+
+  @media (min-width: ${screens.tablet.xxm}) {
+    width: 100% !important;
+  }
 `;
 
 const ItemsGridSection = styled.section`
@@ -193,10 +200,6 @@ const ItemsGridSection = styled.section`
 
     @media (min-width: ${screens.mobile.xm}) {
       justify-content: flex-start;
-    }
-    @media (min-width: ${screens.tablet.xxm}) {
-      justify-content: space-between;
-      column-gap: unset;
     }
   }
 `;
@@ -236,11 +239,14 @@ const PanelCardSection = styled.section`
     width: 100%;
     grid-template-columns: 100%;
     grid-template-rows: 7% 11% 6% 7% 13% 56%;
+    grid-template-areas: "effect" "title" "review" "weights" "btn-price";
     text-align: left;
     .card-item-type {
+      grid-area: effect;
       letter-spacing: 2px;
     }
     h4 {
+      grid-area: title;
       @media (max-width: ${screens.mobile.s}) {
         font-size: var(--font-size-medium-100);
       }
@@ -249,6 +255,7 @@ const PanelCardSection = styled.section`
       }
     }
     .card-review {
+      grid-area: review;
       color: var(--light-300);
       justify-content: flex-start;
       span:last-child {
@@ -260,7 +267,12 @@ const PanelCardSection = styled.section`
     }
 
     .card-weights {
+      grid-area: weights;
       justify-content: flex-start;
+    }
+
+    .btn-price {
+      grid-area: btn-price;
     }
 
     @media (min-width: ${screens.tablet.xs}) {
@@ -301,11 +313,11 @@ const PanelCardSection = styled.section`
 
   .swiper-pagination {
     flex-wrap: wrap;
-    width: 40%;
     justify-content: center;
     row-gap: 10px;
-    right: 0;
-    left: unset;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
     > span {
       background-color: rgba(255, 255, 255, 0.2);
     }
@@ -315,9 +327,11 @@ const PanelCardSection = styled.section`
     }
     @media (min-width: ${screens.tablet.xs}) {
       display: flex;
-      justify-content: flex-end;
       align-items: center;
-      padding-right: 90px;
+      width: 49%;
+      left: 100%;
+      transform: translateX(-100%);
+      bottom: 5%;
     }
   }
 
@@ -386,6 +400,8 @@ export default function Categories() {
               1200: 2.5,
               1366: 3,
               1440: 3,
+              1520: 3,
+              1920: 3,
             }}
             className="card-carousel"
           />

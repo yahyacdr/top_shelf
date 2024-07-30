@@ -1,10 +1,19 @@
 import PropTypes from "prop-types";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
 const PostContext = createContext();
 
-export default function PostProvider({ children, values }) {
-  return <PostContext.Provider value={values}>{children}</PostContext.Provider>;
+export default function PostProvider({ children, values = {} }) {
+  const [reviewsNum, setReviewsNum] = useState(2);
+  const [rating, setRating] = useState(1);
+
+  return (
+    <PostContext.Provider
+      value={{ ...values, reviewsNum, setReviewsNum, rating, setRating }}
+    >
+      {children}
+    </PostContext.Provider>
+  );
 }
 
 function usePost() {

@@ -13,18 +13,26 @@ import { containsArray } from "../utils/helper";
 
 // eslint-disable-next-line react/display-name
 const BuyCardsCarousel = memo(
-  ({ children, bgRevert, slides_per_view, className = "" }) => {
+  ({
+    children,
+    bgRevert,
+    slides_per_view,
+    className = "",
+    setFilter = true,
+  }) => {
     const carouselEl = useRef();
     const { items, isLoading, currentFilter, dispatch } = useFilter();
+
     useEffect(() => {
-      dispatch({
-        type: "SET_FILTER",
-        payload: {
-          name: "Best seller",
-          filter: { column: "sales", value: 30, method: "order" },
-        },
-      });
-    }, [dispatch]);
+      if (setFilter)
+        dispatch({
+          type: "SET_FILTER",
+          payload: {
+            name: "Best seller",
+            filter: { column: "sales", value: 30, method: "order" },
+          },
+        });
+    }, [dispatch, setFilter]);
 
     useEffect(() => {
       async function fetchData() {
@@ -90,6 +98,7 @@ BuyCardsCarousel.propTypes = {
   slides_per_view: PropTypes.object,
   className: PropTypes.string,
   defaultFilter: PropTypes.object,
+  setFilter: PropTypes.bool,
 };
 
 export default BuyCardsCarousel;

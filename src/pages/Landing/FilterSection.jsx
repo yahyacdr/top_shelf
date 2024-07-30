@@ -30,13 +30,13 @@ const StyledFilterSection = styled.div`
   }
 `;
 
-const FilterSection = memo(({ contents, hasTitle = true }) => {
+const FilterSection = memo(({ contents, hasTitle = true, defaultFilter }) => {
   return (
     <StyledFilterSection>
       {hasTitle && <Heading as="h3">Filter by Interest</Heading>}
       <Filter className="filter">
         {contents.map((content, i) => (
-          <Filter.Pill key={i} content={content}>
+          <Filter.Pill key={i} content={content} filter={defaultFilter}>
             {content}
           </Filter.Pill>
         ))}
@@ -48,7 +48,7 @@ const FilterSection = memo(({ contents, hasTitle = true }) => {
 FilterSection.propTypes = {
   contents: PropTypes.array,
   hasTitle: PropTypes.bool,
-  defaultValue: PropTypes.object,
+  defaultFilter: PropTypes.object,
 };
 
 export default FilterSection;

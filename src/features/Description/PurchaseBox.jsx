@@ -98,8 +98,9 @@ const PurchaseServiceDetails = styled.div`
     }
   }
 `;
-const PurchaseBox = memo(({ item }) => {
-  const { weight, quantity_buy, additions, price, id, totalPrice } = useCart();
+const PurchaseBox = memo(() => {
+  const { name, weight, quantity_buy, additions, price, id, totalPrice } =
+    useCart();
 
   const dispatch = useDispatch();
 
@@ -107,7 +108,7 @@ const PurchaseBox = memo(({ item }) => {
     <StyledPurchaseBox>
       <PurchasedItem>
         <p>
-          {item.name} {weight.label}
+          {name} {weight.label}
           <span>{quantity_buy}x</span>
         </p>
         <p>{formatCurrency(price)}</p>

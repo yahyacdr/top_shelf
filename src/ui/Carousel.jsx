@@ -71,20 +71,14 @@ const Carousel = memo(
         breakpoints={{
           0: {
             spaceBetween: 24,
-            slidesPerView: slides_per_view["0"] ? slides_per_view["0"] : 1.4,
+            slidesPerView: slides_per_view["0"] ? slides_per_view["0"] : 1,
             centeredSlides: true,
             centerInsufficientSlides: true,
             centeredSlidesBounds: true,
           },
           640: {
             spaceBetween: 24,
-            slidesPerView: slides_per_view["640"]
-              ? slides_per_view["640"]
-              : 1.5,
-          },
-          720: {
-            spaceBetween: 24,
-            slidesPerView: slides_per_view["720"] ? slides_per_view["720"] : 2,
+            slidesPerView: slides_per_view["640"] ? slides_per_view["640"] : 1,
           },
           920: {
             spaceBetween: 32,
@@ -94,37 +88,37 @@ const Carousel = memo(
             spaceBetween: 32,
             slidesPerView: slides_per_view["1080"]
               ? slides_per_view["1080"]
-              : 1.8,
+              : 1,
           },
           1200: {
             spaceBetween: 32,
             slidesPerView: slides_per_view["1200"]
               ? slides_per_view["1200"]
-              : 2,
+              : 1,
           },
           1366: {
             spaceBetween: 32,
             slidesPerView: slides_per_view["1366"]
               ? slides_per_view["1366"]
-              : 2.5,
+              : 1,
           },
           1440: {
             spaceBetween: 32,
             slidesPerView: slides_per_view["1440"]
               ? slides_per_view["1440"]
-              : 2.8,
+              : 1,
           },
           1520: {
             spaceBetween: 32,
             slidesPerView: slides_per_view["1520"]
               ? slides_per_view["1520"]
-              : 2.8,
+              : 1,
           },
           1920: {
             spaceBetween: 32,
             slidesPerView: slides_per_view["1920"]
               ? slides_per_view["1920"]
-              : 2.8,
+              : 1,
           },
         }}
         pagination={{

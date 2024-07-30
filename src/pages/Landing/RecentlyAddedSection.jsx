@@ -70,9 +70,12 @@ const RecentlyAddedSection = memo(() => {
       <StyledRecentlyAddedSection>
         <Heading as="h1">recently added</Heading>
         <FilterProvider>
-          <FilterSection contents={FilterContent} />
+          <FilterSection
+            contents={FilterContent}
+            defaultFilter={FilterContent[0]}
+          />
           <PaginationProvider>
-            <BuyCardsGrid filterDefaultValue={FilterContent[0]} />
+            <BuyCardsGrid />
           </PaginationProvider>
         </FilterProvider>
       </StyledRecentlyAddedSection>

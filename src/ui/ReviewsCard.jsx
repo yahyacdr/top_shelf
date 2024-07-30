@@ -115,7 +115,7 @@ const ReviewsCard = memo(
     return currentReviews.current
       .slice(0, reviewsNum || currentReviews.current.length - 1)
       .map((review) => (
-        <Menu.CardContainer
+        <Menu.ReviewCardContainer
           key={review.id}
           distribution="flex"
           width="100%"
@@ -139,7 +139,7 @@ const ReviewsCard = memo(
             <Card.Desc color="--dark-600">{review.review}</Card.Desc>
           </StyledDesc>
           <Card.Date>{formatDate(new Date(review.created_at))}</Card.Date>
-        </Menu.CardContainer>
+        </Menu.ReviewCardContainer>
       ));
   }
 );

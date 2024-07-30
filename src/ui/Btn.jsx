@@ -90,18 +90,17 @@ const Btn = styled.button`
     text-transform: capitalize;
   }
 
+  &.active {
+    border: 1px solid var(--green-900);
+    background-color: var(--light-400);
+    &:focus {
+      border: 1px solid var(--green-900);
+    }
+  }
+
   ${(props) => variations[props.variation]}
   ${(props) => sizes[props.size]}
   ${(props) => shapes[props.shape]}
-  ${(props) =>
-    props.active === "active" &&
-    css`
-      border: 1px solid var(--green-900);
-      background-color: var(--light-400);
-      &:focus {
-        border: 1px solid var(--green-900);
-      }
-    `}
   ${(props) =>
     css`
       ${props.custom}

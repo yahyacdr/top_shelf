@@ -39,6 +39,9 @@ const StyledServiceFeaturesSection = styled.section`
   .card-container {
     height: auto;
     width: 100%;
+    @media (min-width: ${screens.tablet.m}) {
+      width: calc(100% / 2 - 12px);
+    }
     @media (min-width: ${screens.tablet.xxm}) {
       width: auto;
     }

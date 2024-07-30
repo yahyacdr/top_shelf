@@ -21,14 +21,14 @@ const CardsContainer = styled.section`
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
-  row-gap: 40px;
+  gap: 40px 24px;
   padding: 80px 64px;
   width: 100%;
   @media (max-width: ${screens.mobile.xm}) {
     padding: 60px 32px;
   }
   @media (min-width: ${screens.tablet.xxm}) {
-    column-gap: 32px;
+    justify-content: space-between;
   }
 `;
 
@@ -44,11 +44,11 @@ const StyledImgContainer = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  width: 100px;
+  width: 70px;
   aspect-ratio: 1/1;
   background-color: var(--light-300);
-  @media (max-width: 1366px) {
-    width: 75px;
+  img {
+    width: 60%;
   }
 `;
 

@@ -3,10 +3,12 @@ import { memo, useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import Carousel from "../../ui/Carousel";
 import { SwiperSlide } from "swiper/react";
-import useFetchProducts from "../../hooks/useFetchProducts";
-import ContentLoadingAnimation from "../../ui/ContentLoadingAnimation";
 import PropTypes from "prop-types";
 import screens from "../../utils/screens";
+import { fetchFilteredProducts, useFilter } from "../../context/filterContext";
+import ContentLoadingAnimation from "../../ui/ContentLoadingAnimation";
+import Image from "./Image";
+import { getRandomNumberBased } from "../../utils/helper";
 
 const StyledImgPreview = styled.div`
   grid-area: image;
@@ -16,23 +18,21 @@ const StyledImgPreview = styled.div`
   transition: 0.3s ease-in-out;
 
   .swiper {
-    height: 100%;
     overflow: visible;
     transition: 0.3s ease-in-out;
     .swiper-wrapper {
+      margin-bottom: 32px;
       .swiper-slide {
         transition: 0.3s ease-in-out;
-
-        height: 100%;
-        aspect-ratio: 1/1;
+        height: fit-content;
         > div {
           transition: 0.3s;
+          width: 100%;
         }
       }
     }
     .swiper-pagination {
-      top: 110%;
-      bottom: 0;
+      position: static;
       span {
         width: 56px;
         height: unset;
@@ -47,54 +47,91 @@ const StyledImgPreview = styled.div`
         }
       }
       ${(props) =>
-        props.items.map(
-          (bc, i) => css`
+        Array.from(
+          { length: props.length },
+          (_, i) =>
+            `https://pngimg.com/uploads/cannabis/small/cannabis_PNG${getRandomNumberBased(
+              3,
+              75,
+              [31, 12, 58, 30, 18, 34, 48, 10, 37],
+              i
+            )}.png`
+        ).map(
+          (img, i) => css`
             span:nth-child(${i + 1}) {
-              background-image: url(${bc.imgUrl});
+              background-image: url(${img});
             }
           `
         )}
     }
   }
+
   button {
     display: none;
   }
 
   &.open {
-    height: 100vh;
+    height: 100dvh;
     z-index: 9999;
     position: absolute;
     top: 0;
     background-color: rgba(1, 16, 11, 0.4);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     padding-inline: 24px;
     overflow: hidden;
     margin-top: 0;
     left: 0;
     .swiper {
-      height: auto;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       .swiper-wrapper {
-        margin-bottom: 24px;
-        height: 486px;
-        .swiper-slide {
-          aspect-ratio: 1 / 1.2105263;
-        }
+        margin-bottom: 0;
+        height: fit-content;
 
         @media (min-width: ${screens.mobile.xl}) {
           margin-bottom: 48px;
         }
         @media (min-width: ${screens.mobile.xxl}) {
-          margin-bottom: 64px;
+          margin-bottom: 0;
+          .swiper-slide {
+            padding: 64px;
+          }
+          .indicator {
+            right: 82px;
+            bottom: 82px;
+          }
         }
         @media (min-width: 560px) {
           margin-bottom: 24px;
         }
+        @media (min-width: ${screens.tablet.s}) {
+          .swiper-slide {
+            padding: 96px;
+          }
+          .indicator {
+            right: 112px;
+            bottom: 112px;
+          }
+        }
+        @media (min-width: ${screens.tablet.xxm}) {
+          .swiper-slide {
+            padding: 32px;
+          }
+          .indicator {
+            right: 48px;
+            bottom: 48px;
+          }
+        }
       }
       .swiper-pagination {
         position: static;
+        display: none;
       }
     }
 
@@ -113,150 +150,94 @@ const StyledImgPreview = styled.div`
   @media (min-width: ${screens.tablet.xxm}) {
     padding: 0 64px 0 40px;
     margin-top: 0;
+    height: 100%;
 
     .swiper {
       overflow-x: hidden;
-      height: 40%;
       .swiper-wrapper {
-        height: 70%;
+        height: 55%;
       }
       .swiper-pagination {
         top: auto;
+        height: 40%;
       }
     }
   }
   @media (min-width: ${screens.tablet.xl}) {
-    .swiper {
-      height: 60%;
-    }
   }
   @media (min-width: ${screens.desktop.xxs}) {
     .swiper {
-      height: 70%;
+      .swiper-wrapper {
+        margin-bottom: 64px;
+      }
     }
   }
 `;
 
-const ImgCard = styled.div`
-  background-color: var(--light-400);
-  border-radius: 24px;
-  border: 1px solid var(--light-600);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  > img {
-    width: 70%;
-    @media (min-width: ${screens.mobile.xxm}) {
-      width: 50%;
-    }
-
-    @media (min-width: ${screens.mobile.xxl}) {
-      width: 40%;
-    }
-
-    @media (min-width: ${screens.desktop.xs}) {
-      width: 30%;
-    }
-  }
-  @media (min-width: ${screens.tablet.xxm}) {
-    aspect-ratio: 5.73 / 5.2;
-  }
-`;
-
-const StyledIndicator = styled.span`
-  position: absolute;
-  right: 16px;
-  bottom: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  box-shadow: 0px 5px 20px 0 rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  svg {
-    overflow: visible;
-    path:not(:last-child) {
-      transition: transform 0.3s ease-in-out;
-    }
-  }
-  &.out:hover {
-    path:not(:last-child) {
-      transform: translate(3px, -3px);
-    }
-  }
-  &.in:hover {
-    path:not(:last-child) {
-      transform: translate(-3px, 3px);
-    }
-  }
-  &.flipped {
-    path:not(:last-child) {
-      transform-origin: center center;
-      transform: translate(11px, -11px) rotate(180deg);
-    }
-  }
-
-  &.flipped-in {
-    path:not(:last-child) {
-      transform-origin: center center;
-      transform: translate(7px, -7px) rotate(180deg);
-    }
-  }
-`;
-
-const ImagePreview = memo(() => {
-  const carouselEl = useRef();
-  const { items, isLoading } = useFetchProducts();
+const ImagePreview = memo(({ handleContentLoaded }) => {
   const [isImagePreviewOpen, setIsImagePreviewOpen] = useState(false);
+  console.log(
+    Array.from(
+      { length: 15 },
+      (_, i) =>
+        `https://pngimg.com/uploads/cannabis/small/cannabis_PNG${getRandomNumberBased(
+          3,
+          75,
+          [31, 12, 58, 30, 18, 34, 48, 10, 37],
+          i
+        )}.png`
+    )
+  );
+
+  const carouselEl = useRef();
+  const { items, currentFilter, isLoading, dispatch } = useFilter();
+
+  useEffect(() => {
+    dispatch({
+      type: "SET_FILTER",
+      payload: {
+        name: "Best seller",
+        filter: { column: "sales", value: 15, method: "order" },
+      },
+    });
+  }, [dispatch]);
+
+  useEffect(() => {
+    async function fetchData() {
+      if (currentFilter)
+        dispatch({
+          type: "SET_DATA",
+          payload: await fetchFilteredProducts(currentFilter, dispatch),
+        });
+    }
+    fetchData();
+  }, [currentFilter, dispatch]);
 
   function handleSlideChange() {
     console.log("slide changed");
   }
 
-  useEffect(() => {
-    document.body.style.overflow = isImagePreviewOpen ? "hidden" : "auto";
-    if (isImagePreviewOpen) {
-      window.scrollTo(0, 0);
-    }
-  }, [isImagePreviewOpen]);
+  if (!isLoading) handleContentLoaded(true);
 
   if (isLoading) return <ContentLoadingAnimation />;
 
   return (
     <StyledImgPreview
-      items={items}
+      length={items.length}
       className={`${isImagePreviewOpen ? "open" : ""}`}
     >
       <Carousel
         nextBtnClass="btn-next"
         refEl={carouselEl}
         hasDots={true}
-        slides_per_view={{
-          0: 1,
-          640: 1,
-          720: 1,
-          920: 1,
-          1080: 1,
-          1200: 1,
-          1366: 1,
-          1440: 1,
-          1520: 1,
-          1920: 1,
-        }}
         onSwipe={handleSlideChange}
       >
         {items.map((product, i) => (
           <SwiperSlide key={product.id} data-hash={`slide${i + 1}`}>
-            <ImgCard>
-              <img src={product.imgUrl} alt="" />
-            </ImgCard>
-            <Indicator
-              setIsImagePreviewOpen={setIsImagePreviewOpen}
-              isImagePreviewOpen={isImagePreviewOpen}
+            <Image
+              isImgPrvwOpen={isImagePreviewOpen}
+              setIsImgPrvwOpen={setIsImagePreviewOpen}
+              index={i}
             />
           </SwiperSlide>
         ))}
@@ -265,56 +246,8 @@ const ImagePreview = memo(() => {
   );
 });
 
-function Indicator({ setIsImagePreviewOpen, isImagePreviewOpen }) {
-  const [isHovered, setIsHovered] = useState(false);
-  return (
-    <StyledIndicator
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={() => setIsImagePreviewOpen((open) => !open)}
-      className={`${
-        !isImagePreviewOpen
-          ? isHovered
-            ? "out"
-            : "in"
-          : isHovered
-          ? "flipped-in"
-          : ""
-      } ${isImagePreviewOpen ? "flipped" : ""}`}
-    >
-      <svg
-        width="20"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M10.8333 9.16634L17.6667 2.33301"
-          stroke="#05422C"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M18.3333 5.66699V1.66699H14.3333"
-          stroke="#05422C"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M9.16666 1.66699H7.49999C3.33332 1.66699 1.66666 3.33366 1.66666 7.50033V12.5003C1.66666 16.667 3.33332 18.3337 7.49999 18.3337H12.5C16.6667 18.3337 18.3333 16.667 18.3333 12.5003V10.8337"
-          stroke="#05422C"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </StyledIndicator>
-  );
-}
-
-Indicator.propTypes = {
-  setIsImagePreviewOpen: PropTypes.func.isRequired,
-  isImagePreviewOpen: PropTypes.bool.isRequired,
+ImagePreview.propTypes = {
+  handleContentLoaded: PropTypes.func,
 };
 
 export default ImagePreview;

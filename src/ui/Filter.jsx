@@ -4,11 +4,12 @@ import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import Btn from "./Btn";
 import Divider from "./Divider";
-import { memo } from "react";
+import { memo, useEffect, useMemo } from "react";
 import MultiRangeSlider from "multi-range-slider-react";
 import checkMark from "../data/images/check-mark.png";
 import { useFilter } from "../context/filterContext";
 import { usePost } from "../context/postContext";
+import { isObjectEmpty } from "../utils/helper";
 
 const StyledFilter = styled.div`
   display: flex;
@@ -175,25 +176,54 @@ const Checkbox = styled.div`
   column-gap: 12px;
 `;
 
-const Pill = memo(({ children, content }) => {
-  const { currentFilter, dispatch } = useFilter();
+const Pill = memo(
+  ({
+    content,
+    name = false,
+    filter = {},
+    filterName = false,
+    handleClick = null,
+  }) => {
+    const { currentFilter, dispatch } = useFilter();
+    const memoizedFilter = useMemo(() => {
+      return filter;
+    }, [JSON.stringify(filter)]);
 
-  return (
-    <Btn
-      size="medium"
-      variation="secondary"
-      shape="pill"
-      color={`${
-        currentFilter.name === content.name ? "--green-900" : "--dark-300"
-      }`}
-      active={`${currentFilter.name === content.name ? "active" : ""}`}
-      custom={{ "max-width": "280px" }}
-      onClick={() => dispatch({ type: "SET_FILTER", payload: content })}
-    >
-      {content?.name || children}
-    </Btn>
-  );
-});
+    useEffect(() => {
+      if (!isObjectEmpty(memoizedFilter))
+        dispatch({
+          type: "SET_FILTER",
+          payload: memoizedFilter,
+        });
+    }, [dispatch, memoizedFilter]);
+
+    return (
+      <Btn
+        size="medium"
+        variation="secondary"
+        shape="pill"
+        color={`${
+          currentFilter.name === content.name ? "--green-900" : "--dark-300"
+        }`}
+        className={`${
+          (filterName || currentFilter?.name) === (name || content.name)
+            ? "active"
+            : ""
+        }`}
+        custom={{ "max-width": "280px" }}
+        onClick={() => {
+          if (typeof handleClick === "function") {
+            handleClick();
+          } else {
+            dispatch({ type: "SET_FILTER", payload: content });
+          }
+        }}
+      >
+        {content?.name ?? content}
+      </Btn>
+    );
+  }
+);
 
 const Radio = memo(({ content, id, name, handleChange, checked, quantity }) => {
   return (
@@ -281,8 +311,10 @@ Filter.propTypes = {
 Pill.propTypes = {
   children: PropTypes.node,
   content: PropTypes.string,
-  active: PropTypes.bool,
-  handleFilterClick: PropTypes.func,
+  filter: PropTypes.object,
+  name: PropTypes.string,
+  handleClick: PropTypes.func,
+  filterName: PropTypes.string,
 };
 
 Radio.propTypes = {

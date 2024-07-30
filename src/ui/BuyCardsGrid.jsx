@@ -11,15 +11,15 @@ import { containsArray } from "../utils/helper";
 import useSetPagination from "../hooks/useSetPagination";
 
 // eslint-disable-next-line react/display-name
-const BuyCardsGrid = memo(({ children, filterDefaultValue }) => {
+const BuyCardsGrid = memo(({ children, filterDefaultValue = false }) => {
   const { items, isLoading, currentFilter, dispatch } = useFilter();
-  const { activeIndex } = usePaginated();
 
   useEffect(() => {
-    dispatch({
-      type: "SET_FILTER",
-      payload: filterDefaultValue,
-    });
+    if (filterDefaultValue)
+      dispatch({
+        type: "SET_FILTER",
+        payload: filterDefaultValue,
+      });
   }, [dispatch, filterDefaultValue]);
 
   useEffect(() => {
@@ -35,6 +35,7 @@ const BuyCardsGrid = memo(({ children, filterDefaultValue }) => {
   }, [currentFilter, dispatch]);
 
   useSetPagination(items);
+  const { activeIndex } = usePaginated();
 
   if (isLoading) return <ContentLoadingAnimation />;
 

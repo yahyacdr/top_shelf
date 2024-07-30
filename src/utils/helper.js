@@ -48,6 +48,32 @@ function containsArray(mainArray) {
   return mainArray.some((arr) => Array.isArray(arr));
 }
 
+function isObjectEmpty(obj) {
+  return Object.keys(obj).length === 0;
+}
+
+// Simple seed-based random number generator
+function seededRandom(seed) {
+  let x = Math.sin(seed) * 10000;
+  return x - Math.floor(x);
+}
+
+// Function to generate a random number based on input and excludes some set of numbers
+function getRandomNumberBased(min, max, exclude, seed) {
+  let availableNumbers = [];
+
+  // Create an array of available numbers
+  for (let i = min; i <= max; i++) {
+    if (!exclude.includes(i)) {
+      availableNumbers.push(i);
+    }
+  }
+
+  // Generate a random index based on the seed
+  let randomIndex = Math.floor(seededRandom(seed) * availableNumbers.length);
+  return availableNumbers[randomIndex];
+}
+
 export {
   formatCurrency,
   formatCurrencyWithCommas,
@@ -58,4 +84,6 @@ export {
   getRandomRate,
   getFraction,
   containsArray,
+  isObjectEmpty,
+  getRandomNumberBased,
 };

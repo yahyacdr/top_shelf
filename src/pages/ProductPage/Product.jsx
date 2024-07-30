@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 
-import { memo } from "react";
+import { memo, useState } from "react";
 import Main from "../../ui/Main";
 import ImagePreview from "./ImagePreview";
 import styled from "styled-components";
@@ -10,6 +10,10 @@ import Heading from "../../ui/Heading";
 import screens from "../../utils/screens";
 import FilterProvider from "../../context/filterContext";
 import PaginationProvider from "../../context/paginationContext";
+import FilterContent from "../../features/Description/FilterContent";
+import PostProvider from "../../context/postContext";
+import CartProvider from "../../features/cart/cartContext";
+import ContentLoadingAnimation from "../../ui/ContentLoadingAnimation";
 
 const ProductContainer = styled.section`
   display: flex;
@@ -19,11 +23,28 @@ const ProductContainer = styled.section`
   width: 100%;
   row-gap: 32px;
   padding: 0 24px;
+
+  .pill-filter {
+    grid-area: filter;
+    column-gap: 12px;
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--light-600);
+    margin-top: 20px;
+    > button {
+      width: calc(100% / 3 - 12px);
+      text-align: center;
+      font-size: var(--font-size-small-50);
+      font-weight: 400;
+      padding: 7px 10px;
+    }
+  }
+
   @media (min-width: ${screens.tablet.xxm}) {
     display: grid;
-    grid-template-columns: 56% 44%;
+    grid-template-columns: 48.6% 51.4%;
     grid-template-rows: auto;
-    grid-template-areas: "image details";
+    grid-template-areas: "image details" "image filter" "image filter-section";
     align-items: flex-start;
     margin-top: 40px;
   }
@@ -43,7 +64,8 @@ const ItemsCardsGrid = styled.section`
     color: var(--dark-900);
     text-align: left;
   }
-  @media (max-width: ${screens.mobile.m}) {
+
+  @media (max-width: 375px) {
     > .cards-container {
       justify-content: center;
       > div {
@@ -52,17 +74,33 @@ const ItemsCardsGrid = styled.section`
       }
     }
   }
+
   @media (min-width: ${screens.tablet.xs}) {
     margin-bottom: 384px;
   }
 `;
 
 const Product = memo(() => {
+  const [contentLoaded, setContentLoaded] = useState(false);
+
   return (
     <Main className="prod-main">
       <ProductContainer>
-        <ImagePreview />
-        <CardDetails />
+        <CartProvider>
+          <FilterProvider>
+            <ImagePreview handleContentLoaded={setContentLoaded} />
+            {contentLoaded ? (
+              <>
+                <CardDetails />
+                <PostProvider>
+                  <FilterContent />
+                </PostProvider>
+              </>
+            ) : (
+              <ContentLoadingAnimation />
+            )}
+          </FilterProvider>
+        </CartProvider>
       </ProductContainer>
       <ItemsCardsGrid>
         <Heading as="h2">Featured Product</Heading>
@@ -71,7 +109,7 @@ const Product = memo(() => {
             <BuyCardsGrid
               filterDefaultValue={{
                 name: "random",
-                filter: { column: "", value: 4, method: "random" },
+                filter: { column: "", value: 15, method: "random" },
               }}
             />
           </PaginationProvider>

@@ -1,11 +1,12 @@
 /* eslint-disable react/display-name */
 import PropTypes from "prop-types";
-import { memo, useContext, useState } from "react";
-import { StarReviewContext } from "../../utils/context";
+import { memo, useState } from "react";
+import { usePost } from "../../context/postContext";
 
 const StarRating = memo(() => {
-  const { rating, setRating } = useContext(StarReviewContext);
+  const { rating, setRating } = usePost();
   const [hoverStar, setHoverStar] = useState(0);
+
   return (
     <div>
       {Array.from({ length: 5 }, (_, i) => (

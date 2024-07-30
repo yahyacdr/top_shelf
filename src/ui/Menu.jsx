@@ -16,7 +16,6 @@ const ItemCards = styled.div`
   ${(props) =>
     props.distribution === "grid" &&
     css`
-      flex-wrap: wrap;
       align-items: flex-start;
       gap: 32px 24px;
     `}
@@ -141,10 +140,12 @@ const ReviewCardContainer = styled(StyledCardContainer)`
   .date {
     height: 10%;
   }
+
   & > h3 {
     margin-bottom: 0;
     margin-top: 0px;
   }
+
   & button.label {
     color: var(--green-900);
     font-size: var(--font-size-small-50);

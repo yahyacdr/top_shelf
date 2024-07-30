@@ -1,14 +1,14 @@
 /* eslint-disable react/display-name */
-import { memo, useContext } from "react";
+import { memo } from "react";
 import Btn from "../../ui/Btn";
-import { Form } from "react-router-dom";
+import { Form, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Heading from "../../ui/Heading";
 import StarRating from "./starRating";
 import styled from "styled-components";
-import { StarReviewContext } from "../../utils/context";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadReviews } from "../../features/Reviews/reviewsSlice";
+import { usePost } from "../../context/postContext";
 
 const StyledAddReview = styled.div`
   display: flex;
@@ -106,8 +106,10 @@ const Input = styled.input`
 const AddReview = memo(() => {
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors } = formState;
-  const { currentCard: productId, rating } = useContext(StarReviewContext);
+  const { rating } = usePost();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const productId = Number(location.hash[location.hash.length - 1]) - 1 || 0;
 
   const state = useSelector((state) => state.reviews);
 

@@ -67,7 +67,6 @@ const StyledMenuSection = styled.section`
     }
   }
   .cover-card {
-    height: 395px;
     padding: 28px 40px;
     > :not(.back-img) {
       position: relative;
@@ -78,7 +77,8 @@ const StyledMenuSection = styled.section`
     }
     @media (min-width: ${screens.tablet.xxm}) {
       height: 100%;
-      width: auto;
+      width: 350px;
+      min-width: 350px;
     }
   }
 
@@ -147,8 +147,15 @@ const ItemsSection = memo(() => {
           </Heading>
         </StyledHeaderContainer>
         <FilterProvider>
-          <FilterSection contents={FilterContent} hasTitle={false} />
-          <BuyCardsCarousel slides_per_view={slidesPerView}>
+          <FilterSection
+            contents={FilterContent}
+            hasTitle={false}
+            defaultFilter={{
+              name: "Best seller",
+              filter: { column: "sales", value: 30, method: "order" },
+            }}
+          />
+          <BuyCardsCarousel slides_per_view={slidesPerView} setFilter={false}>
             <Menu.CoverCard side="center" className="cover-card">
               <img src={vector} alt="" className="back-img" />
               <ImgCardContainer type="cover">

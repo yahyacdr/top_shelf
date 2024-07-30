@@ -2,8 +2,10 @@ import { PAGE_LENGTH } from "../consts";
 import { getRandomNumberBetween } from "../utils/helper";
 import supabase from "../utils/supabase";
 
-export async function getProducts() {
-  const { data, error } = await supabase.from("products").select("*");
+export async function getProducts(min = false, max = false) {
+  let qry = supabase.from("products").select("*");
+  if ((min || min === 0) && max) qry = qry.range(min, max);
+  const { data, error } = await qry;
 
   if (error) {
     console.error(error);
@@ -58,12 +60,12 @@ export async function getProductWithFilter(filter) {
 
     const products = [];
 
-    pagesIndexes.forEach(async (page) => {
-      products.push(await getProducts(page - PAGE_LENGTH, page - 1));
-    });
+    for (const i of pagesIndexes) {
+      products.push(await getProducts(i - PAGE_LENGTH, i - 1));
+    }
 
     products.push(
-      await getProducts(pagesIndexes[pagesIndexes.length - 1] + 1, count)
+      await getProducts(pagesIndexes[pagesIndexes.length - 1], count)
     );
 
     products.sort((a, b) => a.length - b.length).reverse();

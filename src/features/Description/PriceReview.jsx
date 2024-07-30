@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import { memo, useEffect } from "react";
+import { memo } from "react";
 import Card from "../../ui/Card";
 import { useCart } from "../../features/cart/cartContext";
 import styled from "styled-components";
@@ -31,33 +31,8 @@ const StyledPriceReview = styled.div`
   }
 `;
 
-const PriceReview = memo(({ items }) => {
-  const { price, discount, dispatch } = useCart();
-  const currentCard = Number(location.hash[location.hash.length - 1]) - 1 || 0;
-
-  useEffect(() => {
-    if (items[currentCard]) {
-      dispatch({ type: "RESET" });
-      dispatch({
-        type: "SET_BASE_PRICE",
-        payload: items[currentCard].price,
-      });
-      dispatch({
-        type: "SET_DISCOUNT",
-        payload: items[currentCard].discount,
-      });
-      dispatch({
-        type: "SET_PRICE",
-      });
-      dispatch({
-        type: "SET_ID",
-        payload: items[currentCard].id,
-      });
-      dispatch({
-        type: "SET_TOTAL_PRICE",
-      });
-    }
-  }, [items, currentCard, dispatch]);
+const PriceReview = memo(() => {
+  const { price, rate, discount } = useCart();
 
   return (
     <StyledPriceReview>
@@ -66,7 +41,7 @@ const PriceReview = memo(({ items }) => {
         price={price + discount}
         currentPrice={price}
       />
-      <Card.Review rate={items[currentCard].rate} numRate={135} />
+      <Card.Review rate={rate} numRate={135} />
     </StyledPriceReview>
   );
 });

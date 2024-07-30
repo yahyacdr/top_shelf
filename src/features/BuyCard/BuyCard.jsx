@@ -32,7 +32,7 @@ const ImgCardContainer = styled(ImgContainer)`
           height: 100%;
           & img {
             @media (min-width: ${screens.mobile.xxs}) {
-              width: 70%;
+              width: 40%;
             }
             @media (min-width: ${screens.mobile.xm}) {
               width: 50%;
@@ -199,7 +199,7 @@ export default function BuyCard({ bc, bgRevert }) {
       <TypeContainer>
         <Card.ItemType>{type}</Card.ItemType>
       </TypeContainer>
-      <Price bc={bc} />
+      <Price />
       <Card.TitleItem color="--dark-900">{name}</Card.TitleItem>
       <Card.Review rate={rate} numRate={135} />
       <LabelContainer className="label-container">
@@ -233,7 +233,7 @@ export function PanelBuyCard({ bc, handleClick }) {
       <Card.TitleItem color="--light-300">{name}</Card.TitleItem>
       <Card.Review rate={rate} numRate={135} />
       <Card.WeightOptions revert={true} />
-      <BtnPrice>
+      <BtnPrice className="btn-price">
         <Btn
           size="medium"
           variation="primary"

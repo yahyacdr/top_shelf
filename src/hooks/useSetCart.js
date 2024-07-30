@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useCart } from "../features/cart/cartContext";
-import { getRandomNumberBetween } from "../utils/helper";
+import { getRandomNumberBetween, isObjectEmpty } from "../utils/helper";
 
-export default function useSetCart(item) {
+export default function useSetCart(item = {}) {
   const { dispatch } = useCart();
   useEffect(() => {
-    if (item) {
+    if (!isObjectEmpty(item)) {
       dispatch({ type: "RESET" });
       dispatch({
         type: "SET_ID",
@@ -65,7 +65,7 @@ export default function useSetCart(item) {
       });
       dispatch({
         type: "SET_DESCRIPTION",
-        description: item.description,
+        payload: item.description,
       });
     }
   }, [item, dispatch]);

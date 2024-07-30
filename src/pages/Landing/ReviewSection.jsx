@@ -62,8 +62,7 @@ const StyledReviewSection = styled.section`
     @media (min-width: ${screens.tablet.xxm}) {
       row-gap: 24px;
       padding-bottom: 16px;
-    }
-    @media (min-width: ${screens.tablet.xxm}) {
+      width: auto;
       width: 28.75%;
     }
     @media (min-width: ${screens.desktop.xs}) {

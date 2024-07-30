@@ -21,12 +21,15 @@ const StyledFilterContainer = styled.section`
   .filter-container {
     gap: 15px;
   }
-  @media (max-width: ${screens.mobile.m}) {
+  @media (max-width: ${screens.mobile.xm}) {
     &.filter-section {
-      padding: 16px 3px;
-      .filter-container {
-        column-gap: 0px;
-      }
+      padding: 16px 0;
+    }
+  }
+
+  @media (max-width: ${screens.mobile.m}) {
+    .filter-container {
+      justify-content: center;
     }
   }
 
