@@ -10,6 +10,7 @@ import store from "./store";
 import { Provider } from "react-redux";
 import PageNotFoundAnimation from "./ui/PageNotFoundAnimation";
 import ErrorAnimation from "./ui/ErrorAnimation";
+import Cart from "./pages/Cart/Cart";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,11 @@ const router = createBrowserRouter([
       {
         path: "/product",
         element: <Product />,
+        errorElement: <ErrorAnimation />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
         errorElement: <ErrorAnimation />,
       },
     ],

@@ -11,9 +11,18 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     ADD: {
-      prepare(id, quantity, price, weight, additions, totalPrice) {
+      prepare(id, name, img, quantity, price, weight, additions, totalPrice) {
         return {
-          payload: { id, quantity, price, weight, additions, totalPrice },
+          payload: {
+            id,
+            name,
+            img,
+            quantity,
+            price,
+            weight,
+            additions,
+            totalPrice,
+          },
         };
       },
       reducer(state, action) {
@@ -66,3 +75,10 @@ export const { ADD, REMOVE, INCREASE, DECREASE, SET_WEIGHT } =
   cartSlice.actions;
 
 export default cartSlice.reducer;
+
+export const getCartTotalPrice = (store) =>
+  store.cart.items.reduce((acc, curr) => acc + curr.totalPrice, 0);
+
+export const getTotalItems = (store) => store.cart.items.length;
+
+export const getCart = (store) => store.cart.items;

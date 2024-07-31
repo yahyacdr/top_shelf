@@ -14,6 +14,8 @@ const BtnContainer = styled.div`
 const BuyCardBtn = memo(() => {
   const {
     id,
+    name,
+    img,
     quantity_buy,
     quantity_stock,
     price,
@@ -33,7 +35,18 @@ const BuyCardBtn = memo(() => {
         color="--light-300"
         disabled={!quantity_stock}
         onClick={() =>
-          dispatch(ADD(id, quantity_buy, price, weight, additions, totalPrice))
+          dispatch(
+            ADD(
+              id,
+              name,
+              img,
+              quantity_buy,
+              price,
+              weight,
+              additions,
+              totalPrice
+            )
+          )
         }
       >
         Add to Cart

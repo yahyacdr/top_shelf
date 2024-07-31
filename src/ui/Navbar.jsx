@@ -11,6 +11,7 @@ import humbergerMenu from "../assets/humberger-menu-animation-1.json";
 import CurtainPagesNavbar from "./CurtainPagesNavbar";
 import useWindowSize from "../hooks/useWindowSize";
 import screens from "../utils/screens";
+import { useNavigate } from "react-router-dom";
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
@@ -164,6 +165,7 @@ const Navbar = memo(() => {
 });
 
 const GlobalNav = memo(({ mobileSize, menuOpen, setIsMenuOpen }) => {
+  const navigate = useNavigate("");
   return (
     <div>
       <StyledGlobalNav>
@@ -187,6 +189,7 @@ const GlobalNav = memo(({ mobileSize, menuOpen, setIsMenuOpen }) => {
               color="--nocolor"
               variation="regular"
               shape="none"
+              onClick={() => navigate("/cart")}
             >
               <svg
                 width="24"
