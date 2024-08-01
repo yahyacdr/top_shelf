@@ -11,7 +11,17 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     ADD: {
-      prepare(id, name, img, quantity, price, weight, additions, totalPrice) {
+      prepare(
+        id,
+        name,
+        img,
+        quantity,
+        price,
+        basePrice,
+        weight,
+        additions,
+        totalPrice
+      ) {
         return {
           payload: {
             id,
@@ -19,6 +29,7 @@ const cartSlice = createSlice({
             img,
             quantity,
             price,
+            basePrice,
             weight,
             additions,
             totalPrice,
@@ -68,11 +79,33 @@ const cartSlice = createSlice({
           : item
       );
     },
+    ADD_INTEGRA(state, action) {
+      state.items.map((item) => {
+        item.additions.integras.map((integra) => {
+          if (integra.id === action.payload) integra.quantity++;
+        });
+      });
+    },
+    DEC_INTEGRA(state, action) {
+      state.items.map((item) => {
+        item.additions.integras.map((integra) => {
+          if (integra.id === action.payload)
+            integra.quantity > 1 ? integra.quantity-- : integra.quantity;
+        });
+      });
+    },
   },
 });
 
-export const { ADD, REMOVE, INCREASE, DECREASE, SET_WEIGHT } =
-  cartSlice.actions;
+export const {
+  ADD,
+  REMOVE,
+  INCREASE,
+  DECREASE,
+  SET_WEIGHT,
+  ADD_INTEGRA,
+  DEC_INTEGRA,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;
 

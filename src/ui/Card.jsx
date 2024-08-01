@@ -206,12 +206,12 @@ Review.propTypes = {
   numRate: PropTypes.number,
 };
 
-const Price = memo(({ hasDiscount, price, currentPrice }) => {
+const Price = memo(({ hasDiscount, price, currentPrice, showGram = true }) => {
   return (
-    <StyledPrice>
+    <StyledPrice className="card-price">
       {hasDiscount && <p className="discount">{formatCurrency(price)}</p>}
       <p className="price">{formatCurrency(currentPrice)}</p>
-      {!hasDiscount && <span>/ gram</span>}
+      {!hasDiscount && showGram && <span>/ gram</span>}
     </StyledPrice>
   );
 });
@@ -220,6 +220,7 @@ Price.propTypes = {
   hasDiscount: PropTypes.bool,
   price: PropTypes.number,
   currentPrice: PropTypes.number,
+  showGram: PropTypes.bool,
 };
 
 const WeightOptions = memo(({ revert = false }) => {

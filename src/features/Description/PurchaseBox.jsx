@@ -2,12 +2,10 @@
 import { memo } from "react";
 import styled from "styled-components";
 import Counter from "./Counter";
-import Btn from "../../ui/Btn";
+import BuyCardBtn from "../BuyCard/BuyCardBtn";
 import { useCart } from "../cart/cartContext";
 import PropTypes from "prop-types";
 import { formatCurrency } from "../../utils/helper";
-import { ADD } from "../cart/cartSlice";
-import { useDispatch } from "react-redux";
 import screens from "../../utils/screens";
 
 const StyledPurchaseBox = styled.div`
@@ -25,7 +23,7 @@ const StyledPurchaseBox = styled.div`
 const PurchasedItem = styled.div`
   display: grid;
   grid-template-columns: 80% 20%;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   color: var(--dark-900);
   font-size: var(--font-size-small-100);
   line-height: 150%;
@@ -99,10 +97,9 @@ const PurchaseServiceDetails = styled.div`
   }
 `;
 const PurchaseBox = memo(() => {
-  const { name, weight, quantity_buy, additions, price, id, totalPrice } =
+  const { name, weight, quantity_buy, additions, price, totalPrice } =
     useCart();
-
-  const dispatch = useDispatch();
+  console.log(additions.integras);
 
   return (
     <StyledPurchaseBox>
@@ -112,27 +109,19 @@ const PurchaseBox = memo(() => {
           <span>{quantity_buy}x</span>
         </p>
         <p>{formatCurrency(price)}</p>
-        {!!additions.price && (
-          <>
-            <p>Add Integra Pack - {additions.labelWeight}g</p>
-            <p>{formatCurrency(additions.price)}</p>
-          </>
-        )}
+        {!!additions.integras.length &&
+          additions.integras.map((integra) => (
+            <>
+              <p>Add Integra Pack - {integra.label}g</p>
+              <p>{formatCurrency(integra.price)}</p>
+            </>
+          ))}
       </PurchasedItem>
       <AddToCart>
         <Counter />
-        <Btn
-          shape="pill"
-          variation="primary"
-          size="medium"
-          onClick={() =>
-            dispatch(
-              ADD(id, quantity_buy, price, weight, additions, totalPrice)
-            )
-          }
-        >
+        <BuyCardBtn>
           <p>Add to Cart</p>|<span>{formatCurrency(totalPrice)}</span>
-        </Btn>
+        </BuyCardBtn>
       </AddToCart>
       <PurchaseServiceDetails>
         <p>

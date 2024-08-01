@@ -37,14 +37,13 @@ const Add = styled.div`
 `;
 const AddIntegra = memo(() => {
   const { dispatch, additions } = useCart();
-  function handleIntegra(e) {
+  function handleIntegra(e, label, id, price) {
     if (e.target.checked) {
       dispatch({
         type: "ADD_INTEGRA",
         payload: {
-          price: Number(e.target.name),
-          labelWeight: Number(e.target.id),
-          label: e.target.id,
+          price: price,
+          integra: { id: id, label: label, price: price, quantity: 1 },
         },
       });
       dispatch({
@@ -54,9 +53,8 @@ const AddIntegra = memo(() => {
       dispatch({
         type: "REMOVE_INTEGRA",
         payload: {
-          price: Number(e.target.name),
-          labelWeight: Number(e.target.id),
-          label: e.target.id,
+          price: price,
+          id: id,
         },
       });
       dispatch({
@@ -71,16 +69,14 @@ const AddIntegra = memo(() => {
       <Filter.Check
         label="4g (+$2.00)"
         id="4"
-        name="2"
-        handleChange={(e) => handleIntegra(e)}
-        checked={additions.label.includes("4")}
+        handleChange={(e) => handleIntegra(e, "4", 4, 2)}
+        checked={additions.integras.some((integra) => integra.id === 4)}
       />
       <Filter.Check
         label="8g (+$3.00)"
         id="8"
-        name="3"
-        handleChange={(e) => handleIntegra(e)}
-        checked={additions.label.includes("8")}
+        handleChange={(e) => handleIntegra(e, "8", 8, 3)}
+        checked={additions.integras.some((integra) => integra.id === 8)}
       />
     </Add>
   );

@@ -108,7 +108,7 @@ const Container = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   flex-wrap: wrap;
-  padding: 380px 120px 64px;
+  padding: 380px 64px 64px;
   p {
     color: var(--light-900);
     font-size: var(--font-size-medium-33);

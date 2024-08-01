@@ -11,7 +11,7 @@ const BtnContainer = styled.div`
   grid-area: btn;
   height: 100%;
 `;
-const BuyCardBtn = memo(() => {
+const BuyCardBtn = memo(({ children }) => {
   const {
     id,
     name,
@@ -19,6 +19,7 @@ const BuyCardBtn = memo(() => {
     quantity_buy,
     quantity_stock,
     price,
+    basePrice,
     weight,
     additions,
     totalPrice,
@@ -42,6 +43,7 @@ const BuyCardBtn = memo(() => {
               img,
               quantity_buy,
               price,
+              basePrice,
               weight,
               additions,
               totalPrice
@@ -49,14 +51,14 @@ const BuyCardBtn = memo(() => {
           )
         }
       >
-        Add to Cart
+        {children || "Add to Cart"}
       </Btn>
     </BtnContainer>
   );
 });
 
 BuyCardBtn.propTypes = {
-  bc: PropTypes.object,
+  children: PropTypes.element,
 };
 
 export default BuyCardBtn;

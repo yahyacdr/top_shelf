@@ -15,7 +15,7 @@ const initialState = {
   quantity_buy: 1,
   quantity_stock: 0,
   price: Math.round(7.14285 * 28),
-  additions: { price: 0, labelWeight: 0, label: [] },
+  additions: { price: 0, integras: [] },
   totalPrice: 102,
   discount: 0,
   basePrice: 7.145986,
@@ -92,8 +92,7 @@ function reducer(state, action) {
         ...state,
         additions: {
           price: state.additions.price + action.payload.price,
-          labelWeight: state.additions.labelWeight + action.payload.labelWeight,
-          label: [...state.additions.label, action.payload.label],
+          integras: [...state.additions.integras, action.payload.integra],
         },
       };
     case "REMOVE_INTEGRA":
@@ -101,9 +100,8 @@ function reducer(state, action) {
         ...state,
         additions: {
           price: state.additions.price - action.payload.price,
-          labelWeight: state.additions.labelWeight - action.payload.labelWeight,
-          label: state.additions.label.filter(
-            (label) => label !== action.payload.label
+          integras: state.additions.integras.filter(
+            (integra) => integra.id !== action.payload.id
           ),
         },
       };
