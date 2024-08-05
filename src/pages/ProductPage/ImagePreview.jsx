@@ -9,6 +9,7 @@ import { fetchFilteredProducts, useFilter } from "../../context/filterContext";
 import ContentLoadingAnimation from "../../ui/ContentLoadingAnimation";
 import Image from "./Image";
 import { getRandomNumberBased } from "../../utils/helper";
+import { EXECLUDE_IMG } from "../../consts";
 
 const StyledImgPreview = styled.div`
   grid-area: image;
@@ -53,7 +54,7 @@ const StyledImgPreview = styled.div`
             `https://pngimg.com/uploads/cannabis/small/cannabis_PNG${getRandomNumberBased(
               3,
               75,
-              [31, 12, 58, 30, 18, 34, 48, 10, 37],
+              EXECLUDE_IMG,
               i
             )}.png`
         ).map(
@@ -183,7 +184,7 @@ const ImagePreview = memo(({ handleContentLoaded }) => {
         `https://pngimg.com/uploads/cannabis/small/cannabis_PNG${getRandomNumberBased(
           3,
           75,
-          [31, 12, 58, 30, 18, 34, 48, 10, 37],
+          EXECLUDE_IMG,
           i
         )}.png`
     )

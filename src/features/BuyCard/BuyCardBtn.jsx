@@ -20,6 +20,7 @@ const BuyCardBtn = memo(({ children }) => {
     quantity_stock,
     price,
     basePrice,
+    discount,
     weight,
     additions,
     totalPrice,
@@ -44,6 +45,7 @@ const BuyCardBtn = memo(({ children }) => {
               quantity_buy,
               price,
               basePrice,
+              discount,
               weight,
               additions,
               totalPrice

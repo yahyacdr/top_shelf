@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { memo } from "react";
 import styled from "styled-components";
 import Card from "../../ui/Card";
+import screens from "../../utils/screens";
 
 const StyledTicket = styled.div`
   display: flex;
@@ -10,9 +11,14 @@ const StyledTicket = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   row-gap: 16px;
+  max-width: 530px;
   h4 {
     font-size: var(--font-size-medium-50);
     font-weight: 500;
+  }
+
+  @media (min-width: ${screens.tablet.xxxl}) {
+    align-self: flex-end;
   }
 `;
 
@@ -27,6 +33,10 @@ const Info = styled.div`
   border-radius: 12px;
   p {
     font-weight: 400;
+  }
+
+  @media (min-width: ${screens.tablet.xxxl}) {
+    max-width: 220px;
   }
 `;
 

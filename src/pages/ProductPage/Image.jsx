@@ -7,6 +7,7 @@ import useSetCart from "../../hooks/useSetCart";
 import { useFilter } from "../../context/filterContext";
 import screens from "../../utils/screens";
 import { getRandomNumberBased } from "../../utils/helper";
+import { EXECLUDE_IMG } from "../../consts";
 
 const StyledImage = styled.div`
   aspect-ratio: 5.73 / 5.2;
@@ -105,7 +106,7 @@ const Image = memo(({ isImgPrvwOpen, setIsImgPrvwOpen, index }) => {
           src={`https://pngimg.com/uploads/cannabis/small/cannabis_PNG${getRandomNumberBased(
             3,
             75,
-            [31, 12, 58, 30, 18, 34, 48, 10, 37],
+            EXECLUDE_IMG,
             index
           )}.png`}
           alt=""

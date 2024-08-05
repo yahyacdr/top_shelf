@@ -83,7 +83,8 @@ const Btn = styled.button`
   }
 
   &:disabled:not(.label, .pages-btns) {
-    background-color: var(--dark-300);
+    color: var(--light-300);
+    background-color: var(--light-700);
     cursor: not-allowed;
   }
   &.label {

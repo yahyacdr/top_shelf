@@ -18,6 +18,7 @@ const cartSlice = createSlice({
         quantity,
         price,
         basePrice,
+        discount,
         weight,
         additions,
         totalPrice
@@ -30,6 +31,7 @@ const cartSlice = createSlice({
             quantity,
             price,
             basePrice,
+            discount,
             weight,
             additions,
             totalPrice,
@@ -50,26 +52,47 @@ const cartSlice = createSlice({
           state.items = state.items.map((item) =>
             item.id === action.payload.id ? action.payload : item
           );
+          state.totalPrice += action.payload.totalPrice;
+
           return;
         }
         if (!sameProduct) {
           state.items.push(action.payload);
+          state.totalPrice += action.payload.totalPrice;
           return;
         }
       },
     },
     REMOVE(state, action) {
       state.items = state.items.filter((item) => item.id !== action.payload);
+      state.items.map((item) => {
+        if (item.id === action.payload) state.totalPrice -= item.totalPrice;
+      });
     },
     INCREASE(state, action) {
-      state.items.map((item) =>
-        item.id === action.payload ? item.quantity++ : item
-      );
+      state.items.map((item) => {
+        if (item.id === action.payload) {
+          item.quantity++;
+          item.price = Math.round(
+            item.basePrice * item.weight.weight * item.quantity
+          );
+          state.totalPrice -= item.totalPrice;
+          item.totalPrice = Math.round(item.price + item.additions.price);
+          state.totalPrice += item.totalPrice;
+        }
+      });
     },
     DECREASE(state, action) {
       state.items.map((item) => {
-        if (item.id === action.payload)
+        if (item.id === action.payload) {
           item.quantity > 1 ? item.quantity-- : item;
+          item.price = Math.round(
+            item.basePrice * item.weight.weight * item.quantity
+          );
+          state.totalPrice += item.totalPrice;
+          item.totalPrice = Math.round(item.price + item.additions.price);
+          state.totalPrice += item.totalPrice;
+        }
       });
     },
     SET_WEIGHT(state, action) {
@@ -81,18 +104,41 @@ const cartSlice = createSlice({
     },
     ADD_INTEGRA(state, action) {
       state.items.map((item) => {
-        item.additions.integras.map((integra) => {
-          if (integra.id === action.payload) integra.quantity++;
-        });
+        if (item.id === action.payload.itemId) {
+          item.additions.integras.map((integra) => {
+            if (integra.id === action.payload.integraId) integra.quantity++;
+          });
+          item.additions.price = item.additions.integras.reduce(
+            (acc, curr) => acc + curr.price * curr.quantity,
+            0
+          );
+          state.totalPrice -= item.totalPrice;
+          item.totalPrice = Math.round(item.price + item.additions.price);
+          state.totalPrice += item.totalPrice;
+        }
       });
     },
     DEC_INTEGRA(state, action) {
       state.items.map((item) => {
-        item.additions.integras.map((integra) => {
-          if (integra.id === action.payload)
-            integra.quantity > 1 ? integra.quantity-- : integra.quantity;
-        });
+        if (item.id === action.payload.itemId) {
+          item.additions.integras.map((integra) => {
+            if (integra.id === action.payload.integraId)
+              integra.quantity > 0 ? integra.quantity-- : integra.quantity;
+          });
+          item.additions.price = item.additions.integras.reduce(
+            (acc, curr) => acc + curr.price * curr.quantity,
+            0
+          );
+          state.totalPrice -= item.totalPrice;
+          item.totalPrice = Math.round(item.price + item.additions.price);
+          state.totalPrice += item.totalPrice;
+        }
       });
+    },
+    CLEAR_CART(state) {
+      state.items = [];
+      state.totalPrice = 0;
+      state.totalQuantity = 0;
     },
   },
 });
@@ -105,6 +151,7 @@ export const {
   SET_WEIGHT,
   ADD_INTEGRA,
   DEC_INTEGRA,
+  CLEAR_CART,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
@@ -114,4 +161,4 @@ export const getCartTotalPrice = (store) =>
 
 export const getTotalItems = (store) => store.cart.items.length;
 
-export const getCart = (store) => store.cart.items;
+export const getCart = (store) => store.cart;

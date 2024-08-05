@@ -10,6 +10,7 @@ import {
 } from "../../features/cart/cartSlice";
 import PropTypes from "prop-types";
 import Card from "../../ui/Card";
+import screens from "../../utils/screens";
 
 const StyledCounter = styled.div`
   grid-area: counter;
@@ -39,21 +40,24 @@ const StyledBtn = styled.button`
   &.num {
     background-color: var(--light-600);
   }
+  @media (min-width: ${screens.mobile.xxl}) {
+    font-size: var(--font-size-medium-33);
+  }
 `;
 
 const Btns = styled.div`
   display: flex;
 `;
 
-const Counter = memo(({ initialValue, itemId, toCount, basePrice }) => {
+const Counter = memo(({ initialValue, itemId, integraId, toCount, price }) => {
   return (
-    <StyledCounter>
+    <StyledCounter className="counter">
       <Btns>
-        <MinusBtn id={itemId} toCount={toCount} />
+        <MinusBtn itemId={itemId} integraId={integraId} toCount={toCount} />
         <NumBtn quantity={initialValue} />
-        <PlusBtn id={itemId} toCount={toCount} />
+        <PlusBtn itemId={itemId} integraId={integraId} toCount={toCount} />
       </Btns>
-      <Card.Price price={basePrice} showGram={false} />
+      <Card.Price currentPrice={price} showGram={false} />
     </StyledCounter>
   );
 });
@@ -61,18 +65,20 @@ const Counter = memo(({ initialValue, itemId, toCount, basePrice }) => {
 Counter.propTypes = {
   initialValue: PropTypes.number,
   itemId: PropTypes.number,
+  integraId: PropTypes.number,
   toCount: PropTypes.number,
-  basePrice: PropTypes.number,
+  price: PropTypes.number,
 };
 
-const PlusBtn = memo(({ id, toCount }) => {
+const PlusBtn = memo(({ itemId, integraId, toCount }) => {
   const dispatch = useDispatch();
 
   return (
     <StyledBtn
       onClick={() => {
-        if (toCount === "item") dispatch(INCREASE(id));
-        else if (toCount === "integra") dispatch(ADD_INTEGRA(id));
+        if (toCount === "item") dispatch(INCREASE(itemId));
+        else if (toCount === "integra")
+          dispatch(ADD_INTEGRA({ integraId, itemId }));
       }}
     >
       +
@@ -81,7 +87,8 @@ const PlusBtn = memo(({ id, toCount }) => {
 });
 
 PlusBtn.propTypes = {
-  id: PropTypes.number,
+  itemId: PropTypes.number,
+  integraId: PropTypes.number,
   toCount: PropTypes.number,
 };
 
@@ -97,13 +104,14 @@ NumBtn.propTypes = {
   quantity: PropTypes.number,
 };
 
-const MinusBtn = memo(({ id, toCount }) => {
+const MinusBtn = memo(({ itemId, integraId, toCount }) => {
   const dispatch = useDispatch();
   return (
     <StyledBtn
       onClick={() => {
-        if (toCount === "item") dispatch(DECREASE(id));
-        else if (toCount === "integra") dispatch(DEC_INTEGRA(id));
+        if (toCount === "item") dispatch(DECREASE(itemId));
+        else if (toCount === "integra")
+          dispatch(DEC_INTEGRA({ itemId, integraId }));
       }}
     >
       -
@@ -112,7 +120,8 @@ const MinusBtn = memo(({ id, toCount }) => {
 });
 
 MinusBtn.propTypes = {
-  id: PropTypes.number,
+  itemId: PropTypes.number,
+  integraId: PropTypes.number,
   toCount: PropTypes.number,
 };
 

@@ -5,6 +5,7 @@ import Card from "../../ui/Card";
 import Heading from "../../ui/Heading";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import screens from "../../utils/screens";
 
 const StyledItem = styled.div`
   display: flex;
@@ -35,8 +36,17 @@ const CounterContainer = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   row-gap: 12px;
+
   h4 {
     font-size: var(--font-size-small-100);
+  }
+
+  @media (min-width: ${screens.mobile.xxl}) {
+    row-gap: 16px;
+  }
+
+  @media (min-width: ${screens.tablet.xxs}) {
+    width: calc(100% - (48px + 16px));
   }
 `;
 
@@ -49,9 +59,26 @@ const ItemsCounter = styled.div`
   width: 100%;
   h4 {
     grid-area: title;
+    @media (min-width: ${screens.mobile.xxl}) {
+      font-size: var(--font-size-medium-33);
+    }
   }
   p {
     font-size: var(--font-size-small-100);
+    @media (min-width: ${screens.mobile.xxl}) {
+      font-size: var(--font-size-medium-33);
+    }
+  }
+  p.price {
+    color: var(--dark-900);
+  }
+  .counter + .card-price {
+    p.price {
+      color: var(--light-900);
+    }
+  }
+  @media (min-width: ${screens.mobile.xxl}) {
+    row-gap: 16px;
   }
 `;
 
@@ -70,12 +97,16 @@ const SubTotal = styled.div`
   h4,
   p {
     font-size: var(--font-size-small-100);
+    @media (min-width: ${screens.mobile.xxl}) {
+      font-size: var(--font-size-medium-33);
+    }
+  }
+  p.price {
+    color: var(--dark-900);
   }
 `;
 
 const Item = memo(({ item }) => {
-  console.log(item);
-
   return (
     <StyledItem>
       <ImgContainer>
@@ -90,8 +121,11 @@ const Item = memo(({ item }) => {
             initialValue={item.quantity}
             itemId={item.id}
             toCount="item"
+            price={Math.round(
+              item.basePrice * item.weight.weight - item.discount
+            )}
           />
-          <Card.Price price={2} showGram={false} />
+          <Card.Price currentPrice={item.price} showGram={false} />
         </ItemsCounter>
         {item.additions.integras.length && (
           <>
@@ -101,16 +135,21 @@ const Item = memo(({ item }) => {
                   add integra pack - {integra.label}
                 </Card.TitleItem>
                 <Counter
-                  itemId={integra.id}
+                  itemId={item.id}
+                  integraId={integra.id}
                   initialValue={integra.quantity}
                   toCount="integra"
+                  price={Math.round(integra.price)}
                 />
-                <Card.Price price={2} showGram={false} />
+                <Card.Price
+                  currentPrice={integra.price * integra.quantity}
+                  showGram={false}
+                />
               </ItemsCounter>
             ))}
             <SubTotal>
               <Heading as="h4">subtotal</Heading>
-              <Card.Price price={245} showGram={false} />
+              <Card.Price currentPrice={item.totalPrice} showGram={false} />
             </SubTotal>
           </>
         )}
