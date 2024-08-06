@@ -64,6 +64,12 @@ const SelectBox = styled.select`
       border-radius: 50px;
       padding: 8px 10px;
     `}
+  ${(props) =>
+    props.shape === "button" &&
+    css`
+      border-radius: 8px;
+      padding: 14px 16px;
+    `}
 `;
 
 const Option = styled.option`
@@ -282,7 +288,7 @@ const Check = memo(({ id, name, handleChange, label, checked = false }) => {
         type="checkbox"
         id={id}
         name={name}
-        onChange={(e) => handleChange(e)}
+        onChange={(e) => handleChange?.(e)}
         checked={checked}
       />
       <label htmlFor={id}>{label}</label>

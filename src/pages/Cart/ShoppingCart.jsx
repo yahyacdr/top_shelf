@@ -7,8 +7,12 @@ import Ticket from "./Ticket";
 import GetSvg from "./GetSvg";
 import PropTypes from "prop-types";
 import Btn from "../../ui/Btn";
-import { useDispatch } from "react-redux";
-import { CLEAR_CART } from "../../features/cart/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  CLEAR_CART,
+  getCart,
+  getTotalItems,
+} from "../../features/cart/cartSlice";
 import screens from "../../utils/screens";
 
 const infoT = [
@@ -33,7 +37,7 @@ const infoT = [
 ];
 
 const StyledShoppingCart = styled.section`
-  grid-area: cart;
+  /* grid-area: cart; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -110,11 +114,15 @@ const InfoTickets = styled.div`
   }
 `;
 
-const ShoppingCart = memo(({ cart, count }) => {
+const ShoppingCart = memo(() => {
+  const { items } = useSelector(getCart);
+  const count = useSelector(getTotalItems);
   const dispatch = useDispatch();
+
   function handleClearCart() {
     dispatch(CLEAR_CART());
   }
+
   return (
     <StyledShoppingCart>
       <CartBody>
@@ -124,10 +132,10 @@ const ShoppingCart = memo(({ cart, count }) => {
             <Total>({count})</Total>
           </Container>
           <Items>
-            {cart.map((item, i) => (
+            {items.map((item, i) => (
               <Item item={item} key={i} />
             ))}
-            {cart.length && (
+            {items.length && (
               <Btn
                 variation="primary"
                 size="medium"

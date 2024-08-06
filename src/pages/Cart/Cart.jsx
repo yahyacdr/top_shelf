@@ -1,13 +1,11 @@
 /* eslint-disable react/display-name */
 import { memo } from "react";
-import { useSelector } from "react-redux";
-import { getCart, getTotalItems } from "../../features/cart/cartSlice";
 import ProgressProvider from "../../context/progressProvider";
-import ShoppingCart from "./ShoppingCart";
 import ProgressBox from "./ProgressBox";
 import ProcceedBox from "./ProcceedBox";
 import styled from "styled-components";
 import screens from "../../utils/screens";
+import CartContainer from "./CartContainer";
 
 const StyledCart = styled.main`
   margin-bottom: 250px;
@@ -34,16 +32,12 @@ const StyledCart = styled.main`
 `;
 
 const Cart = memo(() => {
-  const cart = useSelector(getCart);
-  const count = useSelector(getTotalItems);
-  console.log(cart);
-
   return (
     <ProgressProvider>
       <StyledCart>
         <ProgressBox />
-        <ShoppingCart cart={cart.items} count={count} />
-        <ProcceedBox totalPrice={cart.totalPrice} />
+        <CartContainer />
+        <ProcceedBox />
       </StyledCart>
     </ProgressProvider>
   );

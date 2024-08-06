@@ -70,29 +70,29 @@ const cartSlice = createSlice({
       });
     },
     INCREASE(state, action) {
+      state.totalPrice = 0;
       state.items.map((item) => {
         if (item.id === action.payload) {
           item.quantity++;
           item.price = Math.round(
             item.basePrice * item.weight.weight * item.quantity
           );
-          state.totalPrice -= item.totalPrice;
           item.totalPrice = Math.round(item.price + item.additions.price);
-          state.totalPrice += item.totalPrice;
         }
+        state.totalPrice += item.totalPrice;
       });
     },
     DECREASE(state, action) {
+      state.totalPrice = 0;
       state.items.map((item) => {
         if (item.id === action.payload) {
           item.quantity > 1 ? item.quantity-- : item;
           item.price = Math.round(
             item.basePrice * item.weight.weight * item.quantity
           );
-          state.totalPrice += item.totalPrice;
           item.totalPrice = Math.round(item.price + item.additions.price);
-          state.totalPrice += item.totalPrice;
         }
+        state.totalPrice += item.totalPrice;
       });
     },
     SET_WEIGHT(state, action) {
@@ -103,6 +103,7 @@ const cartSlice = createSlice({
       );
     },
     ADD_INTEGRA(state, action) {
+      state.totalPrice = 0;
       state.items.map((item) => {
         if (item.id === action.payload.itemId) {
           item.additions.integras.map((integra) => {
@@ -112,13 +113,13 @@ const cartSlice = createSlice({
             (acc, curr) => acc + curr.price * curr.quantity,
             0
           );
-          state.totalPrice -= item.totalPrice;
           item.totalPrice = Math.round(item.price + item.additions.price);
-          state.totalPrice += item.totalPrice;
         }
+        state.totalPrice += item.totalPrice;
       });
     },
     DEC_INTEGRA(state, action) {
+      state.totalPrice = 0;
       state.items.map((item) => {
         if (item.id === action.payload.itemId) {
           item.additions.integras.map((integra) => {
@@ -129,10 +130,9 @@ const cartSlice = createSlice({
             (acc, curr) => acc + curr.price * curr.quantity,
             0
           );
-          state.totalPrice -= item.totalPrice;
           item.totalPrice = Math.round(item.price + item.additions.price);
-          state.totalPrice += item.totalPrice;
         }
+        state.totalPrice += item.totalPrice;
       });
     },
     CLEAR_CART(state) {

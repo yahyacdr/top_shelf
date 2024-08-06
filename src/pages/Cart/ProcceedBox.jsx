@@ -5,9 +5,10 @@ import { formatCurrency } from "../../utils/helper";
 import Btn from "../../ui/Btn";
 import { Link } from "react-router-dom";
 import ProgressBar from "./ProgressBar";
-import PropTypes from "prop-types";
 import { useProgress } from "../../context/progressProvider";
 import screens from "../../utils/screens";
+import { useSelector } from "react-redux";
+import { getCart } from "../../features/cart/cartSlice";
 
 const StyledProcceedBox = styled.div`
   grid-area: proceed-box;
@@ -169,8 +170,9 @@ const Container = styled.div`
   }
 `;
 
-const ProcceedBox = memo(({ totalPrice = 0 }) => {
-  const { currentPoint } = useProgress();
+const ProcceedBox = memo(() => {
+  const { currentPoint, setCurrentPoint } = useProgress();
+  const { totalPrice } = useSelector(getCart);
 
   return (
     <StyledProcceedBox>
@@ -185,7 +187,13 @@ const ProcceedBox = memo(({ totalPrice = 0 }) => {
         </ReceiptInfo>
         <ReceiptInfo>
           shipping cost
-          <span>{currentPoint === "cart" ? "TBD" : formatCurrency(50)}</span>
+          <span>
+            {currentPoint === "cart"
+              ? "TBD"
+              : totalPrice > 100
+              ? "FREE SHIPPING"
+              : formatCurrency(50)}
+          </span>
         </ReceiptInfo>
       </Receipt>
       <Coupon>
@@ -214,8 +222,15 @@ const ProcceedBox = memo(({ totalPrice = 0 }) => {
         shape="pill"
         color="--green-300"
         disabled={totalPrice === 0}
+        onClick={() =>
+          setCurrentPoint((cp) => {
+            if (cp === "cart") return "checkout";
+            if (cp === "checkout") return "order";
+          })
+        }
       >
-        checkout<span></span>|<span></span>
+        {currentPoint === "cart" ? "checkout" : "place order"}
+        <span></span>|<span></span>
         {formatCurrency(totalPrice)}
       </Btn>
       <SecurePayments>
@@ -378,9 +393,5 @@ const ProcceedBox = memo(({ totalPrice = 0 }) => {
     </StyledProcceedBox>
   );
 });
-
-ProcceedBox.propTypes = {
-  totalPrice: PropTypes.number,
-};
 
 export default ProcceedBox;

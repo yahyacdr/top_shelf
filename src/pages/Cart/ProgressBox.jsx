@@ -40,6 +40,7 @@ const Point = styled.div`
   justify-content: center;
   align-items: center;
   column-gap: 4.5px;
+  cursor: pointer;
   h4 {
     font-size: var(--font-size-small-100);
     line-height: 150%;
@@ -65,12 +66,12 @@ const ImgContainer = styled.div`
 `;
 
 const ProgressBox = memo(() => {
-  const { currentPoint, progress } = useProgress();
+  const { currentPoint, setCurrentPoint, progress } = useProgress();
 
   return (
     <StyledProgressBox>
       <Box>
-        <Point>
+        <Point onClick={() => setCurrentPoint("cart")}>
           <ImgContainer className="active">
             <svg
               width="14"
@@ -128,7 +129,7 @@ const ProgressBox = memo(() => {
           innerBarColor={"var(--green-900)"}
         />
 
-        <Point>
+        <Point onClick={() => setCurrentPoint("checkout")}>
           <ImgContainer>
             <svg
               width="15"
@@ -179,7 +180,7 @@ const ProgressBox = memo(() => {
           innerBarColor={"var(--green-900)"}
         />
 
-        <Point>
+        <Point onClick={() => setCurrentPoint("order")}>
           <ImgContainer>
             <svg
               width="14"

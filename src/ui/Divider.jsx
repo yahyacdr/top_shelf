@@ -11,7 +11,6 @@ const Divider = styled.span`
     css`
       transform: rotate(90deg);
     `};
-  ${(props) => props.polarity === "horizontal" && css``}
 `;
 
 export default Divider;
