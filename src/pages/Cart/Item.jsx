@@ -6,6 +6,7 @@ import Heading from "../../ui/Heading";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import screens from "../../utils/screens";
+import { useProgress } from "../../context/progressProvider";
 
 const StyledItem = styled.div`
   display: flex;
@@ -106,7 +107,31 @@ const SubTotal = styled.div`
   }
 `;
 
+const InitialPrice = styled.div`
+  display: flex;
+  column-gap: 12px;
+  .card-price {
+    width: auto;
+  }
+  span,
+  p {
+    font-size: var(--font-size-small-100);
+    line-height: 150%;
+    letter-spacing: 0;
+  }
+  span {
+    color: var(--light-900);
+    font-weight: 300;
+  }
+  p {
+    color: var(--dark-900);
+    font-weight: 400;
+  }
+`;
+
 const Item = memo(({ item }) => {
+  const { currentPoint } = useProgress();
+
   return (
     <StyledItem>
       <ImgContainer>
@@ -117,14 +142,27 @@ const Item = memo(({ item }) => {
           <Card.TitleItem case="capitalize" color="--light-900">
             {item.name} · {item.weight.label}
           </Card.TitleItem>
-          <Counter
-            initialValue={item.quantity}
-            itemId={item.id}
-            toCount="item"
-            price={Math.round(
-              item.basePrice * item.weight.weight - item.discount
-            )}
-          />
+          {currentPoint === "order" && (
+            <InitialPrice>
+              <span>{item.quantity}×</span>
+              <Card.Price
+                currentPrice={Math.round(
+                  item.basePrice * item.weight.weight - item.discount
+                )}
+                showGram={false}
+              />
+            </InitialPrice>
+          )}
+          {currentPoint === "cart" && (
+            <Counter
+              initialValue={item.quantity}
+              itemId={item.id}
+              toCount="item"
+              price={Math.round(
+                item.basePrice * item.weight.weight - item.discount
+              )}
+            />
+          )}
           <Card.Price currentPrice={item.price} showGram={false} />
         </ItemsCounter>
         {item.additions.integras.length && (
@@ -134,13 +172,21 @@ const Item = memo(({ item }) => {
                 <Card.TitleItem case="capitalize" color="--light-900">
                   add integra pack - {integra.label}
                 </Card.TitleItem>
-                <Counter
-                  itemId={item.id}
-                  integraId={integra.id}
-                  initialValue={integra.quantity}
-                  toCount="integra"
-                  price={Math.round(integra.price)}
-                />
+                {currentPoint === "cart" && (
+                  <Counter
+                    itemId={item.id}
+                    integraId={integra.id}
+                    initialValue={integra.quantity}
+                    toCount="integra"
+                    price={Math.round(integra.price)}
+                  />
+                )}
+                {currentPoint === "order" && (
+                  <InitialPrice>
+                    <span>{integra.quantity}×</span>
+                    <Card.Price currentPrice={integra.price} showGram={false} />
+                  </InitialPrice>
+                )}
                 <Card.Price
                   currentPrice={integra.price * integra.quantity}
                   showGram={false}

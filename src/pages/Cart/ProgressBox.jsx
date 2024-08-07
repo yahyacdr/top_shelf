@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import Card from "../../ui/Card";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import styled from "styled-components";
 import { useProgress } from "../../context/progressProvider";
 import ProgressBar from "./ProgressBar";
@@ -67,6 +67,14 @@ const ImgContainer = styled.div`
 
 const ProgressBox = memo(() => {
   const { currentPoint, setCurrentPoint, progress } = useProgress();
+
+  useEffect(() => {
+    if (currentPoint === "order") {
+      document.querySelector(".cart-box").classList.add("order-box");
+    } else {
+      document.querySelector(".cart-box").classList.remove("order-box");
+    }
+  }, [currentPoint]);
 
   return (
     <StyledProgressBox>

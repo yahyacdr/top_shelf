@@ -9,19 +9,41 @@ import Filter from "../../ui/Filter";
 import Divider from "../../ui/Divider";
 import TextArea from "../../features/Form/TextArea";
 import Heading from "../../ui/Heading";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getShippingDetails,
+  SET_SHIPPING_DETAILS,
+} from "../../features/cart/cartSlice";
+import PropTypes from "prop-types";
 
-const CheckoutForm = memo(() => {
-  const { register, formState } = useForm();
-  const { errors } = formState;
+const CheckoutForm = memo(({ btnRef }) => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
   const [isLoading, setIsLoading] = useState(true);
   const [countries, setCountries] = useState([]);
   const [checked, setChecked] = useState(false);
+  const {
+    firstName,
+    lastName,
+    country,
+    address,
+    town,
+    province,
+    postcode,
+    phone,
+    email,
+  } = useSelector(getShippingDetails);
+  const { house, apartment } = address;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchCountries() {
       try {
         const res = await fetch(
-          `https://restcountries.com/v3.1/all?fields=name`
+          `https://restcountries.com/v3.1/all?fields=name,cca2`
         );
         const data = await res.json();
         data.sort((a, b) => {
@@ -45,13 +67,19 @@ const CheckoutForm = memo(() => {
     fetchCountries();
   }, []);
 
+  function onSubmit(data) {
+    data.country = JSON.parse(data.country);
+    dispatch(SET_SHIPPING_DETAILS(data));
+  }
+
   return (
-    <Form>
+    <Form className="shipping-form" onSubmit={handleSubmit(onSubmit)}>
       <FormRow className="name">
         <InputContainer label="first name *" error={errors?.firstName?.message}>
           <Input
             type="text"
             id="firstName"
+            value={firstName}
             {...register("firstName", {
               required: "This feild is required",
               pattern: {
@@ -65,6 +93,7 @@ const CheckoutForm = memo(() => {
           <Input
             type="text"
             id="lastName"
+            value={lastName}
             {...register("lastName", {
               required: "This feild is required",
               pattern: {
@@ -77,15 +106,30 @@ const CheckoutForm = memo(() => {
       </FormRow>
       <FormRow className="country">
         <InputContainer label="country / region *">
-          <Filter.SelectBox id="countries-list" shape="button">
-            <Filter.Option value="filter" defaultValue>
-              {!isLoading && countries[0].name.common}
+          <Filter.SelectBox
+            id="country"
+            shape="button"
+            {...register("country", { required: true })}
+          >
+            <Filter.Option
+              value={JSON.stringify({
+                index: country.index,
+                name: country.name,
+                short: country.short,
+              })}
+              defaultValue
+            >
+              {!isLoading && countries[country.index].name.common}
             </Filter.Option>
             {!isLoading &&
               countries.map((country, i) => (
                 <Filter.Option
                   key={i}
-                  value={country.name.common}
+                  value={JSON.stringify({
+                    index: i,
+                    name: country.name.common,
+                    short: country.cca2,
+                  })}
                   data-index={i}
                 >
                   {country.name.common}
@@ -100,6 +144,7 @@ const CheckoutForm = memo(() => {
             type="text"
             placeholder="House number and street name"
             id="address"
+            value={house}
             {...register("address", {
               required: "This feild is required",
               pattern: {
@@ -112,6 +157,7 @@ const CheckoutForm = memo(() => {
             type="text"
             placeholder="Apartment, suite, unit, etc. (optional)"
             id="subAddress"
+            value={apartment}
             {...register("subAddress", {
               required: "This feild is required",
               pattern: {
@@ -131,6 +177,7 @@ const CheckoutForm = memo(() => {
             <Input
               type="text"
               id="town-city"
+              value={town}
               {...register("townCity", {
                 required: "This feild is required",
                 pattern: {
@@ -146,6 +193,7 @@ const CheckoutForm = memo(() => {
             <Input
               type="text"
               id="province"
+              value={province}
               {...register("province", {
                 required: "This feild is required",
                 pattern: {
@@ -164,6 +212,7 @@ const CheckoutForm = memo(() => {
             <Input
               type="text"
               id="postcode"
+              value={postcode}
               {...register("postcode", {
                 required: "This feild is required",
                 pattern: {
@@ -180,6 +229,7 @@ const CheckoutForm = memo(() => {
           <Input
             type="tel"
             id="phone"
+            value={phone}
             {...register("phone", {
               required: "This feild is required",
               pattern: {
@@ -194,6 +244,7 @@ const CheckoutForm = memo(() => {
             type="text"
             placeholder="johndoes@example.com"
             id="email"
+            value={email}
             {...register("email", {
               required: "This feild is required",
               pattern: {
@@ -247,8 +298,18 @@ const CheckoutForm = memo(() => {
           />
         </InputContainer>
       </FormRow>
+      <button
+        type="submit"
+        ref={btnRef}
+        style={{ opacity: 0, position: "absolute" }}
+        className="submit-shipping-form"
+      ></button>
     </Form>
   );
 });
+
+CheckoutForm.propTypes = {
+  btnRef: PropTypes.any,
+};
 
 export default CheckoutForm;

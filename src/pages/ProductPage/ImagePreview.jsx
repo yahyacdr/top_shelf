@@ -29,6 +29,9 @@ const StyledImgPreview = styled.div`
         > div {
           transition: 0.3s;
           width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
       }
     }
@@ -177,19 +180,6 @@ const StyledImgPreview = styled.div`
 
 const ImagePreview = memo(({ handleContentLoaded }) => {
   const [isImagePreviewOpen, setIsImagePreviewOpen] = useState(false);
-  console.log(
-    Array.from(
-      { length: 15 },
-      (_, i) =>
-        `https://pngimg.com/uploads/cannabis/small/cannabis_PNG${getRandomNumberBased(
-          3,
-          75,
-          EXECLUDE_IMG,
-          i
-        )}.png`
-    )
-  );
-
   const carouselEl = useRef();
   const { items, currentFilter, isLoading, dispatch } = useFilter();
 

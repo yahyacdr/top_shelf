@@ -43,6 +43,7 @@ const StyledShoppingCart = styled.section`
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin-inline: auto;
   .card-price {
     width: fit-content;
   }

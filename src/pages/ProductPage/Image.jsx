@@ -39,6 +39,11 @@ const ImgCard = styled.div`
   @media (min-width: ${screens.tablet.xxm}) {
     aspect-ratio: 5.73 / 5.2;
   }
+
+  @media (min-width: ${screens.desktop.xxs}) {
+    width: 85%;
+    height: auto;
+  }
 `;
 
 const StyledIndicator = styled.span`
@@ -81,6 +86,11 @@ const StyledIndicator = styled.span`
       transform-origin: center center;
       transform: translate(7px, -7px) rotate(180deg);
     }
+  }
+
+  @media (min-width: ${screens.desktop.xxs}) {
+    right: 92px;
+    bottom: 92px;
   }
 `;
 

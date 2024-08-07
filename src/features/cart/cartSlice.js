@@ -4,6 +4,24 @@ const initialState = {
   items: [],
   totalQuantity: 0,
   totalPrice: 0,
+  shippingDetails: {
+    firstName: "john",
+    lastName: "doe",
+    country: {
+      index: 235,
+      name: "united states of america",
+      short: "us",
+    },
+    address: {
+      house: "3d i3oi",
+      apartment: "apartment",
+    },
+    town: "new york",
+    province: "new york",
+    postcode: 21945,
+    phone: "+123482385025",
+    email: "johndoe@example.com",
+  },
 };
 
 const cartSlice = createSlice({
@@ -140,6 +158,9 @@ const cartSlice = createSlice({
       state.totalPrice = 0;
       state.totalQuantity = 0;
     },
+    SET_SHIPPING_DETAILS(state, action) {
+      state.shippingDetails = action.payload;
+    },
   },
 });
 
@@ -152,6 +173,7 @@ export const {
   ADD_INTEGRA,
   DEC_INTEGRA,
   CLEAR_CART,
+  SET_SHIPPING_DETAILS,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
@@ -160,5 +182,7 @@ export const getCartTotalPrice = (store) =>
   store.cart.items.reduce((acc, curr) => acc + curr.totalPrice, 0);
 
 export const getTotalItems = (store) => store.cart.items.length;
+
+export const getShippingDetails = (store) => store.cart.shippingDetails;
 
 export const getCart = (store) => store.cart;

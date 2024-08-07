@@ -6,6 +6,7 @@ import { getTotalItems } from "../../features/cart/cartSlice";
 import styled from "styled-components";
 import CheckoutForm from "./CheckoutForm";
 import screens from "../../utils/screens";
+import PropTypes from "prop-types";
 
 const StyledCheckout = styled.div`
   width: 100%;
@@ -88,7 +89,7 @@ const Total = styled.p`
   letter-spacing: 0;
 `;
 
-const Checkout = memo(() => {
+const Checkout = memo(({ formRef }) => {
   const count = useSelector(getTotalItems);
 
   return (
@@ -97,9 +98,13 @@ const Checkout = memo(() => {
         <Heading as="h3">your cart</Heading>
         <Total>({count})</Total>
       </Container>
-      <CheckoutForm />
+      <CheckoutForm formRef={formRef} />
     </StyledCheckout>
   );
 });
+
+Checkout.propTypes = {
+  formRef: PropTypes.any,
+};
 
 export default Checkout;

@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import { memo } from "react";
+import { memo, useRef } from "react";
 import ProgressProvider from "../../context/progressProvider";
 import ProgressBox from "./ProgressBox";
 import ProcceedBox from "./ProcceedBox";
@@ -28,16 +28,21 @@ const StyledCart = styled.main`
     column-gap: 24px;
     justify-content: center;
     row-gap: 32px;
+    &.order-box {
+      grid-template-rows: auto auto auto;
+      grid-template-areas: "progress-bar progress-bar" "cart cart" "proceed-box proceed-box";
+    }
   }
 `;
 
 const Cart = memo(() => {
+  const formRef = useRef();
   return (
     <ProgressProvider>
-      <StyledCart>
+      <StyledCart className="cart-box">
         <ProgressBox />
-        <CartContainer />
-        <ProcceedBox />
+        <CartContainer formRef={formRef} />
+        <ProcceedBox formRef={formRef} />
       </StyledCart>
     </ProgressProvider>
   );
