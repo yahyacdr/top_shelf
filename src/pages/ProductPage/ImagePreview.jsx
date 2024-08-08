@@ -32,6 +32,9 @@ const StyledImgPreview = styled.div`
           display: flex;
           justify-content: center;
           align-items: center;
+          @media (min-width: ${screens.tablet.xxs}) {
+            align-items: flex-start;
+          }
         }
       }
     }

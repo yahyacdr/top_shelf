@@ -27,7 +27,7 @@ const CardsContainer = styled.section`
   row-gap: 40px;
   padding: 16px;
   margin-left: -16px;
-  width: 100vw;
+  width: calc(100% + 32px);
   @media (min-width: ${screens.mobile.xxs}) {
     h3 {
       font-size: var(--font-size-small-100);
@@ -107,8 +107,6 @@ const TopSellingSection = styled.section`
   background-color: var(--light-400);
   padding-inline: 24px;
   border-radius: 16px;
-  width: 100vw !important;
-  margin-left: -16px;
 
   h3 {
     text-transform: capitalize;
@@ -122,6 +120,7 @@ const TopSellingSection = styled.section`
 
   .cards-container {
     > div {
+      width: 100%;
       min-height: 283px;
       max-width: 304px;
       @media (min-width: ${screens.tablet.xxs}) {
@@ -177,13 +176,16 @@ const ItemsGridSection = styled.section`
   }
   .cards-container {
     gap: 24px;
-    > div {
-      width: 45%;
+    justify-content: center;
+    > .card-container {
+      /* width: 100%; */
       max-width: 304px;
       height: 491px;
-      @media (max-width: ${screens.mobile.m}) {
-        width: 80%;
+
+      @media (max-width: ${screens.mobile.l}) {
+        width: 100%;
       }
+
       @media (min-width: ${screens.tablet.xxs}) {
         height: 591px;
         h4 {
@@ -196,10 +198,6 @@ const ItemsGridSection = styled.section`
       @media (min-width: ${screens.tablet.xxm}) {
         /* max-width: calc((100% / 2) - 24px); */
       }
-    }
-
-    @media (min-width: ${screens.mobile.xm}) {
-      justify-content: flex-start;
     }
   }
 `;

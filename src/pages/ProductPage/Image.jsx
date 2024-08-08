@@ -11,6 +11,7 @@ import { EXECLUDE_IMG } from "../../consts";
 
 const StyledImage = styled.div`
   aspect-ratio: 5.73 / 5.2;
+  position: relative;
 `;
 
 const ImgCard = styled.div`
@@ -40,16 +41,21 @@ const ImgCard = styled.div`
     aspect-ratio: 5.73 / 5.2;
   }
 
-  @media (min-width: ${screens.desktop.xxs}) {
+  @media (min-width: ${screens.tablet.xxs}) {
     width: 85%;
-    height: auto;
+    height: 81%;
   }
 `;
 
+const RIGHT = "13%";
+const LEFT = "84%";
+const TOP = "72%";
+
 const StyledIndicator = styled.span`
   position: absolute;
-  right: 16px;
-  bottom: 16px;
+  left: ${LEFT};
+  top: ${TOP};
+  transform: translate(calc(-${LEFT}), calc(-${TOP}));
   display: flex;
   justify-content: center;
   align-items: center;
@@ -88,9 +94,9 @@ const StyledIndicator = styled.span`
     }
   }
 
-  @media (min-width: ${screens.desktop.xxs}) {
-    right: 92px;
-    bottom: 92px;
+  @media (min-width: ${screens.tablet.xxs}) {
+    /* right: 92px;
+    bottom: 150px; */
   }
 `;
 

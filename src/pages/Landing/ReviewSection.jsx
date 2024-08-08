@@ -15,7 +15,12 @@ import screens from "../../utils/screens";
 const slidesPerView = {
   640: 2,
   920: 2,
-  1520: 3,
+  1080: 2,
+  1200: 2,
+  1366: 3,
+  1440: 3,
+  1520: 4,
+  1920: 4,
 };
 
 const StyledReviewSection = styled.section`

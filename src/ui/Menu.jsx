@@ -32,6 +32,7 @@ const CoverCard = styled(StyledCardContainer)`
   justify-content: flex-start;
   border-radius: 16px;
   min-width: 232px;
+  margin-inline: auto;
 
   ${(props) =>
     props.side === "start"
@@ -52,14 +53,10 @@ const CoverCard = styled(StyledCardContainer)`
   background-color: var(--green-900);
   position: relative;
   overflow-x: hidden;
-  width: calc(100vw - 48px);
+  width: 100%;
+  max-width: 490px;
   & > h3 {
     margin-bottom: 8px;
-  }
-
-  @media (max-width: 540px) {
-    width: calc(100vw - 48px);
-    margin-right: 0;
   }
 `;
 
@@ -76,7 +73,7 @@ const CardContainer = styled(StyledCardContainer)`
       : css`
           display: grid;
           grid-template-columns: 100%;
-          grid-template-rows: 30% 9% 18% 8% 8% 8% 8% 11%;
+          grid-template-rows: 41% 9% 10% 8% 5% 8% 8% 11%;
           grid-template-areas: "img" "type" "title" "review" "label" "price" "weights" "btn";
           @media (max-width: ${screens.mobile.m}) {
             grid-template-rows: 35% 8% 15% 7% 8% 8% 8% 11%;
@@ -107,7 +104,9 @@ const CardContainer = styled(StyledCardContainer)`
     justify-content: center; */
   }
   &:not(.card-carousel) {
-    width: calc(100% / 2 - 12px);
+    @media (min-width: ${screens.mobile.xl}) {
+      width: calc(100% / 2 - 12px);
+    }
 
     @media (min-width: ${screens.tablet.s}) {
       width: calc(100% / 3 - 16px);

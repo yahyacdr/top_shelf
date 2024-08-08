@@ -54,21 +54,24 @@ const AddToCart = styled.div`
   border-top: 1px solid var(--light-600);
   border-bottom: 1px solid var(--light-600);
   padding: 20px 0;
-  > button:last-child {
-    font-size: var(--font-size-small-100);
-    line-height: 150%;
-    font-weight: 400;
-    letter-spacing: 0;
-    padding: 13.5px 24px;
-    > * {
-      display: inline-block;
+  > div + div {
+    button {
+      font-size: var(--font-size-small-100);
+      line-height: 150%;
+      font-weight: 400;
+      letter-spacing: 0;
+      padding: 13.5px 24px;
+      width: 100%;
+      display: flex;
+      column-gap: 16px;
+      padding: 13px 24px;
+      p {
+        display: inline-block;
+      }
     }
-    > p {
-      margin-right: 16px;
-    }
-    > span {
-      margin-left: 16px;
-    }
+  }
+
+  > div + div {
   }
 `;
 
@@ -99,7 +102,6 @@ const PurchaseServiceDetails = styled.div`
 const PurchaseBox = memo(() => {
   const { name, weight, quantity_buy, additions, price, totalPrice } =
     useCart();
-  console.log(additions.integras);
 
   return (
     <StyledPurchaseBox>

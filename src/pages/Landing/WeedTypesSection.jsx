@@ -22,7 +22,7 @@ const StyledWeedTypesSection = styled.section`
     > p {
       text-align: left;
     }
-    @media (min-width: ${screens.tablet.m}) {
+    @media (min-width: ${screens.tablet.xxs}) {
       width: calc(100% / 2 - 12px);
     }
     @media (min-width: ${screens.tablet.xxxl}) {

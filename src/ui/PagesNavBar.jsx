@@ -7,10 +7,10 @@ import { useNavigate } from "react-router-dom";
 
 const Pages = [
   { name: "Shop All", to: "/product" },
-  { name: "Flower", to: "/" },
-  { name: "Edibles", to: "/" },
-  { name: "Mushrooms", to: "/" },
-  { name: "Promotions/Bundles", to: "/" },
+  { name: "Flower", to: "/category" },
+  { name: "Edibles", to: "/category" },
+  { name: "Mushrooms", to: "/category" },
+  { name: "Promotions/Bundles", to: "/category" },
   { name: "Support", to: "/" },
   { name: "Rewards", to: "/" },
   { name: "Blog", to: "/" },

@@ -39,7 +39,7 @@ const StyleMain = styled.main`
 
   &.main-landing > section:not(.how-to-section, .cards-section) {
     width: 100%;
-    padding: 24px;
+    padding: 16px;
     @media (min-width: ${screens.tablet.xxm}) {
       padding: 24px 100px;
     }

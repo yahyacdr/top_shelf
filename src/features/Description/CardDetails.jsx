@@ -35,7 +35,9 @@ const Labels = styled.div`
   display: flex;
   justify-content: flex-start;
   column-gap: 8px;
-  height: 31px;
+  button {
+    padding: 9px 16px;
+  }
 `;
 
 const Qualities = styled.div`
@@ -192,6 +194,7 @@ const CardDetails = memo(() => {
               shape="button"
               disabled={true}
               className="label"
+              color="--green-900"
             >
               {label}
             </Btn>

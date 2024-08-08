@@ -52,13 +52,7 @@ const StyledItemsGridSection = styled.section`
     .img-container {
       img {
         @media (min-width: ${screens.mobile.xxs}) {
-          width: 50%;
-        }
-        @media (min-width: ${screens.mobile.xm}) {
-          width: 70%;
-        }
-        @media (min-width: ${screens.mobile.l}) {
-          width: 60%;
+          width: 45%;
         }
         @media (min-width: ${screens.mobile.xxl}) {
           width: 50%;

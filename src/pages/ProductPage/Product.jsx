@@ -60,6 +60,12 @@ const ItemsCardsGrid = styled.section`
   margin-bottom: 284px;
   padding: 0 24px;
 
+  .card-container {
+    @media (max-width: ${screens.mobile.l}) {
+      width: 100%;
+    }
+  }
+
   h2 {
     color: var(--dark-900);
     text-align: left;

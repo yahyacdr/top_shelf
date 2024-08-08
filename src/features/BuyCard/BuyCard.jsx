@@ -32,10 +32,10 @@ const ImgCardContainer = styled(ImgContainer)`
           height: 100%;
           & img {
             @media (min-width: ${screens.mobile.xxs}) {
-              width: 40%;
+              width: 35%;
             }
             @media (min-width: ${screens.mobile.xm}) {
-              width: 50%;
+              width: 30%;
             }
             @media (min-width: ${screens.mobile.l}) {
               width: 40%;

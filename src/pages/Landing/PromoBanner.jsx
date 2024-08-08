@@ -6,8 +6,8 @@ import Btn from "../../ui/Btn";
 import bgImgDesktop from "../../data/images/MainHeaderBackgroundDesktop.png";
 import bgImgMobile from "../../data/images/MainHeaderBackgroundMobile.png";
 import useWindowSize from "../../hooks/useWindowSize";
-import screens from "../../utils/screens";
 import { memo } from "react";
+import screens from "../../utils/screens";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -46,30 +46,34 @@ const GoldenText = styled.p`
   margin-bottom: 20px;
 `;
 
+const PromoBtn = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  column-gap: 24px;
+`;
+
 const StyledPromoText = styled.p`
   display: flex;
-  font-size: var(--font-size-large-33);
+  font-size: var(--font-size-medium-66);
   font-weight: 400;
   line-height: 150%;
-  letter-spacing: -0.5px;
+  letter-spacing: 0;
   color: var(--light-400);
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  width: 400px;
+  width: 100%;
   margin-bottom: 50px;
   word-break: break-all;
+  column-gap: 12px;
 
-  @media (max-width: 1366px) {
-    margin-bottom: 40px;
-    width: 300px;
-  }
-
-  @media (max-width: 540px) {
+  @media (min-width: ${screens.mobile.xl}) {
     font-size: var(--font-size-medium-100);
   }
 
-  @media (max-width: ${screens.mobile.m}) {
-    width: calc(100% + 50px);
+  @media (min-width: ${screens.tablet.xxm}) {
+    font-size: var(--font-size-large-33);
   }
 `;
 
@@ -86,19 +90,25 @@ const StyledLeftSideContainer = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   max-width: 760px;
-  row-gap: 102px;
+  row-gap: 64px;
+  max-width: 672px;
 
-  @media (max-width: 1366px) {
-    max-width: 565px;
-    /* padding: 37px 0 37px; */
+  @media (min-width: ${screens.tablet.xxs}) {
+    h1 {
+      font-size: 3.2em;
+    }
   }
 
-  @media (max-width: 640px) {
-    row-gap: 120px;
-  }
+  @media (min-width: ${screens.tablet.xxm}) {
+    row-gap: 102px;
 
-  @media (max-width: 420px) {
-    row-gap: 40px;
+    h1 {
+      font-size: var(--font-size-large-100);
+    }
+
+    h1 + p {
+      font-size: var(--font-size-large-33);
+    }
   }
 `;
 
@@ -113,19 +123,19 @@ const PromoBanner = memo(() => {
           <Heading as="h1">Best dispensary to buy weed online</Heading>
           <p>Vitamins & Supplements</p>
         </div>
-        <div>
+        <PromoBtn>
           <StyledPromoText>
             Get 25% off <DivideBar /> Free Shipping
           </StyledPromoText>
           <Btn
-            size={isTableView ? "large" : "medium"}
+            size={"large"}
             variation="primary"
             shape="pill"
             color="--light-400"
           >
             Shop All
           </Btn>
-        </div>
+        </PromoBtn>
       </StyledLeftSideContainer>
     </StyledContainer>
   );

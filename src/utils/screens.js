@@ -6,7 +6,7 @@ const screens = {
     m: "375px",
     xm: "390px",
     xxm: "420px",
-    l: "460px",
+    l: "475px",
     xl: "480px",
     xxl: "540px",
   },
