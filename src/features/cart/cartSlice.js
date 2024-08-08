@@ -22,6 +22,7 @@ const initialState = {
     phone: "+123482385025",
     email: "johndoe@example.com",
   },
+  isCartOpen: false,
 };
 
 const cartSlice = createSlice({
@@ -161,6 +162,9 @@ const cartSlice = createSlice({
     SET_SHIPPING_DETAILS(state, action) {
       state.shippingDetails = action.payload;
     },
+    SET_CART_OPEN_STATE(state) {
+      state.isCartOpen = !state.isCartOpen;
+    },
   },
 });
 
@@ -174,6 +178,7 @@ export const {
   DEC_INTEGRA,
   CLEAR_CART,
   SET_SHIPPING_DETAILS,
+  SET_CART_OPEN_STATE,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
@@ -184,5 +189,7 @@ export const getCartTotalPrice = (store) =>
 export const getTotalItems = (store) => store.cart.items.length;
 
 export const getShippingDetails = (store) => store.cart.shippingDetails;
+
+export const getCartToggleState = (store) => store.cart.isCartOpen;
 
 export const getCart = (store) => store.cart;

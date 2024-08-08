@@ -142,7 +142,7 @@ const Item = memo(({ item }) => {
           <Card.TitleItem case="capitalize" color="--light-900">
             {item.name} · {item.weight.label}
           </Card.TitleItem>
-          {currentPoint === "order" && (
+          {(currentPoint !== "cart" || currentPoint !== "checkout") && (
             <InitialPrice>
               <span>{item.quantity}×</span>
               <Card.Price

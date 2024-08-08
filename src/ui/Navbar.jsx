@@ -12,6 +12,8 @@ import CurtainPagesNavbar from "./CurtainPagesNavbar";
 import useWindowSize from "../hooks/useWindowSize";
 import screens from "../utils/screens";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getTotalItems, SET_CART_OPEN_STATE } from "../features/cart/cartSlice";
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
@@ -166,6 +168,9 @@ const Navbar = memo(() => {
 
 const GlobalNav = memo(({ mobileSize, menuOpen, setIsMenuOpen }) => {
   const navigate = useNavigate("");
+  const totalItems = useSelector(getTotalItems);
+  const dispatch = useDispatch();
+
   return (
     <div>
       <StyledGlobalNav>
@@ -189,7 +194,7 @@ const GlobalNav = memo(({ mobileSize, menuOpen, setIsMenuOpen }) => {
               color="--nocolor"
               variation="regular"
               shape="none"
-              onClick={() => navigate("/cart")}
+              onClick={() => dispatch(SET_CART_OPEN_STATE())}
             >
               <svg
                 width="24"
@@ -231,7 +236,7 @@ const GlobalNav = memo(({ mobileSize, menuOpen, setIsMenuOpen }) => {
               </svg>
             </Btn>
             <ItemsCounter>
-              <p>0</p>
+              <p>{totalItems}</p>
             </ItemsCounter>
           </StyledCartBtn>
         </StyleAccCart>

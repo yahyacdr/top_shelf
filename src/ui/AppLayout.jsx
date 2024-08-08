@@ -6,6 +6,7 @@ import { Outlet } from "react-router-dom";
 import MainHeader from "./MainHeader";
 import Footer from "./Footer";
 import { memo } from "react";
+import CartPanel from "../pages/Cart/CartPanel";
 
 const StyledLayout = styled.div`
   width: 100%;
@@ -20,6 +21,7 @@ const AppLayout = memo(() => {
     <StyledLayout>
       <OfferBar />
       <MainHeader />
+      <CartPanel />
       <Outlet />
       <Footer />
     </StyledLayout>
