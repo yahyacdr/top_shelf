@@ -11,7 +11,7 @@ import humbergerMenu from "../assets/humberger-menu-animation-1.json";
 import CurtainPagesNavbar from "./CurtainPagesNavbar";
 import useWindowSize from "../hooks/useWindowSize";
 import screens from "../utils/screens";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getTotalItems, SET_CART_OPEN_STATE } from "../features/cart/cartSlice";
 /* eslint-disable no-unused-vars */
@@ -170,6 +170,7 @@ const GlobalNav = memo(({ mobileSize, menuOpen, setIsMenuOpen }) => {
   const navigate = useNavigate("");
   const totalItems = useSelector(getTotalItems);
   const dispatch = useDispatch();
+  const location = useLocation();
 
   return (
     <div>
@@ -194,7 +195,10 @@ const GlobalNav = memo(({ mobileSize, menuOpen, setIsMenuOpen }) => {
               color="--nocolor"
               variation="regular"
               shape="none"
-              onClick={() => dispatch(SET_CART_OPEN_STATE())}
+              onClick={() => {
+                if (location.pathname !== "/cart")
+                  dispatch(SET_CART_OPEN_STATE());
+              }}
             >
               <svg
                 width="24"

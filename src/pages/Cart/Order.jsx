@@ -12,6 +12,7 @@ const StyledOrder = styled.section`
   display: flex;
   flex-direction: column;
   row-gap: 24px;
+  width: 100%;
 `;
 
 const Container = styled.div`
@@ -109,7 +110,6 @@ const Order = memo(() => {
       country: { short },
     },
   } = useSelector(getCart);
-  console.log(items);
 
   return (
     <StyledOrder>

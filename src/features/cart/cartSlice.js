@@ -22,7 +22,7 @@ const initialState = {
     phone: "+123482385025",
     email: "johndoe@example.com",
   },
-  isCartOpen: false,
+  isCartOpen: true,
 };
 
 const cartSlice = createSlice({
@@ -192,4 +192,5 @@ export const getShippingDetails = (store) => store.cart.shippingDetails;
 
 export const getCartToggleState = (store) => store.cart.isCartOpen;
 
+export const getCartItems = (store) => store.cart.items;
 export const getCart = (store) => store.cart;

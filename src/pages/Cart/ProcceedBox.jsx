@@ -8,7 +8,7 @@ import ProgressBar from "./ProgressBar";
 import { useProgress } from "../../context/progressProvider";
 import screens from "../../utils/screens";
 import { useSelector } from "react-redux";
-import { getCart } from "../../features/cart/cartSlice";
+import { getCartItems } from "../../features/cart/cartSlice";
 import Filter from "../../ui/Filter";
 
 const StyledProcceedBox = styled.div`
@@ -176,6 +176,11 @@ const SecurePayments = styled.div`
     letter-spacing: 1px;
     margin-bottom: 16px;
   }
+  & > .gpay-icon {
+    width: 81.33px;
+    height: 32px;
+    padding: 6px 5px;
+  }
 `;
 
 const Container = styled.div`
@@ -201,7 +206,7 @@ const Container = styled.div`
 
 const ProcceedBox = memo(() => {
   const { currentPoint, setCurrentPoint } = useProgress();
-  const { totalPrice } = useSelector(getCart);
+  const { totalPrice } = useSelector(getCartItems);
   const [checked, setChecked] = useState([false, false]);
 
   return (

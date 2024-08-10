@@ -7,6 +7,8 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import screens from "../../utils/screens";
 import { useProgress } from "../../context/progressProvider";
+import { useSelector } from "react-redux";
+import { getCartToggleState } from "../../features/cart/cartSlice";
 
 const StyledItem = styled.div`
   display: flex;
@@ -15,6 +17,7 @@ const StyledItem = styled.div`
   column-gap: 16px;
   border-bottom: 1px solid var(--light-600);
   padding: 24px 0 16px;
+  width: 100%;
 `;
 
 const ImgContainer = styled.div`
@@ -131,6 +134,8 @@ const InitialPrice = styled.div`
 
 const Item = memo(({ item }) => {
   const { currentPoint } = useProgress();
+  const isCartOpen = useSelector(getCartToggleState);
+  console.log(currentPoint);
 
   return (
     <StyledItem>
@@ -139,10 +144,15 @@ const Item = memo(({ item }) => {
       </ImgContainer>
       <CounterContainer>
         <ItemsCounter>
-          <Card.TitleItem case="capitalize" color="--light-900">
+          <Card.TitleItem
+            case="capitalize"
+            color="--light-900"
+            className="item-title"
+          >
             {item.name} · {item.weight.label}
           </Card.TitleItem>
-          {(currentPoint !== "cart" || currentPoint !== "checkout") && (
+          {((currentPoint !== "cart" && currentPoint !== "checkout") ||
+            isCartOpen) && (
             <InitialPrice>
               <span>{item.quantity}×</span>
               <Card.Price
@@ -153,7 +163,7 @@ const Item = memo(({ item }) => {
               />
             </InitialPrice>
           )}
-          {currentPoint === "cart" && (
+          {currentPoint === "cart" && !isCartOpen && (
             <Counter
               initialValue={item.quantity}
               itemId={item.id}

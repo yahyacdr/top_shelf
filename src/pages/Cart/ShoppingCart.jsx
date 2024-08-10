@@ -10,7 +10,7 @@ import Btn from "../../ui/Btn";
 import { useDispatch, useSelector } from "react-redux";
 import {
   CLEAR_CART,
-  getCart,
+  getCartItems,
   getTotalItems,
 } from "../../features/cart/cartSlice";
 import screens from "../../utils/screens";
@@ -116,7 +116,7 @@ const InfoTickets = styled.div`
 `;
 
 const ShoppingCart = memo(() => {
-  const { items } = useSelector(getCart);
+  const items = useSelector(getCartItems);
   const count = useSelector(getTotalItems);
   const dispatch = useDispatch();
 

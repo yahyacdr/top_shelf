@@ -6,12 +6,15 @@ import { useProgress } from "../../context/progressProvider";
 import Checkout from "./Checkout";
 import Order from "./Order";
 import PropTypes from "prop-types";
+import screens from "../../utils/screens";
 
 const StyledCartContainer = styled.div`
   grid-area: cart;
   width: 100%;
   &.order-container {
-    padding-inline: 135px;
+    @media (min-width: ${screens.tablet.xxl}) {
+      padding-inline: 135px;
+    }
   }
 `;
 
