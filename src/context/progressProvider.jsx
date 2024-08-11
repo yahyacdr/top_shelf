@@ -5,7 +5,7 @@ const ProgressContext = createContext();
 
 export default function ProgressProvider({ children }) {
   const [currentPoint, setCurrentPoint] = useState("cart");
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState({ checkout: 0, order: 0 });
   return (
     <ProgressContext.Provider
       value={{ currentPoint, setCurrentPoint, progress, setProgress }}

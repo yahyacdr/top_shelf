@@ -1,8 +1,11 @@
 /* eslint-disable react/display-name */
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import Heading from "../../ui/Heading";
-import { useSelector } from "react-redux";
-import { getTotalItems } from "../../features/cart/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getTotalItems,
+  SET_CART_CHECKOUT_STATE,
+} from "../../features/cart/cartSlice";
 import styled from "styled-components";
 import CheckoutForm from "./CheckoutForm";
 import screens from "../../utils/screens";
@@ -91,6 +94,11 @@ const Total = styled.p`
 
 const Checkout = memo(({ formRef }) => {
   const count = useSelector(getTotalItems);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(SET_CART_CHECKOUT_STATE(false));
+  }, [dispatch]);
 
   return (
     <StyledCheckout>

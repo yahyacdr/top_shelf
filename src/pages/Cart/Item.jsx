@@ -135,7 +135,6 @@ const InitialPrice = styled.div`
 const Item = memo(({ item }) => {
   const { currentPoint } = useProgress();
   const isCartOpen = useSelector(getCartToggleState);
-  console.log(currentPoint);
 
   return (
     <StyledItem>

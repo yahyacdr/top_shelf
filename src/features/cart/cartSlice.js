@@ -22,7 +22,8 @@ const initialState = {
     phone: "+123482385025",
     email: "johndoe@example.com",
   },
-  isCartOpen: true,
+  isCartOpen: false,
+  proceedToCheckout: false,
 };
 
 const cartSlice = createSlice({
@@ -165,6 +166,9 @@ const cartSlice = createSlice({
     SET_CART_OPEN_STATE(state) {
       state.isCartOpen = !state.isCartOpen;
     },
+    SET_CART_CHECKOUT_STATE(state, action) {
+      state.proceedToCheckout = action.payload;
+    },
   },
 });
 
@@ -179,6 +183,7 @@ export const {
   CLEAR_CART,
   SET_SHIPPING_DETAILS,
   SET_CART_OPEN_STATE,
+  SET_CART_CHECKOUT_STATE,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
@@ -192,5 +197,8 @@ export const getShippingDetails = (store) => store.cart.shippingDetails;
 
 export const getCartToggleState = (store) => store.cart.isCartOpen;
 
+export const getCartCheckoutState = (store) => store.cart.proceedToCheckout;
+
 export const getCartItems = (store) => store.cart.items;
+
 export const getCart = (store) => store.cart;

@@ -205,7 +205,7 @@ const Container = styled.div`
 `;
 
 const ProcceedBox = memo(() => {
-  const { currentPoint, setCurrentPoint } = useProgress();
+  const { currentPoint, setCurrentPoint, setProgress } = useProgress();
   const { totalPrice } = useSelector(getCartItems);
   const [checked, setChecked] = useState([false, false]);
 
@@ -289,9 +289,17 @@ const ProcceedBox = memo(() => {
             disabled={totalPrice === 0}
             onClick={() =>
               setCurrentPoint((cp) => {
-                if (cp === "cart") return "checkout";
+                if (cp === "cart") {
+                  setProgress((state) => {
+                    return { ...state, checkout: 100 };
+                  });
+                  return "checkout";
+                }
                 if (cp === "checkout") {
                   document.querySelector("button.submit-shipping-form").click();
+                  setProgress((state) => {
+                    return { ...state, order: 100 };
+                  });
                   return "order";
                 }
               })

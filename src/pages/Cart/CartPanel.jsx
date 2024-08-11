@@ -7,6 +7,7 @@ import styled from "styled-components";
 import {
   getCartItems,
   getTotalItems,
+  SET_CART_CHECKOUT_STATE,
   SET_CART_OPEN_STATE,
 } from "../../features/cart/cartSlice";
 import Btn from "../../ui/Btn";
@@ -14,6 +15,7 @@ import Heading from "../../ui/Heading";
 import useWindowSize from "../../hooks/useWindowSize";
 import { useNavigate } from "react-router-dom";
 import Item from "./Item";
+import { useProgress } from "../../context/progressProvider";
 
 const PANEL_HEIGHT = 93;
 
@@ -82,7 +84,7 @@ const CartBody = styled.div`
   padding: 32px 24px;
   row-gap: 20px;
   position: relative;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   &.show-panel {
     animation: ShowPanelAnimation 0.3s forwards;
@@ -223,6 +225,7 @@ const CartPanel = memo(() => {
   const panelRef = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { setCurrentPoint } = useProgress();
 
   const [hidePanel, setHidePanel] = useState(false);
 
@@ -328,6 +331,12 @@ const CartPanel = memo(() => {
             shape="pill"
             size="medium"
             className="checkout-btn"
+            onClick={() => {
+              setCurrentPoint("checkout");
+              setHidePanel(true);
+              dispatch(SET_CART_CHECKOUT_STATE(true));
+              setTimeout(() => navigate("/cart"), 100);
+            }}
           >
             checkout
           </Btn>
