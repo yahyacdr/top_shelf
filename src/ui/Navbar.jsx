@@ -27,17 +27,20 @@ const StyledNav = styled.nav`
 
   > div {
     width: 100%;
-    height: 150px;
   }
   .search-bar-container {
     grid-area: search;
     justify-self: center;
+    width: 100%;
   }
 `;
 
 const StyledGlobalNav = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: repeat(3, calc(100% / 3));
+  grid-template-areas: "logo" "accCart" "search";
+  row-gap: 8px;
   align-items: center;
   width: 100%;
   height: 100%;
@@ -49,19 +52,17 @@ const StyledGlobalNav = styled.div`
     z-index: 1;
     background-color: var(--light-300);
   }
-  @media (max-width: ${screens.tablet.xm}) {
-    display: grid;
-    /* grid-template-columns: 50% 50%;
+
+  @media (min-width: ${screens.tablet.xxs}) {
+    grid-template-columns: 50% 50%;
     grid-template-rows: 50% 50%;
-    grid-template-areas: "logo accCart" "search search"; */
-    row-gap: 16px;
+    grid-template-areas: "logo accCart" "search search";
   }
-  @media (max-width: ${screens.mobile.m}) {
-    grid-template-columns: 100%;
-    grid-template-rows: repeat(3, calc(100% / 3));
-    grid-template-areas: "logo logo" "accCart accCart" "search search";
-    padding: 8px 16px;
-    row-gap: 0px;
+
+  @media (min-width: ${screens.tablet.xxm}) {
+    grid-template-columns: 20% 55% 25%;
+    grid-template-rows: 100%;
+    grid-template-areas: "logo search accCart";
   }
 `;
 
@@ -98,7 +99,7 @@ const StyledCartBtn = styled.div`
 
 const StyleAccCart = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   gap: 14px;
   flex-grow: 0;
@@ -106,12 +107,9 @@ const StyleAccCart = styled.div`
 
   @media (max-width: ${screens.tablet.xm}) {
     justify-content: flex-start;
-    justify-self: flex-end;
-  }
-
-  @media (max-width: ${screens.mobile.m}) {
     justify-self: center;
   }
+
   & > a {
     text-decoration: none;
     button {
@@ -132,15 +130,7 @@ const LogoContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 220px;
-
-  @media (max-width: 480px) {
-    width: 160px;
-  }
-
-  @media (max-width: ${screens.mobile.m}) {
-    width: 100%;
-  }
+  width: 100%;
 `;
 
 const StyledBurgerIcon = styled.div`
