@@ -26,8 +26,6 @@ export async function addProducts(cannab) {
     throw new Error("Products could not be added");
   }
 
-  console.log(!!data);
-
   return !!data;
 }
 

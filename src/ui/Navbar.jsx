@@ -5,13 +5,13 @@ import Logo from "../ui/Logo";
 import Btn from "./Btn";
 import SearchBar from "../ui/SearchBar";
 import PagesNavBar from "./PagesNavBar";
-import { memo, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
 import humbergerMenu from "../assets/humberger-menu-animation-1.json";
 import CurtainPagesNavbar from "./CurtainPagesNavbar";
 import useWindowSize from "../hooks/useWindowSize";
 import screens from "../utils/screens";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getTotalItems, SET_CART_OPEN_STATE } from "../features/cart/cartSlice";
 /* eslint-disable no-unused-vars */
@@ -27,9 +27,9 @@ const StyledNav = styled.nav`
 
   > div {
     width: 100%;
+    height: 150px;
   }
   .search-bar-container {
-    width: 100%;
     grid-area: search;
     justify-self: center;
   }
@@ -40,6 +40,7 @@ const StyledGlobalNav = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  height: 100%;
   padding: 18px 23px;
   border-bottom: 1px solid var(--light-600);
   position: relative;
@@ -50,9 +51,9 @@ const StyledGlobalNav = styled.div`
   }
   @media (max-width: ${screens.tablet.xm}) {
     display: grid;
-    grid-template-columns: 50% 50%;
+    /* grid-template-columns: 50% 50%;
     grid-template-rows: 50% 50%;
-    grid-template-areas: "logo accCart" "search search";
+    grid-template-areas: "logo accCart" "search search"; */
     row-gap: 16px;
   }
   @media (max-width: ${screens.mobile.m}) {
@@ -111,10 +112,17 @@ const StyleAccCart = styled.div`
   @media (max-width: ${screens.mobile.m}) {
     justify-self: center;
   }
-  & > button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  & > a {
+    text-decoration: none;
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-transform: capitalize;
+      font-weight: 500;
+      padding: 8px 15px;
+      background-color: var(--green-700);
+    }
   }
 `;
 
@@ -172,6 +180,11 @@ const GlobalNav = memo(({ mobileSize, menuOpen, setIsMenuOpen }) => {
   const dispatch = useDispatch();
   const location = useLocation();
 
+  useEffect(() => {
+    if (menuOpen) document.querySelector("body").classList.add("hideoverflow");
+    else document.querySelector("body").classList.remove("hideoverflow");
+  }, [menuOpen]);
+
   return (
     <div>
       <StyledGlobalNav>
@@ -183,9 +196,21 @@ const GlobalNav = memo(({ mobileSize, menuOpen, setIsMenuOpen }) => {
         </LogoContainer>
         <SearchBar />
         <StyleAccCart>
-          <Btn size="small" color="--dark-600" variation="regular" shape="none">
-            Your Account
-          </Btn>
+          <Link
+            to="https://www.upwork.com/freelancers/~015ea1acb9a9b401d4?mp_source=share"
+            target="_blank"
+          >
+            <Btn
+              size="small"
+              color="--light-300"
+              variation="primary"
+              shape="button"
+              className="animate"
+            >
+              <div className="diagnol-line"></div>
+              talk to developer
+            </Btn>
+          </Link>
 
           <DivideBar />
 

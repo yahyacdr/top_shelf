@@ -53,9 +53,8 @@ const TOP = "72%";
 
 const StyledIndicator = styled.span`
   position: absolute;
-  left: ${LEFT};
-  top: ${TOP};
-  transform: translate(calc(-${LEFT}), calc(-${TOP}));
+  right: 32px;
+  bottom: 32px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -64,6 +63,7 @@ const StyledIndicator = styled.span`
   border-radius: 50%;
   box-shadow: 0px 5px 20px 0 rgba(0, 0, 0, 0.1);
   cursor: pointer;
+  background-color: var(--light-300);
   svg {
     overflow: visible;
     path:not(:last-child) {
@@ -95,8 +95,11 @@ const StyledIndicator = styled.span`
   }
 
   @media (min-width: ${screens.tablet.xxs}) {
-    /* right: 92px;
-    bottom: 150px; */
+    right: unset;
+    bottom: unset;
+    left: ${LEFT};
+    top: ${TOP};
+    transform: translate(calc(-${LEFT}), calc(-${TOP}));
   }
 `;
 
@@ -109,9 +112,11 @@ const Image = memo(({ isImgPrvwOpen, setIsImgPrvwOpen, index }) => {
   useSetCart(items[currentCard]);
 
   useEffect(() => {
-    document.body.style.overflow = isImgPrvwOpen ? "hidden" : "auto";
     if (isImgPrvwOpen) {
+      document.body.style.overflow = "hidden";
       window.scrollTo(0, 0);
+    } else {
+      document.body.style.overflow = "";
     }
   }, [isImgPrvwOpen]);
 

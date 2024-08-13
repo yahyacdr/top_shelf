@@ -22,8 +22,12 @@ const StyledLayout = styled.div`
 const AppLayout = memo(() => {
   const isCartOpen = useSelector(getCartToggleState);
   useEffect(() => {
-    if (isCartOpen) document.querySelector("body").style.overflowY = "hidden";
-    else document.querySelector("body").style.overflowY = "scroll";
+    const body = document.querySelector("body");
+    if (isCartOpen) {
+      body.classList.add("hideoverflow-cart");
+    } else {
+      body.classList.remove("hideoverflow-cart");
+    }
   }, [isCartOpen]);
 
   return (

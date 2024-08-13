@@ -16,8 +16,9 @@ import useWindowSize from "../../hooks/useWindowSize";
 import { useNavigate } from "react-router-dom";
 import Item from "./Item";
 import { useProgress } from "../../context/progressProvider";
+import screens from "../../utils/screens";
 
-const PANEL_HEIGHT = 93;
+const PANEL_HEIGHT = 87;
 
 const StyledCartPanel = styled.section`
   background-color: ${hexToRgba("01100B", 0.4)};
@@ -28,12 +29,20 @@ const StyledCartPanel = styled.section`
   height: 100%;
   position: absolute;
   z-index: 999;
+  top: 0;
+`;
+
+const NavBtnContainer = styled.div`
+  flex-grow: 1;
+  height: 100%;
+  position: relative;
 `;
 
 const NavBtn = styled.button`
   position: absolute;
-  top: 30%;
-  transform: translateY(-30%);
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
   border-radius: 50%;
   height: 36px;
   width: 36px;
@@ -85,13 +94,30 @@ const CartBody = styled.div`
   row-gap: 20px;
   position: relative;
   overflow-y: auto;
+  @media (min-width: ${screens.tablet.xxs}) {
+    width: 60%;
+    height: 100%;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
 
   &.show-panel {
-    animation: ShowPanelAnimation 0.3s forwards;
+    @media (max-width: ${screens.tablet.xxs}) {
+      animation: ShowPanelAnimation 0.3s forwards;
+    }
+
+    @media (min-width: ${screens.tablet.xxs}) {
+      animation: ShowPanelOnTabletViewAnimation 0.3s forwards;
+    }
   }
 
   &.hide-panel {
-    animation: HidePanelAnimation 0.3s forwards;
+    @media (max-width: ${screens.tablet.xxs}) {
+      animation: HidePanelAnimation 0.3s forwards;
+    }
+    @media (min-width: ${screens.tablet.xxs}) {
+      animation: HidePanelOnTabletViewAnimation 0.3s forwards;
+    }
   }
 
   @keyframes HidePanelAnimation {
@@ -103,12 +129,30 @@ const CartBody = styled.div`
     }
   }
 
+  @keyframes HidePanelOnTabletViewAnimation {
+    0% {
+      width: 60%;
+    }
+    100% {
+      width: 0%;
+    }
+  }
+
   @keyframes ShowPanelAnimation {
     0% {
       height: 0%;
     }
     100% {
-      height: 90%;
+      height: ${PANEL_HEIGHT}%;
+    }
+  }
+
+  @keyframes ShowPanelOnTabletViewAnimation {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 60%;
     }
   }
 
@@ -160,6 +204,9 @@ const ToggleBtn = styled.button`
   left: 50%;
   transform: translateX(-50%);
   cursor: ns-resize;
+  @media (min-width: ${screens.tablet.xxs}) {
+    display: none;
+  }
 `;
 
 const Container = styled.div`
@@ -221,7 +268,7 @@ const SvgContainer = styled.div`
 const CartPanel = memo(() => {
   const itemCount = useSelector(getTotalItems);
   const items = useSelector(getCartItems);
-  const isTabletView = useWindowSize("968");
+  const isTabletView = useWindowSize("640");
   const panelRef = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -240,11 +287,17 @@ const CartPanel = memo(() => {
   function handleAnimationEnd(e) {
     const { animationName } = e;
 
-    if (animationName === "HidePanelAnimation") {
+    if (
+      animationName === "HidePanelAnimation" ||
+      animationName === "HidePanelOnTabletViewAnimation"
+    ) {
       dispatch(SET_CART_OPEN_STATE());
     }
 
-    if (animationName === "ShowPanelAnimation") {
+    if (
+      animationName === "ShowPanelAnimation" ||
+      animationName === "ShowPanelOnTabletViewAnimation"
+    ) {
       panelRef.current.classList.remove("show-panel");
     }
   }
@@ -252,11 +305,13 @@ const CartPanel = memo(() => {
   return (
     <StyledCartPanel>
       {isTabletView && (
-        <NavBtn>
-          <div>
-            <IoIosArrowForward />
-          </div>
-        </NavBtn>
+        <NavBtnContainer>
+          <NavBtn onClick={() => setHidePanel(true)}>
+            <div>
+              <IoIosArrowForward />
+            </div>
+          </NavBtn>
+        </NavBtnContainer>
       )}
       <CartBody
         ref={panelRef}
@@ -324,8 +379,8 @@ const CartPanel = memo(() => {
             </Btn>
           </EmptyCartBody>
         )}
-        {itemCount && items.map((item, i) => <Item key={i} item={item} />)}
-        {itemCount && (
+        {!!itemCount && items.map((item, i) => <Item key={i} item={item} />)}
+        {!!itemCount && (
           <Btn
             variation="primary"
             shape="pill"

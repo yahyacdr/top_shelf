@@ -73,6 +73,13 @@ const PublicStyles = createGlobalStyle`
         align-items: center;
     }
 
+    body.hideoverflow {
+        overflow-y: hidden;
+    }
+    body.hideoverflow-cart {
+        overflow-y: hidden;
+    }
+
     #root {
         width: 100%;
         height: 100%;

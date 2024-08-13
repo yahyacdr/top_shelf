@@ -55,7 +55,6 @@ const CheckoutForm = memo(({ btnRef }) => {
           }
           return 0;
         });
-        console.log(data);
         setCountries(data);
       } catch {
         alert("There was an error loading data...");
@@ -79,7 +78,7 @@ const CheckoutForm = memo(({ btnRef }) => {
           <Input
             type="text"
             id="firstName"
-            value={firstName}
+            defaultValue={firstName}
             {...register("firstName", {
               required: "This feild is required",
               pattern: {
@@ -93,7 +92,7 @@ const CheckoutForm = memo(({ btnRef }) => {
           <Input
             type="text"
             id="lastName"
-            value={lastName}
+            defaultValue={lastName}
             {...register("lastName", {
               required: "This feild is required",
               pattern: {
@@ -125,7 +124,7 @@ const CheckoutForm = memo(({ btnRef }) => {
               countries.map((country, i) => (
                 <Filter.Option
                   key={i}
-                  value={JSON.stringify({
+                  defaultValue={JSON.stringify({
                     index: i,
                     name: country.name.common,
                     short: country.cca2,
@@ -144,11 +143,11 @@ const CheckoutForm = memo(({ btnRef }) => {
             type="text"
             placeholder="House number and street name"
             id="address"
-            value={house}
+            defaultValue={house}
             {...register("address", {
               required: "This feild is required",
               pattern: {
-                value: /^\w+$/,
+                value: /^[\w\s]+$/,
                 message: "Please provide a valid address",
               },
             })}
@@ -157,11 +156,11 @@ const CheckoutForm = memo(({ btnRef }) => {
             type="text"
             placeholder="Apartment, suite, unit, etc. (optional)"
             id="subAddress"
-            value={apartment}
+            defaultValue={apartment}
             {...register("subAddress", {
               required: "This feild is required",
               pattern: {
-                value: /^\w+$/,
+                value: /^[\w\s]+$/,
                 message: "Please provide a valid last address",
               },
             })}
@@ -177,11 +176,11 @@ const CheckoutForm = memo(({ btnRef }) => {
             <Input
               type="text"
               id="town-city"
-              value={town}
+              defaultValue={town}
               {...register("townCity", {
                 required: "This feild is required",
                 pattern: {
-                  value: /^[a-zA-Z]]+$/,
+                  value: /^[a-zA-Z\s]+$/,
                   message: "Please provide a valid town / city",
                 },
               })}
@@ -193,11 +192,11 @@ const CheckoutForm = memo(({ btnRef }) => {
             <Input
               type="text"
               id="province"
-              value={province}
+              defaultValue={province}
               {...register("province", {
                 required: "This feild is required",
                 pattern: {
-                  value: /^[a-zA-Z]]+$/,
+                  value: /^[a-zA-Z\s]+$/,
                   message: "Please provide a valid province",
                 },
               })}
@@ -212,11 +211,11 @@ const CheckoutForm = memo(({ btnRef }) => {
             <Input
               type="text"
               id="postcode"
-              value={postcode}
+              defaultValue={postcode}
               {...register("postcode", {
                 required: "This feild is required",
                 pattern: {
-                  value: /^[\d]]+$/,
+                  value: /^\d+$/,
                   message: "Please provide a valid postcode",
                 },
               })}
@@ -229,11 +228,10 @@ const CheckoutForm = memo(({ btnRef }) => {
           <Input
             type="tel"
             id="phone"
-            value={phone}
+            defaultValue={phone}
             {...register("phone", {
-              required: "This feild is required",
               pattern: {
-                value: /^\+?[\d]]+$/,
+                value: /^\+?\d+$/,
                 message: "Please provide a valid phone",
               },
             })}
@@ -244,7 +242,7 @@ const CheckoutForm = memo(({ btnRef }) => {
             type="text"
             placeholder="johndoes@example.com"
             id="email"
-            value={email}
+            defaultValue={email}
             {...register("email", {
               required: "This feild is required",
               pattern: {

@@ -3,7 +3,7 @@ import { memo } from "react";
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
 import { useSelector } from "react-redux";
-import { getCart } from "../../features/cart/cartSlice";
+import { getCart, getShippingDetails } from "../../features/cart/cartSlice";
 import Item from "./Item";
 import Card from "../../ui/Card";
 import { formatCurrency } from "../../utils/helper";
@@ -37,7 +37,7 @@ const State = styled.p`
   font-weight: 400;
   line-height: 150%;
   letter-spacing: 0;
-  text-transform: capitalize;
+  text-transform: uppercase;
   column-gap: 3px;
 `;
 
@@ -102,34 +102,38 @@ const ShippingInfo = styled.p`
 `;
 
 const Order = memo(() => {
+  const { items, totalPrice } = useSelector(getCart);
   const {
-    items,
-    totalPrice,
-    shippingDetails: {
-      town,
-      country: { short },
-    },
-  } = useSelector(getCart);
+    town,
+    country: { short },
+  } = useSelector(getShippingDetails);
 
   return (
     <StyledOrder>
       <Container>
         <Heading as="h3">your order</Heading>
         <State>
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M12.9386 7.62855L12.9386 7.6286L12.9445 7.62251C13.3461 7.20706 13.3546 6.54245 12.9386 6.12645C12.5258 5.71368 11.8492 5.71368 11.4364 6.12645L7.935 9.62789L6.56355 8.25645C6.15079 7.84368 5.47421 7.84368 5.06145 8.25645C4.64868 8.66921 4.64868 9.34579 5.06145 9.75855L7.18395 11.8811C7.38164 12.0788 7.65089 12.1925 7.935 12.1925C8.21911 12.1925 8.48836 12.0788 8.68605 11.8811L12.9386 7.62855ZM2 9C2 5.14364 5.14364 2 9 2C12.8564 2 16 5.14364 16 9C16 12.8564 12.8564 16 9 16C5.14364 16 2 12.8564 2 9Z"
-              fill="#17AF26"
-              stroke="#17AF26"
-            />
-          </svg>
-          paid
+          {!!totalPrice && (
+            <>
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12.9386 7.62855L12.9386 7.6286L12.9445 7.62251C13.3461 7.20706 13.3546 6.54245 12.9386 6.12645C12.5258 5.71368 11.8492 5.71368 11.4364 6.12645L7.935 9.62789L6.56355 8.25645C6.15079 7.84368 5.47421 7.84368 5.06145 8.25645C4.64868 8.66921 4.64868 9.34579 5.06145 9.75855L7.18395 11.8811C7.38164 12.0788 7.65089 12.1925 7.935 12.1925C8.21911 12.1925 8.48836 12.0788 8.68605 11.8811L12.9386 7.62855ZM2 9C2 5.14364 5.14364 2 9 2C12.8564 2 16 5.14364 16 9C16 12.8564 12.8564 16 9 16C5.14364 16 2 12.8564 2 9Z"
+                  fill="#17AF26"
+                  stroke="#17AF26"
+                />
+              </svg>
+              paid
+            </>
+          )}
+          {!totalPrice && (
+            <span style={{ color: "var(--light-900)" }}>(0)</span>
+          )}
         </State>
       </Container>
       <Items>

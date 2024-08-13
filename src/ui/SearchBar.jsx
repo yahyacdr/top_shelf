@@ -49,7 +49,7 @@ const StyledSearchInput = styled.input`
 
 const StyledSearchBarContainer = styled.div`
   position: relative;
-  flex-grow: 0.4;
+  flex-grow: 0.8;
   max-width: 456px;
 `;
 

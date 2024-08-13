@@ -24,6 +24,7 @@ const initialState = {
   },
   isCartOpen: false,
   proceedToCheckout: false,
+  isOrderPlaced: false,
 };
 
 const cartSlice = createSlice({
@@ -64,6 +65,7 @@ const cartSlice = createSlice({
             item.id === action.payload.id &&
             item.totalPrice !== action.payload.totalPrice
         );
+
         const sameProduct = state.items.some(
           (item) => item.id === action.payload.id
         );
@@ -76,6 +78,7 @@ const cartSlice = createSlice({
 
           return;
         }
+
         if (!sameProduct) {
           state.items.push(action.payload);
           state.totalPrice += action.payload.totalPrice;
@@ -169,6 +172,9 @@ const cartSlice = createSlice({
     SET_CART_CHECKOUT_STATE(state, action) {
       state.proceedToCheckout = action.payload;
     },
+    SET_ORDER_PLACEMENT_STATUS(state, action) {
+      state.isOrderPlaced = action.payload;
+    },
   },
 });
 
@@ -184,6 +190,7 @@ export const {
   SET_SHIPPING_DETAILS,
   SET_CART_OPEN_STATE,
   SET_CART_CHECKOUT_STATE,
+  SET_ORDER_PLACEMENT_STATUS,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
@@ -200,5 +207,7 @@ export const getCartToggleState = (store) => store.cart.isCartOpen;
 export const getCartCheckoutState = (store) => store.cart.proceedToCheckout;
 
 export const getCartItems = (store) => store.cart.items;
+
+export const getOrderStatus = (store) => store.cart.isOrderPlaced;
 
 export const getCart = (store) => store.cart;

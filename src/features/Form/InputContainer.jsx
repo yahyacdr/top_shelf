@@ -15,8 +15,6 @@ const StyledInputContainer = styled.div`
 `;
 
 const InputContainer = memo(({ label = "", error, children }) => {
-  console.log(children.length);
-
   return (
     <StyledInputContainer>
       {label && (

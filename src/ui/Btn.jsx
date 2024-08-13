@@ -69,6 +69,9 @@ const shapes = {
   `,
 };
 
+const LEFT = -74;
+const TOP = 50;
+
 const Btn = styled.button`
   border: none;
   border-radius: unset;
@@ -106,6 +109,33 @@ const Btn = styled.button`
     css`
       ${props.custom}
     `}
+
+    &.animate {
+    position: relative;
+    overflow: hidden;
+    > .diagnol-line {
+      position: absolute;
+      top: ${TOP}%;
+      width: 100%;
+      height: 5px;
+      background-color: var(--light-300);
+      animation: SkeletonAnimation 1s infinite;
+      animation-delay: 1.5s;
+      transform: translate(${LEFT}%, ${-TOP}%) rotate(-45deg);
+      transform-origin: bottom center;
+      box-shadow: 7px 0px 5px 1px var(--light-300);
+    }
+  }
+
+  @keyframes SkeletonAnimation {
+    0% {
+      transform: translate(${LEFT}%, ${-TOP}%) rotate(-45deg);
+    }
+
+    100% {
+      transform: translate(141.42135%, 141.42135%) rotate(-45deg);
+    }
+  }
 `;
 
 Btn.defaultProps = {

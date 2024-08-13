@@ -7,9 +7,15 @@ import { Link } from "react-router-dom";
 import ProgressBar from "./ProgressBar";
 import { useProgress } from "../../context/progressProvider";
 import screens from "../../utils/screens";
-import { useSelector } from "react-redux";
-import { getCartItems } from "../../features/cart/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getCart,
+  getCartItems,
+  getShippingDetails,
+  SET_ORDER_PLACEMENT_STATUS,
+} from "../../features/cart/cartSlice";
 import Filter from "../../ui/Filter";
+import { placeOrder } from "../../services/apiPlaceOrder";
 
 const StyledProcceedBox = styled.div`
   grid-area: proceed-box;
@@ -206,8 +212,12 @@ const Container = styled.div`
 
 const ProcceedBox = memo(() => {
   const { currentPoint, setCurrentPoint, setProgress } = useProgress();
-  const { totalPrice } = useSelector(getCartItems);
+  const { totalPrice } = useSelector(getCart);
+  const items = useSelector(getCartItems);
+  const shippingDetails = useSelector(getShippingDetails);
+  const dispatch = useDispatch();
   const [checked, setChecked] = useState([false, false]);
+  console.log(items);
 
   return (
     <StyledProcceedBox className={currentPoint !== "order" && "box"}>
@@ -287,23 +297,27 @@ const ProcceedBox = memo(() => {
             shape="pill"
             color="--green-300"
             disabled={totalPrice === 0}
-            onClick={() =>
-              setCurrentPoint((cp) => {
-                if (cp === "cart") {
-                  setProgress((state) => {
-                    return { ...state, checkout: 100 };
-                  });
-                  return "checkout";
-                }
-                if (cp === "checkout") {
-                  document.querySelector("button.submit-shipping-form").click();
-                  setProgress((state) => {
-                    return { ...state, order: 100 };
-                  });
-                  return "order";
-                }
-              })
-            }
+            onClick={async () => {
+              if (currentPoint === "cart") {
+                setProgress((state) => {
+                  return { ...state, checkout: 100 };
+                });
+                setCurrentPoint("checkout");
+              }
+              if (currentPoint === "checkout") {
+                document.querySelector("button.submit-shipping-form").click();
+                setProgress((state) => {
+                  return { ...state, order: 100 };
+                });
+                await placeTheOrder(
+                  dispatch,
+                  SET_ORDER_PLACEMENT_STATUS,
+                  items,
+                  shippingDetails
+                );
+                setCurrentPoint("order");
+              }
+            }}
           >
             {currentPoint === "cart" ? "checkout" : "place order"}
             <span></span>|<span></span>
@@ -484,5 +498,33 @@ const ProcceedBox = memo(() => {
     </StyledProcceedBox>
   );
 });
+
+async function placeTheOrder(
+  dispatch,
+  set_order_placement_status,
+  items,
+  shippingDetails
+) {
+  const orders = [];
+  items.forEach((item) => {
+    const order = {
+      product_id: item.id,
+      shipping_details: JSON.stringify(shippingDetails),
+      weight: item.weight.weight,
+      integras: JSON.stringify(item.additions.integras),
+      quantity: item.quantity,
+      product_price: item.price / item.quantity,
+      total_price: item.totalPrice,
+    };
+    orders.push(order);
+  });
+  const resp = await placeOrder(orders);
+  if (resp) {
+    dispatch(set_order_placement_status(true));
+  } else {
+    dispatch(set_order_placement_status(false));
+  }
+  return resp;
+}
 
 export default ProcceedBox;
