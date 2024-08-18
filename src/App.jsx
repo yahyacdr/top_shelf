@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 import PageNotFoundAnimation from "./ui/PageNotFoundAnimation";
 import ErrorAnimation from "./ui/ErrorAnimation";
 import Cart from "./pages/Cart/Cart";
+import RegisterVisitors from "./ui/RegisterVisitors";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <Provider store={store}>
+      <RegisterVisitors />
       <RouterProvider router={router} />
       <PublicStyles />
     </Provider>
